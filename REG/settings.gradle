@@ -1,0 +1,2 @@
+rootProject.name = "REG"
+include ':app'

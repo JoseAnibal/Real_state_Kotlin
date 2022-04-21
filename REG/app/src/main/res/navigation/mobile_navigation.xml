@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_principal">
+
+    <fragment
+        android:id="@+id/navigation_principal"
+        android:name="Principal"
+        android:label="Principal" />
+    <fragment
+        android:id="@+id/navigation_inicio_sesion"
+        android:name="InicioSesion"
+        android:label="InicioSesion" />
+    <fragment
+        android:id="@+id/navigation_map"
+        android:name="Map"
+        android:label="Map" />
+    <fragment
+        android:id="@+id/navigation_registro"
+        android:name="Registro"
+        android:label="Registro" />
+</navigation>
