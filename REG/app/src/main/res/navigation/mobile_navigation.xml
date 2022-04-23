@@ -10,15 +10,18 @@
         android:name="Principal"
         android:label="Principal" />
     <fragment
-        android:id="@+id/navigation_inicio_sesion"
-        android:name="InicioSesion"
-        android:label="InicioSesion" />
+        android:id="@+id/navigation_incidencias"
+        android:name="com.example.reg.Usuario.Incidencias"
+        android:label="fragment_incidencias"
+        tools:layout="@layout/fragment_incidencias" />
     <fragment
-        android:id="@+id/navigation_map"
-        android:name="Map"
-        android:label="Map" />
+        android:id="@+id/navigation_facturas"
+        android:name="com.example.reg.Usuario.Facturas"
+        android:label="fragment_facturas"
+        tools:layout="@layout/fragment_facturas" />
     <fragment
-        android:id="@+id/navigation_registro"
-        android:name="Registro"
-        android:label="Registro" />
+        android:id="@+id/navigation_perfil"
+        android:name="com.example.reg.Usuario.Perfil"
+        android:label="fragment_perfil"
+        tools:layout="@layout/fragment_perfil" />
 </navigation>

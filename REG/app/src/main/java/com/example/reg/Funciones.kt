@@ -1,8 +1,10 @@
 package com.example.reg
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.widget.EditText
+import androidx.core.content.ContextCompat
 import com.example.reg.Objetos.Usuario
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -17,6 +19,12 @@ fun insertoUsuarioBD(id:String,correo:String,nombre:String,password:String,tipo:
 
 fun generoId(rama:String,objeto:String): String? {
     return db_ref.child(rama).child(objeto).push().key
+}
+
+fun redireccionar(c:Context, ac:Activity){
+    Intent(c,ac::class.java).also {
+        c.startActivity(it)
+    }
 }
 
 fun existeUsu(correo:String):Boolean{

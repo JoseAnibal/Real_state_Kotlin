@@ -2,17 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_map"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_map" />
+        android:id="@+id/navigation_incidencias"
+        android:icon="@drawable/ic_baseline_warning_24"
+        android:title="@string/title_incidencias" />
+
+    <item
+        android:id="@+id/navigation_facturas"
+        android:icon="@drawable/ic_baseline_sticky_note_2_24"
+        android:title="@string/title_facturas" />
 
     <item
         android:id="@+id/navigation_principal"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_principal" />
     <item
-        android:id="@+id/navigation_inicio_sesion"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_inicio_sesion" />
+        android:id="@+id/navigation_perfil"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="@string/title_perfil" />
 
 </menu>

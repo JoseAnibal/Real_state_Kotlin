@@ -1,28 +1,27 @@
+package com.example.reg.Invitado
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.reg.MainActivity
+import com.example.reg.*
+import com.example.reg.Actividades.LoggedUser
+import com.example.reg.Actividades.MainActivity
 import com.example.reg.Objetos.Usuario
-import com.example.reg.R
-import com.example.reg.SharedManager
 import com.example.reg.databinding.FragmentInicioSesionBinding
-import com.example.reg.sacoUsuarioDeLaBase
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class InicioSesion : Fragment() {
     //FragmentNombrefragmento
-    val main by lazy {
-        activity as MainActivity
+    val tabbed by lazy {
+        activity as LoggedUser
     }
     val SM by lazy{
-        SharedManager(main.baseContext)
+        SharedManager(tabbed.baseContext)
     }
     private var _binding: FragmentInicioSesionBinding? = null
 
@@ -52,12 +51,13 @@ class InicioSesion : Fragment() {
                 GlobalScope.launch(Dispatchers.IO) {
                     val usuario=sacoUsuarioDeLaBase(binding.loginCorreo.text.toString())
                     if(comprobacion(usuario!!)){
-                        main.runOnUiThread{
+                        tabbed.runOnUiThread{
                             SM.idUsuario="admin"
                         }
                     }else{
-                        main.runOnUiThread{
+                        tabbed.runOnUiThread{
                             SM.idUsuario=usuario.id.toString()
+                            redireccionar(tabbed.baseContext, MainActivity())
                         }
                     }
                 }
@@ -65,7 +65,7 @@ class InicioSesion : Fragment() {
         }
 
         binding.loginTvRegistrarse.setOnClickListener {
-            main.navController.navigate(R.id.navigation_registro)
+            redireccionar(tabbed.baseContext,RegistroActivity())
         }
     }
 

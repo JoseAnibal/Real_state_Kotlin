@@ -1,41 +1,20 @@
-import android.content.Context
+package com.example.reg.Invitado
+
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import com.example.reg.*
-import com.example.reg.databinding.FragmentInicioSesionBinding
-import com.example.reg.databinding.FragmentRegistroBinding
+import com.example.reg.databinding.ActivityRegistroBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class Registro : Fragment() {
-    //FragmentNombrefragmento
-    private var _binding: FragmentRegistroBinding? = null
-    val main by lazy {
-        activity as MainActivity
-    }
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        //FragmentNombrefragmento
-        _binding = FragmentRegistroBinding.inflate(inflater, container, false)
-        return binding.root
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+class RegistroActivity : AppCompatActivity() {
+    lateinit var binding:ActivityRegistroBinding
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding= ActivityRegistroBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     override fun onStart() {
@@ -45,11 +24,11 @@ class Registro : Fragment() {
                 GlobalScope.launch(Dispatchers.IO) {
                     if(!existeUsu(binding.regCorreo.text.toString())){
                         insertUsu()
-                        main.runOnUiThread {
-                            main.navController.navigate(R.id.navigation_principal)
+                        runOnUiThread {
+
                         }
                     }else{
-                        main.runOnUiThread {
+                        runOnUiThread {
                             binding.regCorreo.error=getString(R.string.correo_registrado)
                         }
                     }
@@ -59,12 +38,6 @@ class Registro : Fragment() {
             }
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 
     fun insertUsu(){
         val correo=binding.regCorreo.text.toString()
@@ -125,5 +98,4 @@ class Registro : Fragment() {
 
         return validado
     }
-
 }
