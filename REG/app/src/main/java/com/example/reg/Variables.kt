@@ -8,5 +8,6 @@ val sto_ref= FirebaseStorage.getInstance().reference
 
 const val inmobiliaria="Inmobiliaria"
 const val usuariosBD="Usuarios"
+const val pisosBD="Pisos"
 const val correoUsu="correo"
 const val adminNum=1

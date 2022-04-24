@@ -52,7 +52,6 @@ class InicioSesion : Fragment() {
             if(validoInput(binding.loginCorreo) && validoInput(binding.loginContrasena)){
                 GlobalScope.launch(Dispatchers.IO) {
                     val usuario=sacoUsuarioDeLaBase(binding.loginCorreo.text.toString().trim())
-                    var patata="hola"
                     if(comprobacion(usuario)){
                         if(usuario.tipo==adminNum){
                             tabbed.runOnUiThread{
@@ -67,7 +66,7 @@ class InicioSesion : Fragment() {
                         }
                     }else{
                         tabbed.runOnUiThread {
-                            binding.loginError.text="Mal"
+                            binding.loginError.text="Datos incorrectos"
                         }
                     }
                 }

@@ -12,10 +12,26 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import com.example.reg.AdaptadoresRecycler.AdaptadorPisos
+import com.example.reg.Objetos.Piso
 import com.example.reg.R
 import com.example.reg.databinding.ActivityAdminBinding
+import com.example.reg.db_ref
+import com.example.reg.inmobiliaria
+import com.example.reg.pisosBD
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
 class Admin : AppCompatActivity() {
+
+    val listaPisos by lazy {
+        añadoListaPisos()
+    }
+
+    val adaptadorListaPisos by lazy {
+        AdaptadorPisos(listaPisos,this)
+    }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityAdminBinding
@@ -56,5 +72,31 @@ class Admin : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_admin)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    fun añadoListaPisos():MutableList<Piso>{
+        val lista= mutableListOf<Piso>()
+
+        db_ref.child(inmobiliaria)
+            .child(pisosBD)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    lista.clear()
+                    snapshot.children.forEach{ hijo: DataSnapshot?->
+
+                        val pisso=hijo?.getValue(Piso::class.java)
+                        if (pisso != null) {
+                            lista.add(pisso)
+                        }
+                    }
+                    adaptadorListaPisos.notifyItemChanged(listaPisos.size)
+                    adaptadorListaPisos.notifyDataSetChanged()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println(error.message)
+                }
+            })
+        return lista
     }
 }
