@@ -1,4 +1,4 @@
-package com.example.reg.Invitado
+package com.example.reg.Actividades
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,7 +25,7 @@ class RegistroActivity : AppCompatActivity() {
                     if(!existeUsu(binding.regCorreo.text.toString())){
                         insertUsu()
                         runOnUiThread {
-
+                            redireccionar(baseContext,LoggedUser())
                         }
                     }else{
                         runOnUiThread {

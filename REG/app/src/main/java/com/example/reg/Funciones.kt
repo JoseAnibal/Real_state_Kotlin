@@ -49,7 +49,7 @@ fun existeUsu(correo:String):Boolean{
     return existe
 }
 
-fun sacoUsuarioDeLaBase(correoUsuario:String):Usuario?{
+fun sacoUsuarioDeLaBase(correoUsuario:String):Usuario{
     var usuario=Usuario()
     val semaforo= CountDownLatch(1)
 
@@ -58,7 +58,7 @@ fun sacoUsuarioDeLaBase(correoUsuario:String):Usuario?{
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 if(snapshot.hasChildren()){
-                    usuario= snapshot.children.iterator().next().getValue(Usuario::class.java)!!
+                   usuario= snapshot.children.iterator().next().getValue(Usuario::class.java)!!
                 }
                 semaforo.countDown()
             }
@@ -68,6 +68,5 @@ fun sacoUsuarioDeLaBase(correoUsuario:String):Usuario?{
             }
         })
     semaforo.await()
-
     return usuario
 }
