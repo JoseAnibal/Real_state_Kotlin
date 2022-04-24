@@ -11,7 +11,6 @@ class LoggedUser : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoggedUserBinding
     val numero=1000
-    val numero2=2000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +23,11 @@ class LoggedUser : AppCompatActivity() {
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = binding.tabs
         tabs.setupWithViewPager(viewPager)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
 
     }
 
