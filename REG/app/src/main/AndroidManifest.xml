@@ -11,6 +11,11 @@
         android:theme="@style/Theme.REG">
         <activity android:name=".Actividades.RegistroActivity" />
         <activity
+            android:name=".Actividades.Admin"
+            android:label="@string/title_activity_admin"
+            android:theme="@style/Theme.REG.NoActionBar">
+        </activity>
+        <activity
             android:name=".Actividades.LoggedUser"
             android:label="@string/title_activity_logged_user"
             android:theme="@style/Theme.REG.NoActionBar">
