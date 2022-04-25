@@ -25,8 +25,8 @@ class AdaptadorPisos(val lista:List<Piso>,val contexto:Context):RecyclerView.Ada
         val l = listaFiltrada[position]
         with(holder.bind){
             pisoCalle.text=l.calle
-            pisoBaths.text=l.nBaths.toString()
-            pisoHabitaciones.text=l.nHabs.toString()
+            pisoBaOs.text=l.nBaths
+            pisoHabitaciones.text=l.nHabs
             pisoM2.text=l.m2.toString()
         }
     }

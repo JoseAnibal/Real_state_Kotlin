@@ -2,6 +2,7 @@ package com.example.reg.Actividades
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -44,11 +45,7 @@ class Admin : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarAdmin.toolbar)
-
-        binding.appBarAdmin.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        FAB_manager(1){}
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         navController = findNavController(R.id.nav_host_fragment_content_admin)
@@ -98,5 +95,33 @@ class Admin : AppCompatActivity() {
                 }
             })
         return lista
+    }
+
+    fun FAB_manager(mode:Int, listener:(View)->Unit){
+        when(mode){
+            1 -> {
+                binding.appBarAdmin.fab.show()
+                (binding.appBarAdmin.fab).apply{
+                    setImageResource(R.drawable.ic_baseline_add_24)
+                    setOnClickListener { view ->
+                        navController.navigate(R.id.nav_adminAddPiso)
+                    }
+                }
+            }
+            2 -> {
+                binding.appBarAdmin.fab.show()
+                (binding.appBarAdmin.fab).apply{
+                    setImageResource(R.drawable.ic_baseline_done_all_24)
+                    //CARTASAÑADIR
+                    setOnClickListener(listener)
+                }
+            }
+
+        }
+    }
+
+    fun insertoPiso(id:String,calle:String,imagenes:MutableList<String>,nHabs:String,nBath:String,m2:Double,estado:Boolean){
+        val creoPiso=Piso(id, calle,imagenes, nHabs,nBath,m2, estado)
+        db_ref.child(inmobiliaria).child(pisosBD).child(id).setValue(creoPiso)
     }
 }
