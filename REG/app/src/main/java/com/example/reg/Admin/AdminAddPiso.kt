@@ -25,7 +25,9 @@ class AdminAddPiso : Fragment() {
     }
                           //FragmentNombrefragmento
     private var _binding: FragmentAdminAddPisoBinding? = null
-    var listaImagenesUri:ArrayList<Uri>?=null
+    val listaImagenesUri by lazy {
+        mutableListOf<Uri>()
+    }
     val PICK_IMAGES_CODE=0
 
     // This property is only valid between onCreateView and
@@ -54,15 +56,15 @@ class AdminAddPiso : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        listaImagenesUri= ArrayList()
 
 
         binding.addPisoImagen.setOnClickListener {
             pickImagesIntent()
-            Toast.makeText(admin.baseContext, "${listaImagenesUri!!.size}", Toast.LENGTH_SHORT).show()
         }
 
-
+        binding.addHabs.setOnClickListener {
+            Toast.makeText(admin.baseContext, "${listaImagenesUri.size}", Toast.LENGTH_SHORT).show()
+        }
 
     }
 
@@ -80,16 +82,16 @@ class AdminAddPiso : Fragment() {
                 val baths=binding.addBaths.text.toString()
                 val m2=binding.addM2.text.toString().toDouble()
                 val desc=binding.addDescText.text.toString()
-                var listaUrlsFirebase= insertoImagen(id!!,listaImagenesUri!!)
+                var listaUrlsFirebase= insertoImagen(id!!,listaImagenesUri)
 
 
-                admin.insertoPiso(id.toString(),calle, mutableListOf<String>("uno","dos","tres"),habs,baths,m2,false)
+                admin.insertoPiso(id.toString(),calle, listaUrlsFirebase,habs,baths,m2,false)
                 admin.runOnUiThread { admin.navController.navigate(R.id.nav_pisos)}
             }
         }
     }
 
-    suspend fun insertoImagen(id:String,listaFotos: ArrayList<Uri>):MutableList<String>{
+    suspend fun insertoImagen(id:String,listaFotos: MutableList<Uri>):MutableList<String>{
 
         lateinit var urlImagenFirebase: MutableList<String>
         urlImagenFirebase= mutableListOf()
@@ -99,7 +101,6 @@ class AdminAddPiso : Fragment() {
         }
 
         return urlImagenFirebase
-
     }
 
     fun isValid():Boolean{
@@ -147,10 +148,13 @@ class AdminAddPiso : Fragment() {
                     val numImagenes=data.clipData!!.itemCount
                     for(i in 0 until numImagenes){
                         val imageUri=data.clipData!!.getItemAt(i).uri
-                        listaImagenesUri!!.add(imageUri)
+                        listaImagenesUri.add(imageUri)
                     }
                 }else{
-
+                    val imageUri=data.data
+                    if (imageUri != null) {
+                        listaImagenesUri.add(imageUri)
+                    }
                 }
             }
         }

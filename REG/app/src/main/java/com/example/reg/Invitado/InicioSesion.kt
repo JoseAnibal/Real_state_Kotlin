@@ -23,7 +23,7 @@ class InicioSesion : Fragment() {
         activity as LoggedUser
     }
     val SM by lazy{
-        SharedManager(tabbed.baseContext)
+        SharedManager(tabbed.contexto)
     }
     private var _binding: FragmentInicioSesionBinding? = null
 
@@ -56,12 +56,12 @@ class InicioSesion : Fragment() {
                         if(usuario.tipo==adminNum){
                             tabbed.runOnUiThread{
                                 SM.idUsuario="admin"
-                                redireccionar(tabbed.baseContext, Admin())
+                                redireccionar(tabbed.contexto, Admin())
                             }
                         }else{
                             tabbed.runOnUiThread{
                                 SM.idUsuario=usuario.id.toString()
-                                redireccionar(tabbed.baseContext, MainActivity())
+                                redireccionar(tabbed.contexto, MainActivity())
                             }
                         }
                     }else{
@@ -74,7 +74,7 @@ class InicioSesion : Fragment() {
         }
 
         binding.loginTvRegistrarse.setOnClickListener {
-            redireccionar(tabbed.baseContext, RegistroActivity())
+            redireccionar(tabbed.contexto, RegistroActivity())
         }
     }
 

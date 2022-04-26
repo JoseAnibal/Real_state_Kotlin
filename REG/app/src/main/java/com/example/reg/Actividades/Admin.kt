@@ -120,8 +120,8 @@ class Admin : AppCompatActivity() {
         }
     }
 
-    fun insertoPiso(id:String,calle:String,imagenes:MutableList<String>,nHabs:String,nBath:String,m2:Double,estado:Boolean){
-        val creoPiso=Piso(id, calle,imagenes, nHabs,nBath,m2, estado)
+    fun insertoPiso(id:String,calle:String,imagenes:MutableList<String>,nhabs:String,nbath:String,m2:Double,estado:Boolean){
+        val creoPiso=Piso(id, calle,imagenes, nhabs,nbath,m2, estado)
         db_ref.child(inmobiliaria).child(pisosBD).child(id).setValue(creoPiso)
     }
 }

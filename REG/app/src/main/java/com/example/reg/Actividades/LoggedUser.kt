@@ -25,6 +25,10 @@ class LoggedUser : AppCompatActivity() {
         AdaptadorPisos(listaPisos,this)
     }
 
+    val contexto by lazy {
+        this
+    }
+
     private lateinit var binding: ActivityLoggedUserBinding
     val numero=1000
 
