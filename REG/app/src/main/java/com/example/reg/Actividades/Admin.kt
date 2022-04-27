@@ -1,5 +1,6 @@
 package com.example.reg.Actividades
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -13,6 +14,9 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.request.RequestOptions
+import com.example.reg.AdaptadoresRecycler.AdaptadorFotosPiso
 import com.example.reg.AdaptadoresRecycler.AdaptadorPisos
 import com.example.reg.Objetos.Piso
 import com.example.reg.R
@@ -33,6 +37,12 @@ class Admin : AppCompatActivity() {
     val adaptadorListaPisos by lazy {
         AdaptadorPisos(listaPisos,this)
     }
+
+    val contexto by lazy {
+        this
+    }
+
+    var idPiso=""
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityAdminBinding
@@ -120,8 +130,8 @@ class Admin : AppCompatActivity() {
         }
     }
 
-    fun insertoPiso(id:String,calle:String,imagenes:MutableList<String>,nhabs:String,nbath:String,m2:Double,estado:Boolean){
-        val creoPiso=Piso(id, calle,imagenes, nhabs,nbath,m2, estado)
+    fun insertoPiso(id:String,calle:String,imagenes:MutableList<String>,nhabs:String,nbath:String,m2:Double,desc:String,estado:Boolean){
+        val creoPiso=Piso(id, calle,imagenes, nhabs,nbath,m2,desc,estado)
         db_ref.child(inmobiliaria).child(pisosBD).child(id).setValue(creoPiso)
     }
 }

@@ -1,6 +1,8 @@
 package com.example.reg.AdaptadoresRecycler
 
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +11,15 @@ import android.widget.Filterable
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.reg.Actividades.Admin
+import com.example.reg.Actividades.LoggedUser
+import com.example.reg.Actividades.NotLoggedUserVerPiso
 import com.example.reg.Objetos.Piso
+import com.example.reg.R
 import com.example.reg.SharedManager
 import com.example.reg.databinding.FilaPisoBinding
+import com.example.reg.redireccionar
 import java.util.*
 
 class AdaptadorPisos(val lista:List<Piso>,val contexto:Context):RecyclerView.Adapter<AdaptadorPisos.ViewHolder>(), Filterable {
@@ -19,6 +27,11 @@ class AdaptadorPisos(val lista:List<Piso>,val contexto:Context):RecyclerView.Ada
         SharedManager(contexto)
     }
     var listaFiltrada = lista
+
+    val options = RequestOptions ()
+        .fallback(R.drawable.common_full_open_on_phone)
+        .error(R.drawable.common_full_open_on_phone)
+        .fitCenter()
 
     class ViewHolder(val bind: FilaPisoBinding):RecyclerView.ViewHolder(bind.root)
 
@@ -41,8 +54,24 @@ class AdaptadorPisos(val lista:List<Piso>,val contexto:Context):RecyclerView.Ada
                 editar.isEnabled=true
                 editar.visibility= View.VISIBLE
             }
+        }
+        Glide.with(contexto).load(l.imagenes!![0]).apply(options).into(holder.bind.pisoImagen)
 
-            Glide.with(contexto).load(l.imagenes!![0]).into(holder.bind.pisoImagen)
+        holder.bind.clicky.setOnClickListener {
+            if(SM.idUsuario=="admin"){
+                (contexto as Admin).apply {
+                    idPiso= l.id.toString()
+                    navController.navigate(R.id.nav_infoPiso)
+                }
+            }else{
+                val intent= Intent((contexto as LoggedUser).contexto,NotLoggedUserVerPiso::class.java)
+                val bundle = Bundle()
+                bundle.putParcelable("Piso",l)
+
+                intent.putExtras(bundle)
+                contexto.startActivity(intent)
+            }
+
         }
     }
 

@@ -4,13 +4,11 @@ import android.os.Bundle
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
+import com.example.reg.*
 import com.example.reg.AdaptadoresRecycler.AdaptadorPisos
 import com.example.reg.Invitado.TabbedActivity.SectionsPagerAdapter
 import com.example.reg.Objetos.Piso
 import com.example.reg.databinding.ActivityLoggedUserBinding
-import com.example.reg.db_ref
-import com.example.reg.inmobiliaria
-import com.example.reg.pisosBD
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -29,8 +27,11 @@ class LoggedUser : AppCompatActivity() {
         this
     }
 
+    val SM by lazy {
+        SharedManager(this)
+    }
+
     private lateinit var binding: ActivityLoggedUserBinding
-    val numero=1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +50,11 @@ class LoggedUser : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        SM.idUsuario=getString(R.string.idUsuarioDef)
     }
 
     fun añadoListaPisos():MutableList<Piso>{

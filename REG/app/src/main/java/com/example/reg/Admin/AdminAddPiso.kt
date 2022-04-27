@@ -85,7 +85,7 @@ class AdminAddPiso : Fragment() {
                 var listaUrlsFirebase= insertoImagen(id!!,listaImagenesUri)
 
 
-                admin.insertoPiso(id.toString(),calle, listaUrlsFirebase,habs,baths,m2,false)
+                admin.insertoPiso(id.toString(),calle, listaUrlsFirebase,habs,baths,m2,desc,false)
                 admin.runOnUiThread { admin.navController.navigate(R.id.nav_pisos)}
             }
         }
