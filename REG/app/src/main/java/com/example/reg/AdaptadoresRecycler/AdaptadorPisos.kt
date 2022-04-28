@@ -43,17 +43,10 @@ class AdaptadorPisos(val lista:List<Piso>,val contexto:Context):RecyclerView.Ada
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val l = listaFiltrada[position]
         with(holder.bind){
-            editar.isEnabled=false
-            editar.visibility= View.INVISIBLE
             pisoCalle.text=l.calle
             pisoBaOs.text=l.nbaths
             pisoHabitaciones.text=l.nhabs
             pisoM2.text=l.m2.toString()
-
-            if(SM.idUsuario=="admin"){
-                editar.isEnabled=true
-                editar.visibility= View.VISIBLE
-            }
         }
         Glide.with(contexto).load(l.imagenes!![0]).apply(options).into(holder.bind.pisoImagen)
 

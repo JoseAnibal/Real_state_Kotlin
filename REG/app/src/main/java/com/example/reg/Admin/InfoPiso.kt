@@ -41,6 +41,11 @@ class InfoPiso : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        admin.FAB_manager(3){}
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

@@ -46,7 +46,7 @@
                     android:text="TextView" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
@@ -99,31 +99,8 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/editar"
-                    android:layout_width="50dp"
-                    android:layout_height="45dp"
-                    android:layout_marginLeft="50dp"
-                    android:backgroundTint="#65DDE1"
-                    android:paddingLeft="0dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="0dp"
-                    android:paddingBottom="0dp"
-                    app:icon="@drawable/ic_baseline_edit_24"
-                    app:iconGravity="textTop"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_fecha"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/nombre"
-                    app:layout_constraintVertical_bias="0.0" />
-            </LinearLayout>
-
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

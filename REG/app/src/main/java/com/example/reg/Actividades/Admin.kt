@@ -110,6 +110,7 @@ class Admin : AppCompatActivity() {
     fun FAB_manager(mode:Int, listener:(View)->Unit){
         when(mode){
             1 -> {
+                //REDIRECCIONAR A AÑADIR PISOS
                 binding.appBarAdmin.fab.show()
                 (binding.appBarAdmin.fab).apply{
                     setImageResource(R.drawable.ic_baseline_add_24)
@@ -122,7 +123,28 @@ class Admin : AppCompatActivity() {
                 binding.appBarAdmin.fab.show()
                 (binding.appBarAdmin.fab).apply{
                     setImageResource(R.drawable.ic_baseline_done_all_24)
-                    //CARTASAÑADIR
+                    //PISOSAÑADIR
+                    setOnClickListener(listener)
+                }
+            }
+
+            3 -> {
+                //REDIRECCIONAR A EDITAR PISO
+                binding.appBarAdmin.fab.show()
+                (binding.appBarAdmin.fab).apply{
+                    setImageResource(R.drawable.ic_baseline_edit_24)
+                    setOnClickListener { view ->
+                        navController.navigate(R.id.nav_editarPiso)
+                    }
+                }
+            }
+
+            4 -> {
+                //GUARDAR PISO
+                binding.appBarAdmin.fab.show()
+                (binding.appBarAdmin.fab).apply{
+                    setImageResource(R.drawable.ic_baseline_save_24)
+                    //PISOSAÑADIR
                     setOnClickListener(listener)
                 }
             }
