@@ -16,14 +16,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.request.RequestOptions
+import com.example.reg.*
 import com.example.reg.AdaptadoresRecycler.AdaptadorFotosPiso
 import com.example.reg.AdaptadoresRecycler.AdaptadorPisos
+import com.example.reg.AdaptadoresRecycler.AdaptadorUsuariosLista
 import com.example.reg.Objetos.Piso
-import com.example.reg.R
+import com.example.reg.Objetos.Usuario
 import com.example.reg.databinding.ActivityAdminBinding
-import com.example.reg.db_ref
-import com.example.reg.inmobiliaria
-import com.example.reg.pisosBD
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -36,6 +35,14 @@ class Admin : AppCompatActivity() {
 
     val adaptadorListaPisos by lazy {
         AdaptadorPisos(listaPisos,this)
+    }
+
+    val listaUsuarios by lazy {
+        añadoListaUsuarios()
+    }
+
+    val adaptadorListaUsuarios by lazy {
+        AdaptadorUsuariosLista(listaUsuarios,this)
     }
 
     val contexto by lazy {
@@ -98,6 +105,32 @@ class Admin : AppCompatActivity() {
                     }
                     adaptadorListaPisos.notifyItemChanged(listaPisos.size)
                     adaptadorListaPisos.notifyDataSetChanged()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println(error.message)
+                }
+            })
+        return lista
+    }
+
+    fun añadoListaUsuarios():MutableList<Usuario>{
+        val lista= mutableListOf<Usuario>()
+
+        db_ref.child(inmobiliaria)
+            .child(usuariosBD)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    lista.clear()
+                    snapshot.children.forEach{ hijo: DataSnapshot?->
+
+                        val ussu=hijo?.getValue(Usuario::class.java)
+                        if (ussu != null && ussu.tipo==0) {
+                            lista.add(ussu)
+                        }
+                    }
+                    adaptadorListaUsuarios.notifyItemChanged(listaUsuarios.size)
+                    adaptadorListaUsuarios.notifyDataSetChanged()
                 }
 
                 override fun onCancelled(error: DatabaseError) {

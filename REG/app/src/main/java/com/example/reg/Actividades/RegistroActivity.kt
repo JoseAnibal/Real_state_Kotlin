@@ -40,7 +40,7 @@ class RegistroActivity : AppCompatActivity() {
     }
 
     fun insertUsu(){
-        val correo=binding.regCorreo.text.toString()
+        val correo=binding.regCorreo.text.toString().trim()
         val nombre=binding.regNombre.text.toString()
         val password=binding.regContrasena.text.toString()
         val genero_id= generoId(inmobiliaria, usuariosBD).toString()
@@ -80,7 +80,7 @@ class RegistroActivity : AppCompatActivity() {
     fun validoCorreo(v: EditText):Boolean{
         var validado=true
 
-        if(v.text.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(v.text).matches()){
+        if(v.text.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(v.text.trim()).matches()){
             validado=false
             v.error=getString(R.string.valid_correo)
         }

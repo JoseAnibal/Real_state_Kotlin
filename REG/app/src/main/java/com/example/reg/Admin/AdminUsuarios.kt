@@ -5,10 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.reg.Actividades.Admin
 import com.example.reg.R
 import com.example.reg.databinding.FragmentAdminUsuariosBinding
 
 class AdminUsuarios : Fragment() {
+    val admin by lazy{
+        activity as Admin
+    }
                           //FragmentNombrefragmento
     private var _binding: FragmentAdminUsuariosBinding? = null
 
@@ -29,6 +34,12 @@ class AdminUsuarios : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.rvUsuarios.adapter=admin.adaptadorListaUsuarios
+        binding.rvUsuarios.layoutManager= LinearLayoutManager(admin.contexto)
     }
 
     override fun onDestroyView() {

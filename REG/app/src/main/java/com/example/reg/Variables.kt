@@ -6,6 +6,8 @@ import com.google.firebase.storage.FirebaseStorage
 val db_ref= FirebaseDatabase.getInstance().reference
 val sto_ref= FirebaseStorage.getInstance().reference
 
+val listReg= listOf(R.drawable.registrado,R.drawable.nregistrado)
+
 const val inmobiliaria="Inmobiliaria"
 const val usuariosBD="Usuarios"
 const val pisosBD="Pisos"
