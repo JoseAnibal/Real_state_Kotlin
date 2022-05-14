@@ -27,7 +27,7 @@ class AdaptadorUsuariosLista(val lista:List<Usuario>, val contexto:Context):Recy
         SharedManager(contexto)
     }
     var listaFiltrada = lista
-
+    var tipo=0
     val options = RequestOptions ()
         .fallback(R.drawable.common_full_open_on_phone)
         .error(R.drawable.common_full_open_on_phone)
@@ -78,6 +78,11 @@ class AdaptadorUsuariosLista(val lista:List<Usuario>, val contexto:Context):Recy
                     listaFiltrada = listaFiltrada2
                 }
                 //FILTROS AQUI
+                if(tipo==0){
+                    listaFiltrada=listaFiltrada.filter { it.resgistrado==false }
+                }else{
+                    listaFiltrada=listaFiltrada.filter { it.resgistrado==true }
+                }
 
                 val filterResults = FilterResults()
                 filterResults.values = listaFiltrada

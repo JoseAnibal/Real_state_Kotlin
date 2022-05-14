@@ -3,26 +3,23 @@ package com.example.reg.Admin
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.reg.Actividades.Admin
-import com.example.reg.Objetos.Piso
 import com.example.reg.R
-import com.example.reg.databinding.FragmentAdminPisosBinding
-import com.example.reg.db_ref
-import com.example.reg.inmobiliaria
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
+import com.example.reg.databinding.FragmentAdminPendientesBinding
 
-class AdminPisos : Fragment() {
+class AdminPendientes : Fragment() {
 
-    val admin by lazy {
+    val admin by lazy{
         activity as Admin
     }
+    lateinit var menu: Menu
                           //FragmentNombrefragmento
-    private var _binding: FragmentAdminPisosBinding? = null
+    private var _binding: FragmentAdminPendientesBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -33,9 +30,14 @@ class AdminPisos : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
                    //FragmentNombrefragmento
-        _binding = FragmentAdminPisosBinding.inflate(inflater, container, false)
+        _binding = FragmentAdminPendientesBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
 
+    }
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        this.menu = menu
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,20 +47,23 @@ class AdminPisos : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
-        binding.rvAdminPisos.adapter=admin.adaptadorListaPisos
-        binding.rvAdminPisos.layoutManager= LinearLayoutManager(admin.contexto)
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        binding.rvPendientes.adapter=admin.adaptadorListaUsuarios
+        binding.rvPendientes.layoutManager= LinearLayoutManager(admin.contexto)
     }
 
     override fun onResume() {
         super.onResume()
-        admin.FAB_manager(1){}
+        admin.adaptadorListaUsuarios.tipo=0
         admin.adaptadorListaUsuarios.filter.filter("")
+    }
+
+    fun refreshFilter(){
+        val query=(menu.findItem(R.id.busqueda).actionView as SearchView).query
+        admin.adaptadorListaUsuarios.filter.filter(query)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

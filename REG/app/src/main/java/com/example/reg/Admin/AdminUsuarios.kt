@@ -3,8 +3,10 @@ package com.example.reg.Admin
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.reg.Actividades.Admin
 import com.example.reg.R
@@ -14,6 +16,7 @@ class AdminUsuarios : Fragment() {
     val admin by lazy{
         activity as Admin
     }
+    lateinit var menu: Menu
                           //FragmentNombrefragmento
     private var _binding: FragmentAdminUsuariosBinding? = null
 
@@ -27,6 +30,7 @@ class AdminUsuarios : Fragment() {
     ): View? {
                    //FragmentNombrefragmento
         _binding = FragmentAdminUsuariosBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
 
     }
@@ -40,6 +44,22 @@ class AdminUsuarios : Fragment() {
         super.onStart()
         binding.rvUsuarios.adapter=admin.adaptadorListaUsuarios
         binding.rvUsuarios.layoutManager= LinearLayoutManager(admin.contexto)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        this.menu = menu
+    }
+
+    override fun onResume() {
+        super.onResume()
+        admin.adaptadorListaUsuarios.tipo=1
+        admin.adaptadorListaUsuarios.filter.filter("")
+    }
+
+    fun refreshFilter(){
+        val query=(menu.findItem(R.id.busqueda).actionView as SearchView).query
+        admin.adaptadorListaUsuarios.filter.filter(query)
     }
 
     override fun onDestroyView() {

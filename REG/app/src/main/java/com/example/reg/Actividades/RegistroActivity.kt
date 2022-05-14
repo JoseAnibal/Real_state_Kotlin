@@ -33,8 +33,6 @@ class RegistroActivity : AppCompatActivity() {
                         }
                     }
                 }
-            }else{
-
             }
         }
     }

@@ -12,5 +12,9 @@
             android:id="@+id/nav_usuarios"
             android:icon="@drawable/ic_baseline_supervised_user_circle_24"
             android:title="@string/admin_usuarios" />
+        <item
+            android:id="@+id/nav_adminPendientes"
+            android:icon="@drawable/ic_baseline_timelapse_24"
+            android:title="@string/admin_pendientes" />
     </group>
 </menu>
