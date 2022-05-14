@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/usuImagen"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
@@ -17,11 +17,28 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <Button
+        android:id="@+id/usuAceptar"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#8BC34A"
+        android:paddingLeft="0dp"
+        android:paddingTop="8dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
+        app:icon="@drawable/ic_baseline_check_circle_24"
+        app:iconGravity="textTop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/usuCorreo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/usuImagen"
         app:layout_constraintTop_toTopOf="@+id/usuImagen" />
@@ -30,19 +47,28 @@
         android:id="@+id/usuNombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/usuEstado"
         app:layout_constraintStart_toStartOf="@+id/usuCorreo"
         app:layout_constraintTop_toBottomOf="@+id/usuCorreo" />
 
     <ImageView
         android:id="@+id/usuRegistrado"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/usuEstado"
+        app:layout_constraintStart_toEndOf="@+id/usuEstado"
+        app:layout_constraintTop_toTopOf="@+id/usuEstado"
         app:srcCompat="@drawable/registrado" />
+
+    <TextView
+        android:id="@+id/usuEstado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Estado: "
+        app:layout_constraintBottom_toBottomOf="@+id/usuImagen"
+        app:layout_constraintStart_toStartOf="@+id/usuNombre" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,13 +48,16 @@ class AdminUsuarios : Fragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
-        this.menu = menu
+        (menu.findItem(R.id.busqueda).actionView as SearchView).setQuery("", false)
+        (menu.findItem(R.id.busqueda).actionView as SearchView).clearFocus()
     }
 
     override fun onResume() {
         super.onResume()
-        admin.adaptadorListaUsuarios.tipo=1
-        admin.adaptadorListaUsuarios.filter.filter("")
+        admin.apply{
+            adaptadorListaUsuarios.filter.filter("")
+            FAB_manager(5){}
+        }
     }
 
     fun refreshFilter(){

@@ -6,9 +6,11 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.SearchView
 import android.widget.Toast
 import com.example.reg.*
 import com.example.reg.Actividades.Admin
@@ -23,6 +25,7 @@ class AdminAddPiso : Fragment() {
     val admin by lazy {
         activity as Admin
     }
+    lateinit var menu: Menu
                           //FragmentNombrefragmento
     private var _binding: FragmentAdminAddPisoBinding? = null
     val listaImagenesUri by lazy {
@@ -40,6 +43,7 @@ class AdminAddPiso : Fragment() {
     ): View? {
                    //FragmentNombrefragmento
         _binding = FragmentAdminAddPisoBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
 
     }
@@ -67,6 +71,11 @@ class AdminAddPiso : Fragment() {
     override fun onResume() {
         super.onResume()
         admin.FAB_manager(2,this::insertarPiso)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.removeItem(R.id.busqueda)
     }
 
     fun insertarPiso(v:View){

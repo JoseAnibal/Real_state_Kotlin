@@ -1,9 +1,13 @@
 package com.example.reg.Actividades
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.widget.SearchView
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.reg.*
 import com.example.reg.AdaptadoresRecycler.AdaptadorPisos
 import com.example.reg.Invitado.TabbedActivity.SectionsPagerAdapter
@@ -49,6 +53,33 @@ class LoggedUser : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.admin, menu)
+        (menu.findItem(R.id.busqueda).actionView as SearchView)
+            .setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    adaptadorListaPisos.filter.filter(p0)
+                    return false
+                }
+            })
+        return true
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        val intent: Intent = Intent(Intent.ACTION_MAIN)
+        intent.addCategory(Intent.CATEGORY_HOME)
+        intent.flags= Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
 
     }
 

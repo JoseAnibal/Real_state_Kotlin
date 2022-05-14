@@ -3,8 +3,10 @@ package com.example.reg.Admin
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.reg.Actividades.Admin
 import com.example.reg.Objetos.Piso
@@ -21,6 +23,7 @@ class AdminPisos : Fragment() {
     val admin by lazy {
         activity as Admin
     }
+    lateinit var menu: Menu
                           //FragmentNombrefragmento
     private var _binding: FragmentAdminPisosBinding? = null
 
@@ -34,6 +37,7 @@ class AdminPisos : Fragment() {
     ): View? {
                    //FragmentNombrefragmento
         _binding = FragmentAdminPisosBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
 
     }
@@ -41,6 +45,12 @@ class AdminPisos : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        (menu.findItem(R.id.busqueda).actionView as SearchView).setQuery("", false)
+        (menu.findItem(R.id.busqueda).actionView as SearchView).clearFocus()
     }
 
     override fun onStart() {

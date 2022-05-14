@@ -1,5 +1,6 @@
 package com.example.reg.Actividades
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
@@ -42,8 +43,9 @@ class RegistroActivity : AppCompatActivity() {
         val nombre=binding.regNombre.text.toString()
         val password=binding.regContrasena.text.toString()
         val genero_id= generoId(inmobiliaria, usuariosBD).toString()
+        val imagen="https://firebasestorage.googleapis.com/v0/b/reg-inmobiliaria-750ef.appspot.com/o/Inmobiliaria%2FUserDefault.png?alt=media&token=aecb8e2d-6281-43b2-9dba-7d925cd0c706"
 
-        insertoUsuarioBD(genero_id,correo,nombre,password,0)
+        insertoUsuarioBD(genero_id,correo,nombre,password,0,imagen)
     }
 
     fun isValid():Boolean{

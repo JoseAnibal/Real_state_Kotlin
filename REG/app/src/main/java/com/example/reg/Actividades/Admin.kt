@@ -1,8 +1,10 @@
 package com.example.reg.Actividades
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
 import com.google.android.material.snackbar.Snackbar
@@ -21,6 +23,7 @@ import com.example.reg.*
 import com.example.reg.AdaptadoresRecycler.AdaptadorFotosPiso
 import com.example.reg.AdaptadoresRecycler.AdaptadorPisos
 import com.example.reg.AdaptadoresRecycler.AdaptadorUsuariosLista
+import com.example.reg.AdaptadoresRecycler.AdaptadorUsuariosNoRegistrados
 import com.example.reg.Objetos.Piso
 import com.example.reg.Objetos.Usuario
 import com.example.reg.databinding.ActivityAdminBinding
@@ -29,6 +32,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
 class Admin : AppCompatActivity() {
+
+    val SM by lazy {
+        SharedManager(this)
+    }
 
     val listaPisos by lazy {
         añadoListaPisos()
@@ -44,6 +51,14 @@ class Admin : AppCompatActivity() {
 
     val adaptadorListaUsuarios by lazy {
         AdaptadorUsuariosLista(listaUsuarios,this)
+    }
+
+    val listaUsuNoRegistrados by lazy {
+        añadoListaUsuNoregistrados()
+    }
+
+    val adaptadorListaUsuNoRegistrados by lazy {
+        AdaptadorUsuariosNoRegistrados(listaUsuNoRegistrados,this)
     }
 
     val contexto by lazy {
@@ -78,6 +93,13 @@ class Admin : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+    override fun onStart() {
+        super.onStart()
+        if(SM.idUsuario!="admin"){
+            redireccionar(this,LoggedUser())
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.admin, menu)
@@ -89,11 +111,23 @@ class Admin : AppCompatActivity() {
 
                 override fun onQueryTextChange(p0: String?): Boolean {
                     adaptadorListaUsuarios.filter.filter(p0)
+                    adaptadorListaUsuNoRegistrados.filter.filter(p0)
                     adaptadorListaPisos.filter.filter(p0)
                     return false
                 }
             })
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.cerrarSesion ->{
+                SM.idUsuario=getString(R.string.idUsuarioDef)
+                redireccionar(this,LoggedUser())
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -138,12 +172,39 @@ class Admin : AppCompatActivity() {
                     snapshot.children.forEach{ hijo: DataSnapshot?->
 
                         val ussu=hijo?.getValue(Usuario::class.java)
-                        if (ussu != null && ussu.tipo==0) {
+                        if (ussu != null && ussu.tipo==0 && ussu.resgistrado!!) {
                             lista.add(ussu)
                         }
                     }
                     adaptadorListaUsuarios.notifyItemChanged(listaUsuarios.size)
                     adaptadorListaUsuarios.notifyDataSetChanged()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println(error.message)
+                }
+            })
+        return lista
+    }
+
+    fun añadoListaUsuNoregistrados():MutableList<Usuario>{
+        val lista= mutableListOf<Usuario>()
+
+        db_ref.child(inmobiliaria)
+            .child(usuariosBD)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    lista.clear()
+                    snapshot.children.forEach{ hijo: DataSnapshot?->
+
+                        val ussu=hijo?.getValue(Usuario::class.java)
+                        if (ussu != null && ussu.tipo==0 && !ussu.resgistrado!!) {
+                            lista.add(ussu)
+                        }
+                    }
+
+                    adaptadorListaUsuNoRegistrados.notifyItemChanged(listaUsuNoRegistrados.size)
+                    adaptadorListaUsuNoRegistrados.notifyDataSetChanged()
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -193,6 +254,11 @@ class Admin : AppCompatActivity() {
                     //PISOSAÑADIR
                     setOnClickListener(listener)
                 }
+            }
+
+            5 -> {
+                //NO HACE NA, DESAPARECE
+                binding.appBarAdmin.fab.hide()
             }
 
         }

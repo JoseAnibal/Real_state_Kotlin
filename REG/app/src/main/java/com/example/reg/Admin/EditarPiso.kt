@@ -6,9 +6,11 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.SearchView
 import com.example.reg.*
 import com.example.reg.Actividades.Admin
 import com.example.reg.databinding.FragmentEditarPisoBinding
@@ -19,6 +21,7 @@ import kotlinx.coroutines.tasks.await
 
 
 class EditarPiso : Fragment() {
+    lateinit var menu: Menu
     val admin by lazy {
         activity as Admin
     }
@@ -45,6 +48,7 @@ class EditarPiso : Fragment() {
     ): View? {
                    //FragmentNombrefragmento
         _binding = FragmentEditarPisoBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
 
     }
@@ -52,6 +56,11 @@ class EditarPiso : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.removeItem(R.id.busqueda)
     }
 
     override fun onResume() {

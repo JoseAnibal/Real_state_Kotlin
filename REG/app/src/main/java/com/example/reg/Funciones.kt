@@ -12,8 +12,8 @@ import com.google.firebase.database.ValueEventListener
 import java.util.concurrent.CountDownLatch
 
 
-fun insertoUsuarioBD(id:String,correo:String,nombre:String,password:String,tipo:Int){
-    val crearCuenta=Usuario(id,correo,nombre, password, tipo)
+fun insertoUsuarioBD(id:String,correo:String,nombre:String,password:String,tipo:Int,imagen:String){
+    val crearCuenta=Usuario(id,correo,nombre, password, tipo,imagen)
     db_ref.child(inmobiliaria).child(usuariosBD).child(id).setValue(crearCuenta)
 }
 
