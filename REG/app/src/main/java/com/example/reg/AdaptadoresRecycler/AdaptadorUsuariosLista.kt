@@ -29,7 +29,7 @@ class AdaptadorUsuariosLista(val lista:List<Usuario>, val contexto:Context):Recy
     val options = RequestOptions ()
         .fallback(R.drawable.common_full_open_on_phone)
         .error(R.drawable.common_full_open_on_phone)
-        .fitCenter()
+        .circleCrop()
 
     class ViewHolder(val bind: FilaUsuariosBinding):RecyclerView.ViewHolder(bind.root)
 

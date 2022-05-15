@@ -8,11 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.reg.*
 import com.example.reg.Actividades.Admin
 import com.example.reg.AdaptadoresRecycler.AdaptadorFotosPiso
 import com.example.reg.AdaptadoresRecycler.AdaptadorPisos
-import com.example.reg.R
 import com.example.reg.databinding.FragmentInfoPisoBinding
+import com.google.android.material.snackbar.Snackbar
 
 class InfoPiso : Fragment() {
     lateinit var menu: Menu
@@ -70,6 +71,13 @@ class InfoPiso : Fragment() {
 
         binding.rvFotosPiso.adapter=adaptadorListaImagenesPisos
         binding.rvFotosPiso.layoutManager= LinearLayoutManager(admin.contexto,LinearLayoutManager.HORIZONTAL, false)
+
+        binding.pisoEliminar.setOnClickListener {
+            db_ref.child(inmobiliaria).child(pisosBD).child(admin.idPiso).removeValue()
+            admin.navController.navigate(R.id.nav_pisos)
+            Snackbar.make(it, "Piso eliminado", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+        }
     }
 
     override fun onDestroyView() {

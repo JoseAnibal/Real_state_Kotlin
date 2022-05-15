@@ -14,6 +14,7 @@ import android.widget.SearchView
 import com.example.reg.*
 import com.example.reg.Actividades.Admin
 import com.example.reg.databinding.FragmentEditarPisoBinding
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -96,7 +97,12 @@ class EditarPiso : Fragment() {
                 val baths=binding.editBaths.text.toString()
                 val m2=binding.editM2.text.toString().toDouble()
                 val desc=binding.editDesc.text.toString()
-                var listaUrlsFirebase= insertoImagen(piso!!.id.toString(),listaImagenesUri)
+
+                var listaUrlsFirebase= if(listaImagenesUri.size==0){
+                    mutableListOf("https://firebasestorage.googleapis.com/v0/b/reg-inmobiliaria-750ef.appspot.com/o/Inmobiliaria%2FPisoDefault.png?alt=media&token=b34b4b3d-4d91-42b7-b3a4-6a5682a8c36b")
+                }else{
+                    insertoImagen(piso!!.id.toString(),listaImagenesUri)
+                }
 
 
                 admin.insertoPiso(piso!!.id.toString(),calle, listaUrlsFirebase,habs,baths,m2,desc,false)

@@ -26,9 +26,11 @@
 
             <ImageView
                 android:id="@+id/piso_imagen"
-                android:layout_width="200dp"
+                android:layout_width="195dp"
                 android:layout_height="120dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 

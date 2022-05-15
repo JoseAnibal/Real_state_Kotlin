@@ -68,7 +68,7 @@ class Admin : AppCompatActivity() {
     var idPiso=""
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityAdminBinding
+    lateinit var binding: ActivityAdminBinding
     lateinit var navController:NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {

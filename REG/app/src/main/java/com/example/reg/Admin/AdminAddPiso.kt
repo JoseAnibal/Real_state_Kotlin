@@ -87,9 +87,14 @@ class AdminAddPiso : Fragment() {
                 val baths=binding.addBaths.text.toString()
                 val m2=binding.addM2.text.toString().toDouble()
                 val desc=binding.addDescText.text.toString()
-                var listaUrlsFirebase= insertoImagen(id!!,listaImagenesUri)
 
+                admin.runOnUiThread { admin.binding.appBarAdmin.fab.hide() }
 
+                var listaUrlsFirebase= if(listaImagenesUri.size==0){
+                    mutableListOf("https://firebasestorage.googleapis.com/v0/b/reg-inmobiliaria-750ef.appspot.com/o/Inmobiliaria%2FPisoDefault.png?alt=media&token=b34b4b3d-4d91-42b7-b3a4-6a5682a8c36b")
+                }else{
+                    insertoImagen(id!!,listaImagenesUri)
+                }
                 admin.insertoPiso(id.toString(),calle, listaUrlsFirebase,habs,baths,m2,desc,false)
                 admin.runOnUiThread { admin.navController.navigate(R.id.nav_pisos)}
             }

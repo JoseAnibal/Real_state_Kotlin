@@ -31,7 +31,7 @@ class AdaptadorPisos(val lista:List<Piso>,val contexto:Context):RecyclerView.Ada
     val options = RequestOptions ()
         .fallback(R.drawable.common_full_open_on_phone)
         .error(R.drawable.common_full_open_on_phone)
-        .fitCenter()
+        .circleCrop()
 
     class ViewHolder(val bind: FilaPisoBinding):RecyclerView.ViewHolder(bind.root)
 
