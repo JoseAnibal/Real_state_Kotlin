@@ -78,6 +78,10 @@ class InfoPiso : Fragment() {
             Snackbar.make(it, "Piso eliminado", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+
+        binding.pisoAsignar.setOnClickListener {
+            admin.navController.navigate(R.id.nav_asignacion)
+        }
     }
 
     override fun onDestroyView() {

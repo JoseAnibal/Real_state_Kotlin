@@ -3,6 +3,7 @@ package com.example.reg
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.widget.EditText
 import androidx.core.content.ContextCompat
 import com.example.reg.Objetos.Usuario
@@ -23,6 +24,15 @@ fun generoId(rama:String,objeto:String): String? {
 
 fun redireccionar(c:Context, ac:Activity){
     Intent(c,ac::class.java).also {
+        c.startActivity(it)
+    }
+}
+
+fun redireccionarConUsu(c:Context, ac:Activity,nombre:String ,objeto:Usuario){
+    val bundle=Bundle()
+    bundle.putParcelable(nombre,objeto)
+    Intent(c,ac::class.java).also {
+        it.putExtras(bundle)
         c.startActivity(it)
     }
 }

@@ -5,10 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.reg.Actividades.MainActivity
 import com.example.reg.R
 import com.example.reg.databinding.FragmentIncidenciasBinding
 
 class Incidencias : Fragment() {
+
+    val usu by lazy {
+        activity as MainActivity
+    }
                           //FragmentNombrefragmento
     private var _binding: FragmentIncidenciasBinding? = null
 
@@ -29,6 +34,11 @@ class Incidencias : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        usu.FAB_manager(1){}
     }
 
     override fun onDestroyView() {

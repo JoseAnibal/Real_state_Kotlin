@@ -32,8 +32,6 @@
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="8dp"
         android:backgroundTint="#F44336"
         android:paddingLeft="0dp"
         android:paddingTop="8dp"
@@ -42,9 +40,27 @@
         app:icon="@drawable/ic_baseline_delete_24"
         app:iconGravity="textTop"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/pisoAsignar"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/pisoAsignar"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#03A9F4"
+        android:paddingLeft="0dp"
+        android:paddingTop="8dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
+        app:icon="@drawable/ic_baseline_person_add_24"
+        app:iconGravity="textTop"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pisoDescripcion" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/pisoEliminar" />
 
     <ImageView
         android:id="@+id/imageView2"

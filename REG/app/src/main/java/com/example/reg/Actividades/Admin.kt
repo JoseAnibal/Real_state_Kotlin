@@ -20,23 +20,25 @@ import androidx.navigation.NavController
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.request.RequestOptions
 import com.example.reg.*
-import com.example.reg.AdaptadoresRecycler.AdaptadorFotosPiso
-import com.example.reg.AdaptadoresRecycler.AdaptadorPisos
-import com.example.reg.AdaptadoresRecycler.AdaptadorUsuariosLista
-import com.example.reg.AdaptadoresRecycler.AdaptadorUsuariosNoRegistrados
+import com.example.reg.AdaptadoresRecycler.*
 import com.example.reg.Objetos.Piso
 import com.example.reg.Objetos.Usuario
+import com.example.reg.Objetos.UsuarioPiso
 import com.example.reg.databinding.ActivityAdminBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.util.concurrent.CountDownLatch
 
 class Admin : AppCompatActivity() {
 
     val SM by lazy {
         SharedManager(this)
     }
-
+    //PISOS
     val listaPisos by lazy {
         añadoListaPisos()
     }
@@ -45,6 +47,7 @@ class Admin : AppCompatActivity() {
         AdaptadorPisos(listaPisos,this)
     }
 
+    //USUARIOS REGISTRADOS
     val listaUsuarios by lazy {
         añadoListaUsuarios()
     }
@@ -53,6 +56,7 @@ class Admin : AppCompatActivity() {
         AdaptadorUsuariosLista(listaUsuarios,this)
     }
 
+    //USUARIOS NO REGISTRADOS
     val listaUsuNoRegistrados by lazy {
         añadoListaUsuNoregistrados()
     }
@@ -61,11 +65,23 @@ class Admin : AppCompatActivity() {
         AdaptadorUsuariosNoRegistrados(listaUsuNoRegistrados,this)
     }
 
+    //USUARIOS ASIGNACION
+
+    val listaUsuariosAsignacion by lazy {
+        añadoListaIDUsuSinPisos()
+    }
+
+    val adaptadorListaUsuarioAsignacion by lazy {
+        AdaptadorAsignacion(listaUsuariosAsignacion,this)
+    }
+
     val contexto by lazy {
         this
     }
 
+    //var listaTest= mutableListOf<Usuario>()
     var idPiso=""
+    var idUsu=""
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var binding: ActivityAdminBinding
@@ -110,6 +126,7 @@ class Admin : AppCompatActivity() {
                 }
 
                 override fun onQueryTextChange(p0: String?): Boolean {
+                    adaptadorListaUsuarioAsignacion.filter.filter(p0)
                     adaptadorListaUsuarios.filter.filter(p0)
                     adaptadorListaUsuNoRegistrados.filter.filter(p0)
                     adaptadorListaPisos.filter.filter(p0)
@@ -176,6 +193,7 @@ class Admin : AppCompatActivity() {
                             lista.add(ussu)
                         }
                     }
+                    //listaTest=añadoListaIDUsuSinPisos()
                     adaptadorListaUsuarios.notifyItemChanged(listaUsuarios.size)
                     adaptadorListaUsuarios.notifyDataSetChanged()
                 }
@@ -185,6 +203,39 @@ class Admin : AppCompatActivity() {
                 }
             })
         return lista
+    }
+
+    fun añadoListaIDUsuSinPisos():MutableList<Usuario>{
+        val lista= mutableListOf<String>()
+        val listadevolver= mutableListOf<Usuario>()
+        db_ref.child(inmobiliaria)
+            .child(UsuarioPisoBD)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    lista.clear()
+                    listadevolver.clear()
+                    snapshot.children.forEach{ hijo: DataSnapshot?->
+
+                        val ussu=hijo?.getValue(UsuarioPiso::class.java)
+                        if (ussu != null) {
+                            ussu.idUsuario?.let { lista.add(it) }
+                        }
+                    }
+
+                    listaUsuarios.forEachIndexed { i, u ->
+                        if(!lista.contains(u.id)){
+                            listadevolver.add(u)
+                        }
+                    }
+                    adaptadorListaUsuarioAsignacion.notifyItemChanged(listaUsuariosAsignacion.size)
+                    adaptadorListaUsuarioAsignacion.notifyDataSetChanged()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println(error.message)
+                }
+            })
+        return listadevolver
     }
 
     fun añadoListaUsuNoregistrados():MutableList<Usuario>{
@@ -267,5 +318,10 @@ class Admin : AppCompatActivity() {
     fun insertoPiso(id:String,calle:String,imagenes:MutableList<String>,nhabs:String,nbath:String,m2:Double,desc:String,estado:Boolean){
         val creoPiso=Piso(id, calle,imagenes, nhabs,nbath,m2,desc,estado)
         db_ref.child(inmobiliaria).child(pisosBD).child(id).setValue(creoPiso)
+    }
+
+    fun usuarioPisoCrear(id:String,idUsuario:String,idPiso:String){
+        val usuPiso=UsuarioPiso(id,idUsuario,idPiso)
+        db_ref.child(inmobiliaria).child(UsuarioPisoBD).child(id).setValue(usuPiso)
     }
 }

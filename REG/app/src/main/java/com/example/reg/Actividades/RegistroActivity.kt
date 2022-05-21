@@ -26,7 +26,7 @@ class RegistroActivity : AppCompatActivity() {
                     if(!existeUsu(binding.regCorreo.text.toString())){
                         insertUsu()
                         runOnUiThread {
-                            redireccionar(baseContext,LoggedUser())
+                            redireccionar(this@RegistroActivity,LoggedUser())
                         }
                     }else{
                         runOnUiThread {

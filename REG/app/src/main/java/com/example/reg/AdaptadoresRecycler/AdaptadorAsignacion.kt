@@ -16,7 +16,7 @@ import com.example.reg.databinding.FilaUsuariosBinding
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
-class AdaptadorUsuariosNoRegistrados(val lista:List<Usuario>, val contexto: Context): RecyclerView.Adapter<AdaptadorUsuariosNoRegistrados.ViewHolder>(),
+class AdaptadorAsignacion(val lista:List<Usuario>, val contexto: Context): RecyclerView.Adapter<AdaptadorAsignacion.ViewHolder>(),
     Filterable {
     val SM by lazy {
         SharedManager(contexto)
@@ -36,28 +36,33 @@ class AdaptadorUsuariosNoRegistrados(val lista:List<Usuario>, val contexto: Cont
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val l = listaFiltrada[position]
+
+        holder.bind.usuAceptar.apply {
+            visibility= View.INVISIBLE
+            isEnabled=false
+        }
+
         with(holder.bind){
             usuCorreo.text=l.correo
             usuNombre.text=l.nombre
-        }
-        Glide.with(contexto).load(l.imagen).into(holder.bind.usuImagen)
-        if(l.resgistrado == true){
-            Glide.with(contexto).load(listReg[0]).into(holder.bind.usuRegistrado)
-        }else{
-            Glide.with(contexto).load(listReg[1]).into(holder.bind.usuRegistrado)
+            usuEstado.visibility=View.INVISIBLE
         }
 
-        holder.bind.usuAceptar.setOnClickListener {
-            insertoUsuarioBDReg(l.id!!,l.correo!!,l.nombre!!,l.password!!,l.tipo!!,l.imagen!!,true)
-            Snackbar.make(it, "Usuario aceptado", Snackbar.LENGTH_LONG)
+        Glide.with(contexto).load(l.imagen).into(holder.bind.usuImagen)
+        holder.bind.usuRegistrado.visibility=View.INVISIBLE
+
+        holder.bind.clicky.setOnClickListener {
+            (contexto as Admin).apply {
+                idUsu=l.id.toString()
+                var id=generoId(inmobiliaria, UsuarioPisoBD)
+                usuarioPisoCrear(id.toString(),l.id.toString(),contexto.idPiso)
+                navController.navigate(R.id.nav_pisos)
+            }
+
+            Snackbar.make(it, "Usuario Asignado", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
 
-    }
-
-    fun insertoUsuarioBDReg(id:String,correo:String,nombre:String,password:String,tipo:Int,imagen:String,reg:Boolean){
-        val crearCuenta= Usuario(id,correo,nombre, password, tipo,imagen,reg)
-        db_ref.child(inmobiliaria).child(usuariosBD).child(id).setValue(crearCuenta)
     }
 
     override fun getItemCount(): Int {
@@ -83,7 +88,6 @@ class AdaptadorUsuariosNoRegistrados(val lista:List<Usuario>, val contexto: Cont
                     listaFiltrada = listaFiltrada2
                 }
                 //FILTROS AQUI
-
                 val filterResults = FilterResults()
                 filterResults.values = listaFiltrada
                 return filterResults

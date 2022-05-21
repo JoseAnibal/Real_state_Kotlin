@@ -81,7 +81,7 @@ class AdminAddPiso : Fragment() {
     fun insertarPiso(v:View){
         if(isValid()){
             GlobalScope.launch(Dispatchers.IO) {
-                val id= generoId(pisosBD, pisosBD)
+                val id= generoId(inmobiliaria, pisosBD)
                 val calle=binding.addCalle.text.toString().trim()
                 val habs=binding.addHabs.text.toString()
                 val baths=binding.addBaths.text.toString()

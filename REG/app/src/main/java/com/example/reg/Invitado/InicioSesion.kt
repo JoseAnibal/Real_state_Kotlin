@@ -62,7 +62,7 @@ class InicioSesion : Fragment() {
                             if (usuario.resgistrado==true){
                                 tabbed.runOnUiThread{
                                     SM.idUsuario=usuario.id.toString()
-                                    redireccionar(tabbed.contexto, MainActivity())
+                                    redireccionarConUsu(tabbed.contexto,MainActivity(),"UsuarioActual",usuario)
                                 }
                             }
                             tabbed.runOnUiThread {
