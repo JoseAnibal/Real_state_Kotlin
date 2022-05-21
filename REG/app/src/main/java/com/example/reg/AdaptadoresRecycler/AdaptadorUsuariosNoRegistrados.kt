@@ -40,11 +40,17 @@ class AdaptadorUsuariosNoRegistrados(val lista:List<Usuario>, val contexto: Cont
             usuCorreo.text=l.correo
             usuNombre.text=l.nombre
         }
-        Glide.with(contexto).load(l.imagen).into(holder.bind.usuImagen)
+        Glide.with(contexto).load(l.imagen).apply(options).into(holder.bind.usuImagen)
         if(l.resgistrado == true){
             Glide.with(contexto).load(listReg[0]).into(holder.bind.usuRegistrado)
         }else{
             Glide.with(contexto).load(listReg[1]).into(holder.bind.usuRegistrado)
+        }
+
+        holder.bind.usuRechazar.setOnClickListener {
+            db_ref.child(inmobiliaria).child(usuariosBD).child(l.id.toString()).removeValue()
+            Snackbar.make(it, "Usuario rechazado", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
         }
 
         holder.bind.usuAceptar.setOnClickListener {

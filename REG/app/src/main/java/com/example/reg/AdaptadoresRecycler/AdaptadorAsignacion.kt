@@ -42,13 +42,18 @@ class AdaptadorAsignacion(val lista:List<Usuario>, val contexto: Context): Recyc
             isEnabled=false
         }
 
+        holder.bind.usuRechazar.apply {
+            visibility= View.INVISIBLE
+            isEnabled=false
+        }
+
         with(holder.bind){
             usuCorreo.text=l.correo
             usuNombre.text=l.nombre
             usuEstado.visibility=View.INVISIBLE
         }
 
-        Glide.with(contexto).load(l.imagen).into(holder.bind.usuImagen)
+        Glide.with(contexto).load(l.imagen).apply(options).into(holder.bind.usuImagen)
         holder.bind.usuRegistrado.visibility=View.INVISIBLE
 
         holder.bind.clicky.setOnClickListener {

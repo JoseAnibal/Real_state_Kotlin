@@ -46,12 +46,22 @@ class AdaptadorUsuariosLista(val lista:List<Usuario>, val contexto:Context):Recy
             isEnabled=false
         }
 
+        holder.bind.usuRechazar.apply {
+            visibility=View.INVISIBLE
+            isEnabled=false
+        }
+
         with(holder.bind){
             usuCorreo.text=l.correo
             usuNombre.text=l.nombre
         }
 
-        Glide.with(contexto).load(l.imagen).into(holder.bind.usuImagen)
+        holder.bind.clicky.setOnClickListener {
+            (contexto as Admin).idUsu=l.id.toString()
+            contexto.navController.navigate(R.id.nav_editarUsuario)
+        }
+
+        Glide.with(contexto).load(l.imagen).apply(options).into(holder.bind.usuImagen)
         if(l.resgistrado == true){
             Glide.with(contexto).load(listReg[0]).into(holder.bind.usuRegistrado)
         }else{

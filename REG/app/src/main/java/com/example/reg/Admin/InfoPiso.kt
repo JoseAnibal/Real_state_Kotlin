@@ -12,6 +12,7 @@ import com.example.reg.*
 import com.example.reg.Actividades.Admin
 import com.example.reg.AdaptadoresRecycler.AdaptadorFotosPiso
 import com.example.reg.AdaptadoresRecycler.AdaptadorPisos
+import com.example.reg.Objetos.UsuarioPiso
 import com.example.reg.databinding.FragmentInfoPisoBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -81,11 +82,17 @@ class InfoPiso : Fragment() {
 
         binding.pisoAsignar.setOnClickListener {
             admin.navController.navigate(R.id.nav_asignacion)
+            refrescar()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun refrescar(){
+        admin.usuarioPisoCrear("1","1","1")
+        db_ref.child(inmobiliaria).child(UsuarioPisoBD).child("1").removeValue()
     }
 }

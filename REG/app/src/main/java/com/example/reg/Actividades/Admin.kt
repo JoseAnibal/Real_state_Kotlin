@@ -79,7 +79,6 @@ class Admin : AppCompatActivity() {
         this
     }
 
-    //var listaTest= mutableListOf<Usuario>()
     var idPiso=""
     var idUsu=""
 
@@ -193,7 +192,6 @@ class Admin : AppCompatActivity() {
                             lista.add(ussu)
                         }
                     }
-                    //listaTest=añadoListaIDUsuSinPisos()
                     adaptadorListaUsuarios.notifyItemChanged(listaUsuarios.size)
                     adaptadorListaUsuarios.notifyDataSetChanged()
                 }
@@ -222,7 +220,7 @@ class Admin : AppCompatActivity() {
                         }
                     }
 
-                    listaUsuarios.forEachIndexed { i, u ->
+                    adaptadorListaUsuarios.lista.forEachIndexed { i, u ->
                         if(!lista.contains(u.id)){
                             listadevolver.add(u)
                         }
@@ -312,12 +310,26 @@ class Admin : AppCompatActivity() {
                 binding.appBarAdmin.fab.hide()
             }
 
+            6 -> {
+                //GUARDAR USU
+                binding.appBarAdmin.fab.show()
+                (binding.appBarAdmin.fab).apply{
+                    setImageResource(R.drawable.ic_baseline_save_24)
+                    setOnClickListener(listener)
+                }
+            }
+
         }
     }
 
     fun insertoPiso(id:String,calle:String,imagenes:MutableList<String>,nhabs:String,nbath:String,m2:Double,desc:String,estado:Boolean){
         val creoPiso=Piso(id, calle,imagenes, nhabs,nbath,m2,desc,estado)
         db_ref.child(inmobiliaria).child(pisosBD).child(id).setValue(creoPiso)
+    }
+
+    fun insertoUsu(id:String,correo:String,nombre:String,password:String,tipo:Int,imagen:String,registrado:Boolean){
+        val creoUsu=Usuario(id, correo, nombre, password, tipo, imagen, registrado)
+        db_ref.child(inmobiliaria).child(usuariosBD).child(id).setValue(creoUsu)
     }
 
     fun usuarioPisoCrear(id:String,idUsuario:String,idPiso:String){
