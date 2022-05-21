@@ -91,6 +91,7 @@ class EditarPiso : Fragment() {
 
     fun insertarPiso(v:View){
         if(isValid()){
+            admin.binding.appBarAdmin.fab.hide()
             GlobalScope.launch(Dispatchers.IO) {
                 val calle=binding.editCalle.text.toString().trim()
                 val habs=binding.editHabs.text.toString()
@@ -104,7 +105,8 @@ class EditarPiso : Fragment() {
                     insertoImagen(piso!!.id.toString(),listaImagenesUri)
                 }
 
-
+                admin.runOnUiThread { Snackbar.make(binding.editCalle, "Piso Actualizado", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show() }
                 admin.insertoPiso(piso!!.id.toString(),calle, listaUrlsFirebase,habs,baths,m2,desc,false)
                 admin.runOnUiThread { admin.navController.navigate(R.id.nav_pisos)}
             }

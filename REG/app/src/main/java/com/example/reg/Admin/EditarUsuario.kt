@@ -28,6 +28,11 @@ class EditarUsuario : Fragment() {
         admin.listaUsuarios.find { it.id==admin.idUsu }
     }
     var url_imagen: Uri?=null
+
+    var options = RequestOptions ()
+        .fallback(R.drawable.nregistrado)
+        .error(R.drawable.nregistrado)
+        .circleCrop()
                           //FragmentNombrefragmento
     private var _binding: FragmentEditarUsuarioBinding? = null
 
@@ -58,15 +63,9 @@ class EditarUsuario : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        var options = RequestOptions ()
-            .fallback(R.drawable.nregistrado)
-            .error(R.drawable.nregistrado)
-            .circleCrop()
-
-        Glide.with(admin.contexto).load(usuario!!.imagen).into(binding.editImage)
+        Glide.with(admin.contexto).load(usuario!!.imagen).apply(options).into(binding.editImage)
         binding.editNombre.setText(usuario!!.nombre.toString())
         binding.editCorreo.setText(usuario!!.correo.toString())
-        binding.editContraseA.setText(usuario!!.password.toString())
 
         binding.editImage.setOnClickListener {
             obtener_url.launch("image/*")
@@ -81,7 +80,7 @@ class EditarUsuario : Fragment() {
                 .setAction("Action", null).show()
             else->{
                 url_imagen=uri
-                binding.editImage.setImageURI(url_imagen)
+                Glide.with(admin.contexto).load(url_imagen).apply(options).into(binding.editImage)
                 Snackbar.make(binding.editNombre, "Imagen selecionada", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
             }
@@ -94,7 +93,11 @@ class EditarUsuario : Fragment() {
             GlobalScope.launch(Dispatchers.IO) {
                 val nombre=binding.editNombre.text.toString().trim()
                 val correo=binding.editCorreo.text.toString().trim()
-                val password=binding.editContraseA.text.toString().trim()
+                val password=if(binding.editContraseA.text!!.isEmpty()){
+                    usuario!!.password.toString()
+                }else{
+                    binding.editContraseA!!.text!!.trim().toString()
+                }
                 val url_imagen_firebase=if(url_imagen!=null){
                     insertoImagen(generoId(inmobiliaria, usuariosBD).toString(), url_imagen!!)
                 }else{
@@ -115,7 +118,6 @@ class EditarUsuario : Fragment() {
         val checkers = listOf(
             Pair(binding.editNombre, this::validoCampo),
             Pair(binding.editCorreo, this::validoCorreo),
-            Pair(binding.editContraseA, this::validoCampo)
         )
         for(c in checkers){
             val x = c.first
