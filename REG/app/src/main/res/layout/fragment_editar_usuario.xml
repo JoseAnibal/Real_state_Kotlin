@@ -54,6 +54,28 @@
             android:hint="Correo" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <Button
+        android:id="@+id/editEliminar"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/forma_redonda"
+        android:paddingLeft="0dp"
+        android:paddingTop="8dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
+        app:backgroundTint="@color/red"
+        app:icon="@drawable/ic_baseline_delete_24"
+        app:iconGravity="textTop"
+        app:iconTint="#F4F4F4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout11"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout11"
+        app:layout_constraintVertical_bias="0.313" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout11"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

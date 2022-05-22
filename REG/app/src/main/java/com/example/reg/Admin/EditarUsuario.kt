@@ -71,6 +71,13 @@ class EditarUsuario : Fragment() {
             obtener_url.launch("image/*")
         }
 
+        binding.editEliminar.setOnClickListener {
+            db_ref.child(inmobiliaria).child(usuariosBD).child(admin.idUsu).removeValue()
+            admin.navController.navigate(R.id.nav_usuarios)
+            Snackbar.make(it, "Usuario eliminado", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+        }
+
     }
 
     private val obtener_url= registerForActivityResult(ActivityResultContracts.GetContent()){
