@@ -31,7 +31,7 @@ class AdminUsuariosEnPiso : Fragment() {
     }
 
     val adaptadorListaUsuariosEnPiso by lazy {
-        AdaptadorUsuariosLista(listaUsuariosEnPiso,admin.contexto)
+        AdaptadorUsuariosLista(listaUsuariosEnPiso,admin.contexto,1)
     }
 
                           //FragmentNombrefragmento

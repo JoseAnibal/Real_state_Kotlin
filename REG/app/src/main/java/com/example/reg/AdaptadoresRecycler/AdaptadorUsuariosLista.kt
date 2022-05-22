@@ -17,11 +17,15 @@ import com.example.reg.Actividades.LoggedUser
 import com.example.reg.Actividades.NotLoggedUserVerPiso
 import com.example.reg.Objetos.Piso
 import com.example.reg.Objetos.Usuario
+import com.example.reg.Objetos.UsuarioPiso
 import com.example.reg.databinding.FilaPisoBinding
 import com.example.reg.databinding.FilaUsuariosBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import java.util.*
 
-class AdaptadorUsuariosLista(val lista:List<Usuario>, val contexto:Context):RecyclerView.Adapter<AdaptadorUsuariosLista.ViewHolder>(), Filterable {
+class AdaptadorUsuariosLista(val lista:List<Usuario>, val contexto:Context,val eliminar:Int):RecyclerView.Adapter<AdaptadorUsuariosLista.ViewHolder>(), Filterable {
     val SM by lazy {
         SharedManager(contexto)
     }
@@ -68,10 +72,47 @@ class AdaptadorUsuariosLista(val lista:List<Usuario>, val contexto:Context):Recy
             Glide.with(contexto).load(listReg[1]).into(holder.bind.usuRegistrado)
         }
 
+        if(eliminar==1){
+            holder.bind.usuRechazar.apply {
+                visibility=View.VISIBLE
+                isEnabled=true
+                setOnClickListener {
+                    eliminoListaUsuariosSinPiso(l)
+                }
+            }
+        }
+
     }
 
     override fun getItemCount(): Int {
         return listaFiltrada.size
+    }
+
+    fun eliminoListaUsuariosSinPiso(usu:Usuario){
+        val lista= mutableListOf<String>()
+        val listadevolver= mutableListOf<Usuario>()
+        db_ref.child(inmobiliaria)
+            .child(UsuarioPisoBD)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    lista.clear()
+                    listadevolver.clear()
+                    snapshot.children.forEach{ hijo: DataSnapshot?->
+
+                        val ussu=hijo?.getValue(UsuarioPiso::class.java)
+                        if (ussu != null && ussu.idUsuario==usu.id) {
+                            db_ref.child(inmobiliaria).child(UsuarioPisoBD).child(ussu.id!!).removeValue()
+                        }
+                        db_ref.child(inmobiliaria)
+                            .child(UsuarioPisoBD).removeEventListener(this)
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println(error.message)
+                }
+            })
     }
 
     override fun getFilter(): Filter {

@@ -59,7 +59,7 @@ class Admin : AppCompatActivity() {
     }
 
     val adaptadorListaUsuarios by lazy {
-        AdaptadorUsuariosLista(listaUsuarios,this)
+        AdaptadorUsuariosLista(listaUsuarios,this,0)
     }
 
     //USUARIOS NO REGISTRADOS

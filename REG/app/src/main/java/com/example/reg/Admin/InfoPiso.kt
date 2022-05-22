@@ -12,6 +12,7 @@ import com.example.reg.*
 import com.example.reg.Actividades.Admin
 import com.example.reg.AdaptadoresRecycler.AdaptadorFotosPiso
 import com.example.reg.AdaptadoresRecycler.AdaptadorPisos
+import com.example.reg.AdaptadoresRecycler.AdaptadorUsuariosLista
 import com.example.reg.Objetos.Usuario
 import com.example.reg.Objetos.UsuarioPiso
 import com.example.reg.databinding.FragmentInfoPisoBinding
@@ -94,6 +95,7 @@ class InfoPiso : Fragment() {
         }
 
         binding.pisoUsuarios.setOnClickListener {
+
             admin.navController.navigate(R.id.nav_adminUsuariosEnPiso)
         }
 
