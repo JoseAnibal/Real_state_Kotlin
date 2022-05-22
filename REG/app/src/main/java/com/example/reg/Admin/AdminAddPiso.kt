@@ -16,6 +16,7 @@ import com.example.reg.*
 import com.example.reg.Actividades.Admin
 import com.example.reg.Objetos.Piso
 import com.example.reg.databinding.FragmentAdminAddPisoBinding
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -98,6 +99,8 @@ class AdminAddPiso : Fragment() {
                 }else{
                     insertoImagen(id!!,listaImagenesUri)
                 }
+                admin.runOnUiThread { Snackbar.make(binding.addCalle, "Piso Añadido", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show() }
                 admin.insertoPiso(id.toString(),calle, listaUrlsFirebase,habs,baths,m2,desc,false,precio,coords,postal)
                 admin.runOnUiThread { admin.navController.navigate(R.id.nav_pisos)}
             }

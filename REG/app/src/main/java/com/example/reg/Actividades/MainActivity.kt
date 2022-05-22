@@ -58,7 +58,6 @@ class MainActivity : AppCompatActivity() {
         //PARA RECIBIRLO
         val bundle = intent.extras
         usuarioActual = bundle?.getParcelable<Usuario>("UsuarioActual")?:Usuario()
-        val patata="a"
 
     }
 

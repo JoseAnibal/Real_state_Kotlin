@@ -81,7 +81,7 @@ class EditarPiso : Fragment() {
         binding.editPostal2.setText(piso!!.codigoPostal!!)
         binding.editAlquilable.isChecked=piso!!.estado!!
 
-        //HACER QUE SE PUEDAN GUARDAR CAMBIOS
+
         binding.editPisoImagen.setOnClickListener {
             pickImagesIntent()
         }

@@ -13,6 +13,7 @@ const val usuariosBD="Usuarios"
 const val pisosBD="Pisos"
 const val correoUsu="correo"
 const val UsuarioPisoBD="UsuarioPiso"
+const val facturaBD="Facturas"
 const val chatBD="Chat"
 const val mensajeBD="Mensaje"
 const val adminNum=1

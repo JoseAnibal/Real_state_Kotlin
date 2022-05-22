@@ -86,6 +86,14 @@ class InfoPiso : Fragment() {
             admin.navController.navigate(R.id.nav_asignacion)
             refrescar()
         }
+
+        binding.pisoUsuarios.setOnClickListener {
+            admin.navController.navigate(R.id.nav_adminUsuariosEnPiso)
+        }
+
+        binding.pisoFacturas.setOnClickListener {
+            admin.navController.navigate(R.id.nav_adminUsuFacturas)
+        }
     }
 
     override fun onDestroyView() {

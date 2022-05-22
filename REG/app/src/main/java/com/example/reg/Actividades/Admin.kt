@@ -21,6 +21,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.request.RequestOptions
 import com.example.reg.*
 import com.example.reg.AdaptadoresRecycler.*
+import com.example.reg.Objetos.Factura
 import com.example.reg.Objetos.Piso
 import com.example.reg.Objetos.Usuario
 import com.example.reg.Objetos.UsuarioPiso
@@ -34,6 +35,11 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.CountDownLatch
 
 class Admin : AppCompatActivity() {
+
+    var idPiso=""
+    var idUsu=""
+    var idFactura=""
+    var facturilla=Factura()
 
     val SM by lazy {
         SharedManager(this)
@@ -66,7 +72,6 @@ class Admin : AppCompatActivity() {
     }
 
     //USUARIOS ASIGNACION
-
     val listaUsuariosAsignacion by lazy {
         añadoListaIDUsuSinPisos()
     }
@@ -74,13 +79,12 @@ class Admin : AppCompatActivity() {
     val adaptadorListaUsuarioAsignacion by lazy {
         AdaptadorAsignacion(listaUsuariosAsignacion,this)
     }
+    //USUARIOS EN PISO
+
 
     val contexto by lazy {
         this
     }
-
-    var idPiso=""
-    var idUsu=""
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var binding: ActivityAdminBinding
@@ -319,12 +323,34 @@ class Admin : AppCompatActivity() {
                 }
             }
 
+            7 -> {
+                //REDIRECCIONAR A AÑADIR FACTURA
+                binding.appBarAdmin.fab.show()
+                (binding.appBarAdmin.fab).apply{
+                    setImageResource(R.drawable.ic_baseline_add_24)
+                    setOnClickListener { view ->
+                        navController.navigate(R.id.nav_adminAddFactura)
+                    }
+                }
+            }
+
+            8 -> {
+                //GUARDAR FACTURA
+                binding.appBarAdmin.fab.show()
+                (binding.appBarAdmin.fab).apply{
+                    setImageResource(R.drawable.ic_baseline_save_24)
+                    //PISOSAÑADIR
+                    setOnClickListener(listener)
+                }
+            }
+
         }
     }
 
     fun insertoPiso(id:String,calle:String,imagenes:MutableList<String>,nhabs:String,nbath:String,m2:String,desc:String,estado:Boolean,precio:Int,coords:String,codPostal:String){
         val creoPiso=Piso(id, calle,imagenes, nhabs,nbath,m2,desc,estado,precio,coords,codPostal)
         db_ref.child(inmobiliaria).child(pisosBD).child(id).setValue(creoPiso)
+
     }
 
     fun insertoUsu(id:String,correo:String,nombre:String,password:String,tipo:Int,imagen:String,registrado:Boolean){
@@ -335,5 +361,10 @@ class Admin : AppCompatActivity() {
     fun usuarioPisoCrear(id:String,idUsuario:String,idPiso:String){
         val usuPiso=UsuarioPiso(id,idUsuario,idPiso)
         db_ref.child(inmobiliaria).child(UsuarioPisoBD).child(id).setValue(usuPiso)
+    }
+
+    fun insertoFactura(id:String,idPiso:String,luz:String,agua:String,internet:String,gastosExtra:String,fecha:String,total:String){
+        val fact=Factura(id,idPiso,luz,agua,internet,gastosExtra,fecha,total)
+        db_ref.child(inmobiliaria).child(facturaBD).child(id).setValue(fact)
     }
 }
