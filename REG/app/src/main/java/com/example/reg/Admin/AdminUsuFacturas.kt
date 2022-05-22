@@ -5,17 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.reg.Actividades.Admin
 import com.example.reg.R
-import com.example.reg.databinding.FragmentAdminAsignacionBinding
+import com.example.reg.databinding.FragmentAdminUsuFacturasBinding
 
-class AdminAsignacion : Fragment() {
-    val admin by lazy {
-        activity as Admin
-    }
+class AdminUsuFacturas : Fragment() {
                           //FragmentNombrefragmento
-    private var _binding: FragmentAdminAsignacionBinding? = null
+    private var _binding: FragmentAdminUsuFacturasBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,7 +21,7 @@ class AdminAsignacion : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
                    //FragmentNombrefragmento
-        _binding = FragmentAdminAsignacionBinding.inflate(inflater, container, false)
+        _binding = FragmentAdminUsuFacturasBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -34,17 +29,6 @@ class AdminAsignacion : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    }
-
-    override fun onResume() {
-        super.onResume()
-        admin.FAB_manager(5){}
-    }
-
-    override fun onStart() {
-        super.onStart()
-        binding.rvAsignacion.adapter=admin.adaptadorListaUsuarioAsignacion
-        binding.rvAsignacion.layoutManager= LinearLayoutManager(admin.contexto)
     }
 
     override fun onDestroyView() {

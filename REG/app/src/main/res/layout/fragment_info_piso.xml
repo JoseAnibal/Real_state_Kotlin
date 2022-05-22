@@ -32,7 +32,7 @@
         style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="72dp"
         android:background="@drawable/forma_redonda"
         android:paddingLeft="0dp"
         android:paddingTop="8dp"
@@ -142,5 +142,25 @@
         android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/rvFotosPiso"
         app:layout_constraintTop_toBottomOf="@+id/rvFotosPiso" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="16dp"
+        android:text="Alquilable:"
+        app:layout_constraintStart_toStartOf="@+id/pisoDescripcion"
+        app:layout_constraintTop_toBottomOf="@+id/pisoDescripcion" />
+
+    <ImageView
+        android:id="@+id/pisoEstado"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_marginEnd="176dp"
+        android:src="@drawable/nregistrado"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@+id/pisoDescripcion"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

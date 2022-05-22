@@ -99,7 +99,7 @@ class LoggedUser : AppCompatActivity() {
                     snapshot.children.forEach{ hijo: DataSnapshot?->
 
                         val pisso=hijo?.getValue(Piso::class.java)
-                        if (pisso != null) {
+                        if (pisso != null && pisso.estado!!) {
                             lista.add(pisso)
                         }
                     }

@@ -79,6 +79,7 @@ class EditarPiso : Fragment() {
         binding.editPrecio2.setText(piso!!.precio.toString())
         binding.editCoords2.setText(piso!!.coordenadas!!)
         binding.editPostal2.setText(piso!!.codigoPostal!!)
+        binding.editAlquilable.isChecked=piso!!.estado!!
 
         //HACER QUE SE PUEDAN GUARDAR CAMBIOS
         binding.editPisoImagen.setOnClickListener {
@@ -104,16 +105,17 @@ class EditarPiso : Fragment() {
                 val precio=binding.editPrecio2.text.toString().toInt()
                 val coords=binding.editCoords2.text.toString()
                 val postal=binding.editPostal2.text.toString()
+                val estado=binding.editAlquilable.isChecked
 
                 var listaUrlsFirebase= if(listaImagenesUri.size==0){
-                    mutableListOf("https://firebasestorage.googleapis.com/v0/b/reg-inmobiliaria-750ef.appspot.com/o/Inmobiliaria%2FPisoDefault.png?alt=media&token=b34b4b3d-4d91-42b7-b3a4-6a5682a8c36b")
+                    piso!!.imagenes!!.toMutableList()
                 }else{
                     insertoImagen(piso!!.id.toString(),listaImagenesUri)
                 }
 
                 admin.runOnUiThread { Snackbar.make(binding.editCalle, "Piso Actualizado", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show() }
-                admin.insertoPiso(piso!!.id.toString(),calle, listaUrlsFirebase,habs,baths,m2,desc,false,precio,coords,postal)
+                admin.insertoPiso(piso!!.id.toString(),calle, listaUrlsFirebase,habs,baths,m2,desc,estado,precio,coords,postal)
                 admin.runOnUiThread { admin.navController.navigate(R.id.nav_pisos)}
             }
         }

@@ -70,6 +70,7 @@ class InfoPiso : Fragment() {
         binding.pisoM2.text=piso!!.m2.toString()
         binding.pisoDescripcion.text=piso!!.descripcion.toString()
         binding.pisoPrecioinfo.text=piso!!.precio.toString()
+        binding.pisoEstado.setImageResource(if(piso!!.estado!!){ listReg[0]}else{listReg[1]})
 
         binding.rvFotosPiso.adapter=adaptadorListaImagenesPisos
         binding.rvFotosPiso.layoutManager= LinearLayoutManager(admin.contexto,LinearLayoutManager.HORIZONTAL, false)
