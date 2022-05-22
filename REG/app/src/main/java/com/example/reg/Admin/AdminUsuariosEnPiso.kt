@@ -3,6 +3,7 @@ package com.example.reg.Admin
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,6 +47,7 @@ class AdminUsuariosEnPiso : Fragment() {
     ): View? {
                    //FragmentNombrefragmento
         _binding = FragmentAdminUsuariosEnPisoBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
 
     }
@@ -59,6 +61,11 @@ class AdminUsuariosEnPiso : Fragment() {
         super.onStart()
         binding.rvUsuariosEnPiso.adapter=adaptadorListaUsuariosEnPiso
         binding.rvUsuariosEnPiso.layoutManager= LinearLayoutManager(admin.contexto)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.removeItem(R.id.busqueda)
     }
 
     fun añadoListaUsuariosEnPiso(idPiso:String):MutableList<Usuario>{

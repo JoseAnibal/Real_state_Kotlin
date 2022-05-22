@@ -3,6 +3,7 @@ package com.example.reg.Admin
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import com.example.reg.*
@@ -27,6 +28,7 @@ class InfoFactura : Fragment() {
     ): View? {
                    //FragmentNombrefragmento
         _binding = FragmentInfoFacturaBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
 
     }
@@ -46,6 +48,11 @@ class InfoFactura : Fragment() {
             Snackbar.make(it, "Factura eliminada", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.removeItem(R.id.busqueda)
     }
 
     override fun onResume() {

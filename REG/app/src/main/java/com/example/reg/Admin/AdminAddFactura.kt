@@ -3,6 +3,7 @@ package com.example.reg.Admin
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -35,6 +36,7 @@ class AdminAddFactura : Fragment() {
     ): View? {
                    //FragmentNombrefragmento
         _binding = FragmentAdminAddFacturaBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
 
     }
@@ -86,6 +88,11 @@ class AdminAddFactura : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.removeItem(R.id.busqueda)
     }
 
     override fun onResume() {
