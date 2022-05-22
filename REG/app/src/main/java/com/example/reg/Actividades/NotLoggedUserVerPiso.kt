@@ -27,6 +27,7 @@ class NotLoggedUserVerPiso : AppCompatActivity() {
         binding.pisoHabs.text=objeto.nhabs
         binding.pisoM2.text=objeto.m2.toString()
         binding.pisoDescripcion.text=objeto.descripcion
+        binding.pisoPrecio.text=objeto.precio.toString()
 
         binding.rvFotosPiso.adapter=AdaptadorFotosPiso(objeto.imagenes!!.toMutableList(),this)
         binding.rvFotosPiso.layoutManager= LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false)

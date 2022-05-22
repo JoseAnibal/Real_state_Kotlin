@@ -35,7 +35,7 @@
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_baseline_bathtub_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvFotosPiso" />
+        app:layout_constraintTop_toBottomOf="@+id/pisoPrecio" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -95,4 +95,13 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageView9"
         app:layout_constraintEnd_toEndOf="@+id/rvFotosPiso"
         app:layout_constraintTop_toTopOf="@+id/imageView9" />
+
+    <TextView
+        android:id="@+id/pisoPrecio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/rvFotosPiso"
+        app:layout_constraintTop_toBottomOf="@+id/rvFotosPiso" />
 </androidx.constraintlayout.widget.ConstraintLayout>

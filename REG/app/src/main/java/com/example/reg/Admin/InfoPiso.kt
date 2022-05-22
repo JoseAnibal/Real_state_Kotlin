@@ -69,6 +69,7 @@ class InfoPiso : Fragment() {
         binding.pisoCalle.text=piso!!.calle.toString()
         binding.pisoM2.text=piso!!.m2.toString()
         binding.pisoDescripcion.text=piso!!.descripcion.toString()
+        binding.pisoPrecioinfo.text=piso!!.precio.toString()
 
         binding.rvFotosPiso.adapter=adaptadorListaImagenesPisos
         binding.rvFotosPiso.layoutManager= LinearLayoutManager(admin.contexto,LinearLayoutManager.HORIZONTAL, false)

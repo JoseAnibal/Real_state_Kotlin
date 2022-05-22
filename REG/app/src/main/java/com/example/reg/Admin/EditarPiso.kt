@@ -75,7 +75,10 @@ class EditarPiso : Fragment() {
         binding.editHabs.setText(piso!!.nhabs)
         binding.editCalle.setText(piso!!.calle)
         binding.editDesc.setText(piso!!.descripcion)
-        binding.editM2.setText(piso!!.m2!!.toInt().toString())
+        binding.editM2.setText(piso!!.m2!!)
+        binding.editPrecio2.setText(piso!!.precio.toString())
+        binding.editCoords2.setText(piso!!.coordenadas!!)
+        binding.editPostal2.setText(piso!!.codigoPostal!!)
 
         //HACER QUE SE PUEDAN GUARDAR CAMBIOS
         binding.editPisoImagen.setOnClickListener {
@@ -96,8 +99,11 @@ class EditarPiso : Fragment() {
                 val calle=binding.editCalle.text.toString().trim()
                 val habs=binding.editHabs.text.toString()
                 val baths=binding.editBaths.text.toString()
-                val m2=binding.editM2.text.toString().toDouble()
+                val m2=binding.editM2.text.toString()
                 val desc=binding.editDesc.text.toString()
+                val precio=binding.editPrecio2.text.toString().toInt()
+                val coords=binding.editCoords2.text.toString()
+                val postal=binding.editPostal2.text.toString()
 
                 var listaUrlsFirebase= if(listaImagenesUri.size==0){
                     mutableListOf("https://firebasestorage.googleapis.com/v0/b/reg-inmobiliaria-750ef.appspot.com/o/Inmobiliaria%2FPisoDefault.png?alt=media&token=b34b4b3d-4d91-42b7-b3a4-6a5682a8c36b")
@@ -107,7 +113,7 @@ class EditarPiso : Fragment() {
 
                 admin.runOnUiThread { Snackbar.make(binding.editCalle, "Piso Actualizado", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show() }
-                admin.insertoPiso(piso!!.id.toString(),calle, listaUrlsFirebase,habs,baths,m2,desc,false)
+                admin.insertoPiso(piso!!.id.toString(),calle, listaUrlsFirebase,habs,baths,m2,desc,false,precio,coords,postal)
                 admin.runOnUiThread { admin.navController.navigate(R.id.nav_pisos)}
             }
         }
@@ -129,10 +135,14 @@ class EditarPiso : Fragment() {
         var validado = true
         val checkers = listOf(
             Pair(binding.editCalle, this::validoInput),
+            Pair(binding.editHabs, this::validoInput),
             Pair(binding.editBaths, this::validoInput),
             Pair(binding.editDesc, this::validoInput),
             Pair(binding.editM2, this::validoInput),
-            Pair(binding.editHabs, this::validoInput)
+            Pair(binding.editPrecio2, this::validoInput),
+            Pair(binding.editCoords2, this::validoInput),
+            Pair(binding.editPostal2, this::validoInput)
+
         )
         for(c in checkers){
             val x = c.first

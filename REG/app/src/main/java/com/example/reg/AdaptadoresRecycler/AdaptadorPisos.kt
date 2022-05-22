@@ -31,7 +31,7 @@ class AdaptadorPisos(val lista:List<Piso>,val contexto:Context):RecyclerView.Ada
     val options = RequestOptions ()
         .fallback(R.drawable.common_full_open_on_phone)
         .error(R.drawable.common_full_open_on_phone)
-        .circleCrop()
+        .centerCrop()
 
     class ViewHolder(val bind: FilaPisoBinding):RecyclerView.ViewHolder(bind.root)
 
@@ -47,6 +47,7 @@ class AdaptadorPisos(val lista:List<Piso>,val contexto:Context):RecyclerView.Ada
             pisoBaOs.text=l.nbaths
             pisoHabitaciones.text=l.nhabs
             pisoM2.text=l.m2.toString()
+            pisoPrecio.text=l.precio.toString()
         }
         Glide.with(contexto).load(l.imagenes!![0]).apply(options).into(holder.bind.pisoImagen)
 

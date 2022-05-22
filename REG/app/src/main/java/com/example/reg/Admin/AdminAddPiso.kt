@@ -85,8 +85,11 @@ class AdminAddPiso : Fragment() {
                 val calle=binding.addCalle.text.toString().trim()
                 val habs=binding.addHabs.text.toString()
                 val baths=binding.addBaths.text.toString()
-                val m2=binding.addM2.text.toString().toDouble()
+                val m2=binding.addM2.text.toString()
                 val desc=binding.addDescText.text.toString()
+                val precio=binding.addPrecio.text.toString().toInt()
+                val coords=binding.addCoords.text.toString()
+                val postal=binding.addPostal.text.toString()
 
                 admin.runOnUiThread { admin.binding.appBarAdmin.fab.hide() }
 
@@ -95,7 +98,7 @@ class AdminAddPiso : Fragment() {
                 }else{
                     insertoImagen(id!!,listaImagenesUri)
                 }
-                admin.insertoPiso(id.toString(),calle, listaUrlsFirebase,habs,baths,m2,desc,false)
+                admin.insertoPiso(id.toString(),calle, listaUrlsFirebase,habs,baths,m2,desc,false,precio,coords,postal)
                 admin.runOnUiThread { admin.navController.navigate(R.id.nav_pisos)}
             }
         }
@@ -120,6 +123,9 @@ class AdminAddPiso : Fragment() {
             Pair(binding.addHabs, this::validoInput),
             Pair(binding.addBaths, this::validoInput),
             Pair(binding.addM2, this::validoInput),
+            Pair(binding.addPrecio, this::validoInput),
+            Pair(binding.addCoords, this::validoInput),
+            Pair(binding.addPostal, this::validoInput),
             Pair(binding.addDescText, this::validoInput)
         )
         for(c in checkers){
