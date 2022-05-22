@@ -15,13 +15,12 @@
     <string name="title_activity_user_logged_in">MainActivity</string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="title_activity_logged_user">LoggedUser</string>
-    <string name="tab_text_1">RecyclerPisos</string>
-    <string name="tab_text_2">Login/Registro</string>
+    <string name="tab_text_1">Viviendas</string>
+    <string name="tab_text_2">Acceso</string>
     <string name="title_activity_admin">Admin</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Admin Panel</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
