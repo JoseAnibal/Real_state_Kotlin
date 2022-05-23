@@ -24,4 +24,9 @@
         android:name="com.example.reg.Usuario.Perfil"
         android:label="fragment_perfil"
         tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/navigation_chatPlantilla"
+        android:name="com.example.reg.ChatPrivado.ChatPlantilla"
+        android:label="fragment_chat_plantilla"
+        tools:layout="@layout/fragment_chat_plantilla" />
 </navigation>

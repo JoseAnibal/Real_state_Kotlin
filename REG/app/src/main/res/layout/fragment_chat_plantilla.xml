@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChatPrivado.ChatPrivado">
+    tools:context=".ChatPrivado.ChatPlantilla">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/mensajeEscribir"
@@ -24,10 +24,10 @@
         android:background="@drawable/forma_redonda"
         android:text=""
         app:icon="@drawable/ic_baseline_send_24"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/mensajeEscribir"
-        app:layout_constraintTop_toTopOf="@+id/mensajeEscribir" />
+        app:layout_constraintStart_toEndOf="@+id/mensajeEscribir" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvChat"
@@ -42,7 +42,7 @@
         android:id="@+id/chatImagen"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
