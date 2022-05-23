@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.EditText
 import androidx.core.content.ContextCompat
 import com.example.reg.Objetos.Usuario
+import com.example.reg.Objetos.UsuarioPiso
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -79,4 +80,26 @@ fun sacoUsuarioDeLaBase(correoUsuario:String):Usuario{
         })
     semaforo.await()
     return usuario
+}
+
+fun sacoRelacionPiso(idUsu:String):UsuarioPiso{
+    var relacion=UsuarioPiso()
+    val semaforo= CountDownLatch(1)
+
+    db_ref.child(inmobiliaria).child(UsuarioPisoBD).orderByChild("idUsuario").equalTo(idUsu)
+        .addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if(snapshot.hasChildren()){
+                    relacion= snapshot.children.iterator().next().getValue(UsuarioPiso::class.java)!!
+                }
+                semaforo.countDown()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                println(error.message)
+            }
+        })
+    semaforo.await()
+    return relacion
 }

@@ -29,4 +29,9 @@
         android:name="com.example.reg.ChatPrivado.ChatPlantilla"
         android:label="fragment_chat_plantilla"
         tools:layout="@layout/fragment_chat_plantilla" />
+    <fragment
+        android:id="@+id/navigation_usuarioAddIncidencia"
+        android:name="com.example.reg.Usuario.UsuarioAddIncidencia"
+        android:label="fragment_usuario_add_incidencia"
+        tools:layout="@layout/fragment_usuario_add_incidencia" />
 </navigation>

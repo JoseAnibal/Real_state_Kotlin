@@ -34,7 +34,7 @@ class Principal : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        usu.FAB_manager(0){}
+        usu.FAB_manager(1){}
     }
 
 

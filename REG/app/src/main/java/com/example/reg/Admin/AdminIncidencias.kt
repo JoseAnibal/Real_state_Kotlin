@@ -3,6 +3,7 @@ package com.example.reg.Admin
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import com.example.reg.R
@@ -22,6 +23,7 @@ class AdminIncidencias : Fragment() {
     ): View? {
                    //FragmentNombrefragmento
         _binding = FragmentAdminIncidenciasBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
 
     }
@@ -29,6 +31,11 @@ class AdminIncidencias : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.removeItem(R.id.eliminarTodaRelacion)
     }
 
     override fun onStart() {

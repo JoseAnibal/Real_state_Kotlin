@@ -29,4 +29,7 @@
     <string name="admin_pendientes">Solicitudes</string>
     <string name="admin_incidencias">Incidencias</string>
     <string name="admin_chatsUsuarios">Chats</string>
+
+    <string name="canalNotis">Notificaciones</string>
+    <string name="canalNotisDesc">DescCanalNotis</string>
 </resources>

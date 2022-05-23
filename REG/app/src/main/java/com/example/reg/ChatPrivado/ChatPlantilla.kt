@@ -26,13 +26,6 @@ class ChatPlantilla : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    //Glide.with(contexto).load(objeto.img).apply((contexto as MainActivity).options)
-    //.into(holder.bing.imgPlaneta)
-    //lateinit var options:RequestOptions
-    //fitCenter()
-    //centerCrop()
-    //circleCrop()
-    //centerInside()
     val options = RequestOptions ()
         .fallback(R.drawable.nregistrado)
         .error(R.drawable.nregistrado)
@@ -71,7 +64,7 @@ class ChatPlantilla : Fragment() {
                 val mensaje=binding.mensajeEscribir.text.toString().trim()
                 val hoy: Calendar = Calendar.getInstance()
                 val pongoBienFecha= SimpleDateFormat("YYYY-MM-dd HH:mm:ss")
-                val fecha=pongoBienFecha.format(hoy.time)
+                val fecha=pongoBienFecha.format(hoy.time).split(" ")[0]
 
                 val id_mensaje= db_ref.child(inmobiliaria).child(chatBD).child(mensajeBD).push().key!!
                 val mensaje_nuevo=Mensaje(id_mensaje,usuario.emisor.id,usuario.receptor.id,mensaje,fecha)

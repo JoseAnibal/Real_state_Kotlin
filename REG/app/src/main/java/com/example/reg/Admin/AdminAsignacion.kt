@@ -29,6 +29,7 @@ class AdminAsignacion : Fragment() {
     ): View? {
                    //FragmentNombrefragmento
         _binding = FragmentAdminAsignacionBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
 
     }
@@ -41,6 +42,11 @@ class AdminAsignacion : Fragment() {
     override fun onResume() {
         super.onResume()
         admin.FAB_manager(5){}
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.removeItem(R.id.eliminarTodaRelacion)
     }
 
     override fun onStart() {

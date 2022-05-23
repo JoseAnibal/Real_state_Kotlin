@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.reg.Actividades.MainActivity
 import com.example.reg.R
 import com.example.reg.databinding.FragmentIncidenciasBinding
@@ -36,9 +37,15 @@ class Incidencias : Fragment() {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        binding.rvIncidencias.adapter=usu.adaptadorListaIncidencias
+        binding.rvIncidencias.layoutManager= LinearLayoutManager(usu.contexto)
+    }
+
     override fun onResume() {
         super.onResume()
-        usu.FAB_manager(1){}
+        usu.FAB_manager(2){}
     }
 
     override fun onDestroyView() {

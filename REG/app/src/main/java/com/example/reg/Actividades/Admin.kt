@@ -21,10 +21,9 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.request.RequestOptions
 import com.example.reg.*
 import com.example.reg.AdaptadoresRecycler.*
-import com.example.reg.Objetos.Factura
-import com.example.reg.Objetos.Piso
-import com.example.reg.Objetos.Usuario
-import com.example.reg.Objetos.UsuarioPiso
+import com.example.reg.Notificaciones.Notificacion
+import com.example.reg.Notificaciones.Notificaciones
+import com.example.reg.Objetos.*
 import com.example.reg.databinding.ActivityAdminBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -35,6 +34,10 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.CountDownLatch
 
 class Admin : AppCompatActivity() {
+
+    val noti by lazy {
+        Notificaciones(this)
+    }
 
     var idPiso=""
     var idUsu=""
@@ -92,10 +95,10 @@ class Admin : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        notisListener()
         binding = ActivityAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        noti.createNotificationChannel()
         setSupportActionBar(binding.appBarAdmin.toolbar)
         FAB_manager(1){}
         val drawerLayout: DrawerLayout = binding.drawerLayout
@@ -144,6 +147,14 @@ class Admin : AppCompatActivity() {
             R.id.cerrarSesion ->{
                 SM.idUsuario=getString(R.string.idUsuarioDef)
                 redireccionar(this,LoggedUser())
+                true
+            }
+
+            R.id.eliminarTodaRelacion ->{
+                eliminoListaIncidenciasSinPiso()
+                eliminoListaFacturasSinPiso()
+                Snackbar.make(binding.appBarAdmin.fab, "Toda relacion con piso eliminada (Excepto Usuarios)", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -267,6 +278,74 @@ class Admin : AppCompatActivity() {
         return lista
     }
 
+    fun notisListener(){
+        db_ref.child(inmobiliaria)
+            .child(notificaionesBD)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach{ hijo: DataSnapshot?->
+
+                        val notti=hijo?.getValue(Notificacion::class.java)
+                        if (notti != null && notti.idUsuario==SM.idUsuario) {
+                            noti.crearNotificacionIncidencia(notti.titulo.toString(),notti.descripcion.toString())
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println(error.message)
+                }
+            })
+    }
+
+    fun eliminoListaFacturasSinPiso(){
+
+        db_ref.child(inmobiliaria)
+            .child(facturaBD)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach{ hijo: DataSnapshot?->
+
+                        val ussu=hijo?.getValue(Factura::class.java)
+                        if (ussu != null && ussu.idPiso==idPiso) {
+                            db_ref.child(inmobiliaria).child(facturaBD).child(ussu.id!!).removeValue()
+                        }
+                        db_ref.child(inmobiliaria)
+                            .child(facturaBD).removeEventListener(this)
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println(error.message)
+                }
+            })
+    }
+
+    fun eliminoListaIncidenciasSinPiso(){
+        db_ref.child(inmobiliaria)
+            .child(incidenciaBD)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    snapshot.children.forEach{ hijo: DataSnapshot?->
+
+                        val ussu=hijo?.getValue(Incidencia::class.java)
+                        if (ussu != null && ussu.idPiso==idPiso) {
+                            db_ref.child(inmobiliaria).child(incidenciaBD).child(ussu.id!!).removeValue()
+                        }
+                        db_ref.child(inmobiliaria)
+                            .child(incidenciaBD).removeEventListener(this)
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println(error.message)
+                }
+            })
+    }
+
     fun FAB_manager(mode:Int, listener:(View)->Unit){
         when(mode){
             1 -> {
@@ -274,7 +353,7 @@ class Admin : AppCompatActivity() {
                 binding.appBarAdmin.fab.show()
                 (binding.appBarAdmin.fab).apply{
                     setImageResource(R.drawable.ic_baseline_add_24)
-                    setOnClickListener { view ->
+                    setOnClickListener {
                         navController.navigate(R.id.nav_adminAddPiso)
                     }
                 }
@@ -339,7 +418,7 @@ class Admin : AppCompatActivity() {
                 binding.appBarAdmin.fab.show()
                 (binding.appBarAdmin.fab).apply{
                     setImageResource(R.drawable.ic_baseline_save_24)
-                    //PISOSAÑADIR
+                    //Facturaañadir
                     setOnClickListener(listener)
                 }
             }

@@ -2,6 +2,7 @@ package com.example.reg.Actividades
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -10,7 +11,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.reg.*
+import com.example.reg.AdaptadoresRecycler.AdaptadorIncidencias
 import com.example.reg.AdaptadoresRecycler.AdaptadorMensajes
+import com.example.reg.Notificaciones.Notificacion
+import com.example.reg.Notificaciones.Notificaciones
+import com.example.reg.Objetos.Incidencia
 import com.example.reg.Objetos.Mensaje
 import com.example.reg.Objetos.Usuario
 import com.example.reg.databinding.ActivityMainBinding
@@ -23,14 +28,15 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     lateinit var navController:NavController
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
     lateinit var usuarioActual:Usuario
     lateinit var emisor:Usuario
     lateinit var receptor:Usuario
+    var idPiso=""
     val SM by lazy {
         SharedManager(this)
     }
-
+    //MENSAJES
     val listaMensajes by lazy {
         añadoListaMensajes()
     }
@@ -38,6 +44,20 @@ class MainActivity : AppCompatActivity() {
     val adaptadorListaMensajes by lazy {
         AdaptadorMensajes(listaMensajes,this,emisor,receptor)
     }
+
+    //INCIDENCIAS
+    val listaIncidencias by lazy {
+        añadoListaIncidencias()
+    }
+
+    val adaptadorListaIncidencias by lazy {
+        AdaptadorIncidencias(listaIncidencias,this)
+    }
+
+    val noti by lazy {
+        Notificaciones(this)
+    }
+
     var contexto=this
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,11 +68,12 @@ class MainActivity : AppCompatActivity() {
         usuarioActual= Usuario()
         //PARA RECIBIRLO
         val bundle = intent.extras
-        usuarioActual = bundle?.getParcelable<Usuario>("UsuarioActual")?:Usuario()
+        usuarioActual = bundle?.getParcelable("UsuarioActual")?:Usuario()
         emisor=usuarioActual
 
         GlobalScope.launch(Dispatchers.IO){
             receptor= sacoUsuarioDeLaBase("jose@gmail.com")
+            idPiso= sacoRelacionPiso(usuarioActual.id!!).idPiso.toString()
         }
 
         val navView: BottomNavigationView = binding.navView
@@ -75,6 +96,30 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun añadoListaIncidencias():MutableList<Incidencia>{
+        val lista= mutableListOf<Incidencia>()
+
+        db_ref.child(inmobiliaria).child(incidenciaBD)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    lista.clear()
+                    snapshot.children.forEach{ hijo: DataSnapshot?->
+
+                        val incci=hijo?.getValue(Incidencia::class.java)
+                        if(incci!=null && incci.idPiso==idPiso){
+                            lista.add(incci)
+                        }
+                        adaptadorListaIncidencias.notifyDataSetChanged()
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println(error.message)
+                }
+            })
+        return lista
+    }
 
     fun añadoListaMensajes():MutableList<Mensaje>{
         val lista= mutableListOf<Mensaje>()
@@ -122,11 +167,40 @@ class MainActivity : AppCompatActivity() {
                     }
 
                 }
+            }
 
+            2 -> {
+                //REDIRECCIONAR A AÑADIR INCIDENCIAS
+                binding.fab.show()
+                (binding.fab).apply{
+                    setImageResource(R.drawable.ic_baseline_add_24)
+                    show()
+                    setOnClickListener { view ->
+                        navController.navigate(R.id.navigation_usuarioAddIncidencia)
+                    }
+                }
+            }
 
+            3 -> {
+                binding.fab.show()
+                (binding.fab).apply{
+                    setImageResource(R.drawable.ic_baseline_save_24)
+                    //INCIDENCIASAÑADIR
+                    setOnClickListener(listener)
+                }
             }
 
         }
+    }
+
+    fun insertarIncidencia(id:String,idPiso:String,titulo:String,desc:String,estado:Int,imagenInci:String,fecha:String){
+        val inci=Incidencia(id,idPiso,titulo,desc,estado,imagenInci,fecha)
+        db_ref.child(inmobiliaria).child(incidenciaBD).child(id).setValue(inci)
+    }
+
+    fun insertarNotificacion(id:String,titulo:String,desc:String,idUsuario:String){
+        val noti=Notificacion(id,titulo,desc,idUsuario)
+        db_ref.child(inmobiliaria).child(notificaionesBD).child(id).setValue(noti)
     }
 
 

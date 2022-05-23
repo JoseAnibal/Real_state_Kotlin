@@ -16,4 +16,6 @@ const val UsuarioPisoBD="UsuarioPiso"
 const val facturaBD="Facturas"
 const val chatBD="Chats"
 const val mensajeBD="Mensajes"
+const val incidenciaBD="Incidencias"
+const val notificaionesBD="Notificaciones"
 const val adminNum=1

@@ -55,6 +55,11 @@ class AdminUsuFacturas : Fragment() {
 
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.removeItem(R.id.eliminarTodaRelacion)
+    }
+
     override fun onResume() {
         super.onResume()
         admin.FAB_manager(7){}

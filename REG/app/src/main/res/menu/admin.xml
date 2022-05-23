@@ -6,6 +6,13 @@
         android:orderInCategory="100"
         android:title="Cerrar Sesion"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/eliminarTodaRelacion"
+        android:orderInCategory="100"
+        android:title="Limpiar Piso"
+        app:showAsAction="never" />
+
     <item
         android:id="@+id/busqueda"
         android:icon="@drawable/ic_search_black_24dp"

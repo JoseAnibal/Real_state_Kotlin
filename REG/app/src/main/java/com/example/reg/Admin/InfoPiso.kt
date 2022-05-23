@@ -14,6 +14,7 @@ import com.example.reg.AdaptadoresRecycler.AdaptadorFotosPiso
 import com.example.reg.AdaptadoresRecycler.AdaptadorPisos
 import com.example.reg.AdaptadoresRecycler.AdaptadorUsuariosLista
 import com.example.reg.Objetos.Factura
+import com.example.reg.Objetos.Incidencia
 import com.example.reg.Objetos.Usuario
 import com.example.reg.Objetos.UsuarioPiso
 import com.example.reg.databinding.FragmentInfoPisoBinding
@@ -83,7 +84,8 @@ class InfoPiso : Fragment() {
 
         binding.pisoEliminar.setOnClickListener {
             eliminoListaUsuariosSinPiso()
-            eliminoListaFacturasSinPiso()
+            admin.eliminoListaFacturasSinPiso()
+            admin.eliminoListaIncidenciasSinPiso()
             db_ref.child(inmobiliaria).child(pisosBD).child(admin.idPiso).removeValue()
             admin.navController.navigate(R.id.nav_pisos)
             Snackbar.make(it, "Piso eliminado", Snackbar.LENGTH_LONG)
@@ -138,32 +140,6 @@ class InfoPiso : Fragment() {
             })
     }
 
-    fun eliminoListaFacturasSinPiso(){
-        val lista= mutableListOf<String>()
-        val listadevolver= mutableListOf<Usuario>()
-        db_ref.child(inmobiliaria)
-            .child(facturaBD)
-            .addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    lista.clear()
-                    listadevolver.clear()
-                    snapshot.children.forEach{ hijo: DataSnapshot?->
-
-                        val ussu=hijo?.getValue(Factura::class.java)
-                        if (ussu != null && ussu.idPiso==admin.idPiso) {
-                            db_ref.child(inmobiliaria).child(facturaBD).child(ussu.id!!).removeValue()
-                        }
-                        db_ref.child(inmobiliaria)
-                            .child(facturaBD).removeEventListener(this)
-                    }
-
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    println(error.message)
-                }
-            })
-    }
 
     fun refrescar(){
         admin.usuarioPisoCrear("1","1","1")
