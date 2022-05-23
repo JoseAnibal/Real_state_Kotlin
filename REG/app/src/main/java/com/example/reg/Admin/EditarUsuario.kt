@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -46,6 +47,7 @@ class EditarUsuario : Fragment() {
     ): View? {
                    //FragmentNombrefragmento
         _binding = FragmentEditarUsuarioBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
 
     }
@@ -118,6 +120,11 @@ class EditarUsuario : Fragment() {
                 admin.runOnUiThread { admin.navController.navigate(R.id.nav_usuarios)}
             }
         }
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.removeItem(R.id.busqueda)
     }
 
     fun isValid():Boolean{

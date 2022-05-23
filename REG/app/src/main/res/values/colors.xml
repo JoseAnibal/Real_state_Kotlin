@@ -17,4 +17,7 @@
     <color name="ligth_blue">#00BCD4</color>
     <color name="green">#8BC34A</color>
     <color name="orange">#FF9800</color>
+
+    <color name="color_white">#FFFFFF</color>
+    <color name="grey_ask">#E6E6E6</color>
 </resources>

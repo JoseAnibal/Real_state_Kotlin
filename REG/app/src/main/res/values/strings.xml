@@ -27,4 +27,6 @@
     <string name="admin_pisos">Pisos</string>
     <string name="admin_usuarios">Usuarios</string>
     <string name="admin_pendientes">Solicitudes</string>
+    <string name="admin_incidencias">Incidencias</string>
+    <string name="admin_chatsUsuarios">Chats</string>
 </resources>

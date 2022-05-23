@@ -16,5 +16,14 @@
             android:id="@+id/nav_adminPendientes"
             android:icon="@drawable/ic_baseline_timelapse_24"
             android:title="@string/admin_pendientes" />
+        <item
+            android:id="@+id/nav_adminIncidencias"
+            android:icon="@drawable/ic_baseline_warning_24"
+            android:title="@string/admin_incidencias" />
+
+        <item
+            android:id="@+id/nav_chatsUsuarios"
+            android:icon="@drawable/ic_baseline_chat_24"
+            android:title="@string/admin_chatsUsuarios" />
     </group>
 </menu>
