@@ -114,14 +114,11 @@ class InfoPiso : Fragment() {
     }
 
     fun eliminoListaUsuariosSinPiso(){
-        val lista= mutableListOf<String>()
-        val listadevolver= mutableListOf<Usuario>()
         db_ref.child(inmobiliaria)
             .child(UsuarioPisoBD)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    lista.clear()
-                    listadevolver.clear()
+
                     snapshot.children.forEach{ hijo: DataSnapshot?->
 
                         val ussu=hijo?.getValue(UsuarioPiso::class.java)

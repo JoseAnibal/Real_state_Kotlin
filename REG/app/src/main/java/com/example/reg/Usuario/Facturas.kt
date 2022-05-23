@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.reg.Actividades.MainActivity
 import com.example.reg.R
 import com.example.reg.databinding.FragmentFacturasBinding
@@ -34,6 +35,12 @@ class Facturas : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.rvFacturasUsu.adapter=usu.adaptadorListaFacturas
+        binding.rvFacturasUsu.layoutManager= LinearLayoutManager(usu.contexto)
     }
 
     override fun onResume() {

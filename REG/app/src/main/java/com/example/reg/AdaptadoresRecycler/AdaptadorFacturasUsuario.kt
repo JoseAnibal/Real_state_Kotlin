@@ -6,28 +6,21 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.example.reg.Actividades.Admin
-import com.example.reg.Objetos.Incidencia
+import com.example.reg.Actividades.MainActivity
+import com.example.reg.Objetos.Factura
 import com.example.reg.R
-import com.example.reg.databinding.FilaIncidenciaBinding
+import com.example.reg.databinding.FilaFacturaBinding
 
-class AdaptadorIncidencias(val lista:List<Incidencia>,val contexto:Context):RecyclerView.Adapter<AdaptadorIncidencias.ViewHolder>(), Filterable {
+class AdaptadorFacturasUsuario(val lista:List<Factura>,val contexto:Context):RecyclerView.Adapter<AdaptadorFacturasUsuario.ViewHolder>(), Filterable {
 
     var listaFiltrada = lista
 
-    class ViewHolder(val bind: FilaIncidenciaBinding):RecyclerView.ViewHolder(bind.root)
+    class ViewHolder(val bind: FilaFacturaBinding):RecyclerView.ViewHolder(bind.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = FilaIncidenciaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val v = FilaFacturaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(v)
     }
-
-    var options = RequestOptions ()
-        .fallback(R.drawable.nregistrado)
-        .error(R.drawable.nregistrado)
-        .circleCrop()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val l = listaFiltrada[position]
@@ -48,11 +41,15 @@ class AdaptadorIncidencias(val lista:List<Incidencia>,val contexto:Context):Recy
 
         }
         with(holder.bind){
-            inciTitulo.text=l.titulo
-            inciFecha.text=l.fecha
+            factFecha.text=mes
+            factTotal.text=l.total
         }
 
-        Glide.with(contexto).load(l.imagenInci).apply(options).into(holder.bind.inciImagen)
+
+        holder.bind.clickyf.setOnClickListener {
+            (contexto as MainActivity).facturilla=l
+            contexto.navController.navigate(R.id.navigation_infoFacturaUsuario)
+        }
 
     }
 
@@ -71,7 +68,7 @@ class AdaptadorIncidencias(val lista:List<Incidencia>,val contexto:Context):Recy
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                listaFiltrada = results?.values as MutableList<Incidencia>
+                listaFiltrada = results?.values as MutableList<Factura>
                 notifyDataSetChanged()
             }
         }

@@ -14,8 +14,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.reg.*
 import com.example.reg.Actividades.Admin
+import com.example.reg.Objetos.UsuarioPiso
 import com.example.reg.databinding.FragmentEditarUsuarioBinding
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -74,6 +78,7 @@ class EditarUsuario : Fragment() {
         }
 
         binding.editEliminar.setOnClickListener {
+            eliminoListaUsuariosSinPiso()
             db_ref.child(inmobiliaria).child(usuariosBD).child(admin.idUsu).removeValue()
             admin.navController.navigate(R.id.nav_usuarios)
             Snackbar.make(it, "Usuario eliminado", Snackbar.LENGTH_LONG)
@@ -126,6 +131,30 @@ class EditarUsuario : Fragment() {
         super.onPrepareOptionsMenu(menu)
         menu.removeItem(R.id.busqueda)
         menu.removeItem(R.id.eliminarTodaRelacion)
+    }
+
+    fun eliminoListaUsuariosSinPiso(){
+        db_ref.child(inmobiliaria)
+            .child(UsuarioPisoBD)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    snapshot.children.forEach{ hijo: DataSnapshot?->
+
+                        val ussu=hijo?.getValue(UsuarioPiso::class.java)
+                        if (ussu != null && ussu.idUsuario==usuario!!.id) {
+                            db_ref.child(inmobiliaria).child(UsuarioPisoBD).child(ussu.id!!).removeValue()
+                        }
+                        db_ref.child(inmobiliaria)
+                            .child(UsuarioPisoBD).removeEventListener(this)
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println(error.message)
+                }
+            })
     }
 
     fun isValid():Boolean{

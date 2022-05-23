@@ -75,6 +75,7 @@ class LoggedUser : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        SM.idUsuario=getString(R.string.idUsuarioDef)
         finish()
         val intent: Intent = Intent(Intent.ACTION_MAIN)
         intent.addCategory(Intent.CATEGORY_HOME)

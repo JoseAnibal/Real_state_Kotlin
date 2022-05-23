@@ -41,7 +41,6 @@ class Admin : AppCompatActivity() {
 
     var idPiso=""
     var idUsu=""
-    var idFactura=""
     var facturilla=Factura()
 
     val SM by lazy {
@@ -82,7 +81,16 @@ class Admin : AppCompatActivity() {
     val adaptadorListaUsuarioAsignacion by lazy {
         AdaptadorAsignacion(listaUsuariosAsignacion,this)
     }
-    //USUARIOS EN PISO
+
+    //INCIDENCIAS
+    val listadeIncidencias by lazy{
+        añadoListaIncidencias()
+    }
+
+    val adaptadorListaIncidencias by lazy {
+        AdaptadorIncidencias(listadeIncidencias,this)
+    }
+
 
 
     val contexto by lazy {
@@ -278,6 +286,31 @@ class Admin : AppCompatActivity() {
         return lista
     }
 
+    fun añadoListaIncidencias():MutableList<Incidencia>{
+        val lista= mutableListOf<Incidencia>()
+
+        db_ref.child(inmobiliaria).child(incidenciaBD)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    lista.clear()
+                    snapshot.children.forEach{ hijo: DataSnapshot?->
+
+                        val incci=hijo?.getValue(Incidencia::class.java)
+                        if(incci!=null && incci.estado==0 || incci!!.estado==1){
+                            lista.add(incci)
+                        }
+                        adaptadorListaIncidencias.notifyDataSetChanged()
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println(error.message)
+                }
+            })
+        return lista
+    }
+
     fun notisListener(){
         db_ref.child(inmobiliaria)
             .child(notificaionesBD)
@@ -299,7 +332,6 @@ class Admin : AppCompatActivity() {
     }
 
     fun eliminoListaFacturasSinPiso(){
-
         db_ref.child(inmobiliaria)
             .child(facturaBD)
             .addValueEventListener(object : ValueEventListener {

@@ -57,8 +57,6 @@ class UsuarioAddIncidencia : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        Toast.makeText(usuario.contexto, usuario.idPiso, Toast.LENGTH_SHORT).show()
-
         binding.incImagen.setOnClickListener {
             obtener_url.launch("image/*")
         }

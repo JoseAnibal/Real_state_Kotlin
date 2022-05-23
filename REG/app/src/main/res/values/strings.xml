@@ -2,8 +2,9 @@
     <string name="app_name">REG</string>
     <string name="title_incidencias">Incidencias</string>
     <string name="title_facturas">Facturas</string>
-    <string name="title_principal">Principal</string>
+    <string name="title_principal">Mi Piso</string>
     <string name="title_perfil">Perfil</string>
+    <string name="title_salir">Cerrar sesion</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- TODO: Remove or change this placeholder text -->

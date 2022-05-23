@@ -6,10 +6,15 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.reg.Actividades.Admin
 import com.example.reg.R
 import com.example.reg.databinding.FragmentAdminIncidenciasBinding
 
 class AdminIncidencias : Fragment() {
+    val admin by lazy {
+        activity as Admin
+    }
                           //FragmentNombrefragmento
     private var _binding: FragmentAdminIncidenciasBinding? = null
 
@@ -40,7 +45,8 @@ class AdminIncidencias : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
+        binding.rvIncidencias.adapter=admin.adaptadorListaIncidencias
+        binding.rvIncidencias.layoutManager= LinearLayoutManager(admin.contexto)
     }
 
     override fun onDestroyView() {

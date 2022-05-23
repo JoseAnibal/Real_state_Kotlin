@@ -1,7 +1,11 @@
 package com.example.reg.Actividades
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.SearchView
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -11,13 +15,13 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.reg.*
+import com.example.reg.AdaptadoresRecycler.AdaptadorFacturas
+import com.example.reg.AdaptadoresRecycler.AdaptadorFacturasUsuario
 import com.example.reg.AdaptadoresRecycler.AdaptadorIncidencias
 import com.example.reg.AdaptadoresRecycler.AdaptadorMensajes
 import com.example.reg.Notificaciones.Notificacion
 import com.example.reg.Notificaciones.Notificaciones
-import com.example.reg.Objetos.Incidencia
-import com.example.reg.Objetos.Mensaje
-import com.example.reg.Objetos.Usuario
+import com.example.reg.Objetos.*
 import com.example.reg.databinding.ActivityMainBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -33,6 +37,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var emisor:Usuario
     lateinit var receptor:Usuario
     var idPiso=""
+    var piso=Piso()
+    var facturilla= Factura()
     val SM by lazy {
         SharedManager(this)
     }
@@ -52,6 +58,14 @@ class MainActivity : AppCompatActivity() {
 
     val adaptadorListaIncidencias by lazy {
         AdaptadorIncidencias(listaIncidencias,this)
+    }
+    //FACTURASPISO
+    val listaFacturas by lazy {
+        añadoListaFacturas()
+    }
+
+    val adaptadorListaFacturas by lazy {
+        AdaptadorFacturasUsuario(listaFacturas,this)
     }
 
     val noti by lazy {
@@ -74,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.IO){
             receptor= sacoUsuarioDeLaBase("jose@gmail.com")
             idPiso= sacoRelacionPiso(usuarioActual.id!!).idPiso.toString()
+            piso= sacoPisoDeLaBase(idPiso)
         }
 
         val navView: BottomNavigationView = binding.navView
@@ -84,7 +99,8 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_incidencias, R.id.navigation_facturas,R.id.navigation_principal,R.id.navigation_perfil,R.id.navigation_chatPlantilla
+                R.id.navigation_incidencias, R.id.navigation_facturas,R.id.navigation_principal,R.id.navigation_perfil,R.id.navigation_chatPlantilla,
+                R.id.navigation_usuarioAddIncidencia,R.id.navigation_infoFacturaUsuario
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -94,6 +110,34 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.kebab_menu, menu)
+        (menu.findItem(R.id.busqueda).actionView as SearchView)
+            .setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(p0: String?): Boolean {
+
+                    return false
+                }
+            })
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.cerrarSesion ->{
+                SM.idUsuario=getString(R.string.idUsuarioDef)
+                redireccionar(this,LoggedUser())
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     fun añadoListaIncidencias():MutableList<Incidencia>{
@@ -110,6 +154,31 @@ class MainActivity : AppCompatActivity() {
                             lista.add(incci)
                         }
                         adaptadorListaIncidencias.notifyDataSetChanged()
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println(error.message)
+                }
+            })
+        return lista
+    }
+
+    fun añadoListaFacturas():MutableList<Factura>{
+        val lista= mutableListOf<Factura>()
+
+        db_ref.child(inmobiliaria).child(facturaBD)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    lista.clear()
+                    snapshot.children.forEach{ hijo: DataSnapshot?->
+
+                        val ffact=hijo?.getValue(Factura::class.java)
+                        if(ffact!=null && ffact.idPiso==idPiso){
+                            lista.add(ffact)
+                        }
+                        adaptadorListaFacturas.notifyDataSetChanged()
                     }
 
                 }
@@ -190,6 +259,15 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+            4 -> {
+                binding.fab.show()
+                (binding.fab).apply{
+                    setImageResource(R.drawable.ic_baseline_save_24)
+                    //ACTUZALIZAR USUARIO
+                    setOnClickListener(listener)
+                }
+            }
+
         }
     }
 
@@ -201,6 +279,11 @@ class MainActivity : AppCompatActivity() {
     fun insertarNotificacion(id:String,titulo:String,desc:String,idUsuario:String){
         val noti=Notificacion(id,titulo,desc,idUsuario)
         db_ref.child(inmobiliaria).child(notificaionesBD).child(id).setValue(noti)
+    }
+
+    fun insertoUsu(id:String,correo:String,nombre:String,password:String,tipo:Int,imagen:String,registrado:Boolean){
+        val creoUsu=Usuario(id, correo, nombre, password, tipo, imagen, registrado)
+        db_ref.child(inmobiliaria).child(usuariosBD).child(id).setValue(creoUsu)
     }
 
 

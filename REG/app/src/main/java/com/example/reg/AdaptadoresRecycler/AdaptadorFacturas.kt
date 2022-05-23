@@ -45,11 +45,10 @@ class AdaptadorFacturas(val lista:List<Factura>,val contexto:Context):RecyclerVi
             factTotal.text=l.total
         }
 
-        if ((contexto as Admin).SM.idUsuario=="admin"){
-            holder.bind.clickyf.setOnClickListener {
-                contexto.facturilla=l
-                contexto.navController.navigate(R.id.nav_infoFactura)
-            }
+
+        holder.bind.clickyf.setOnClickListener {
+            (contexto as Admin).facturilla=l
+            contexto.navController.navigate(R.id.nav_infoFactura)
         }
 
     }

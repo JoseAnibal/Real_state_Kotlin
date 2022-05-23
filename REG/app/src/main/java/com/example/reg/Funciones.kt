@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import androidx.core.content.ContextCompat
+import com.example.reg.Objetos.Piso
 import com.example.reg.Objetos.Usuario
 import com.example.reg.Objetos.UsuarioPiso
 import com.google.firebase.database.DataSnapshot
@@ -58,6 +59,28 @@ fun existeUsu(correo:String):Boolean{
         })
     semaforo.await()
     return existe
+}
+
+fun sacoPisoDeLaBase(id:String):Piso{
+    var piso=Piso()
+    val semaforo= CountDownLatch(1)
+
+    db_ref.child(inmobiliaria).child(pisosBD).orderByChild("id").equalTo(id)
+        .addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if(snapshot.hasChildren()){
+                    piso= snapshot.children.iterator().next().getValue(Piso::class.java)!!
+                }
+                semaforo.countDown()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                println(error.message)
+            }
+        })
+    semaforo.await()
+    return piso
 }
 
 fun sacoUsuarioDeLaBase(correoUsuario:String):Usuario{
