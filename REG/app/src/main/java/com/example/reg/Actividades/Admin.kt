@@ -90,12 +90,24 @@ class Admin : AppCompatActivity() {
     val adaptadorListaIncidencias by lazy {
         AdaptadorIncidencias(listadeIncidencias,this)
     }
+    //CHATS
+    val adaptadorSalasUsuarios by lazy {
+        AdaptadorChatsUsuarios(listaUsuarios,this)
+    }
+    //MENSAJES
+    val listaMensajes by lazy {
+        añadoListaMensajes()
+    }
 
-
+    val adaptadorListaMensajes by lazy {
+        AdaptadorMensajesAdmin(listaMensajes,this)
+    }
 
     val contexto by lazy {
         this
     }
+
+    var emisor=Usuario()
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var binding: ActivityAdminBinding
@@ -109,6 +121,9 @@ class Admin : AppCompatActivity() {
         noti.createNotificationChannel()
         setSupportActionBar(binding.appBarAdmin.toolbar)
         FAB_manager(1){}
+        GlobalScope.launch(Dispatchers.IO){
+            emisor= sacoUsuarioDeLaBase("jose@gmail.com")
+        }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         navController = findNavController(R.id.nav_host_fragment_content_admin)
@@ -140,6 +155,7 @@ class Admin : AppCompatActivity() {
                 }
 
                 override fun onQueryTextChange(p0: String?): Boolean {
+                    adaptadorSalasUsuarios.filter.filter(p0)
                     adaptadorListaUsuarioAsignacion.filter.filter(p0)
                     adaptadorListaUsuarios.filter.filter(p0)
                     adaptadorListaUsuNoRegistrados.filter.filter(p0)
@@ -217,6 +233,8 @@ class Admin : AppCompatActivity() {
                     }
                     adaptadorListaUsuarios.notifyItemChanged(listaUsuarios.size)
                     adaptadorListaUsuarios.notifyDataSetChanged()
+                    adaptadorSalasUsuarios.notifyItemChanged(listaUsuarios.size)
+                    adaptadorSalasUsuarios.notifyDataSetChanged()
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -300,6 +318,32 @@ class Admin : AppCompatActivity() {
                             lista.add(incci)
                         }
                         adaptadorListaIncidencias.notifyDataSetChanged()
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println(error.message)
+                }
+            })
+        return lista
+    }
+
+    fun añadoListaMensajes():MutableList<Mensaje>{
+        val lista= mutableListOf<Mensaje>()
+
+        db_ref.child(inmobiliaria).child(chatBD)
+            .child(mensajeBD)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    lista.clear()
+                    snapshot.children.forEach{ hijo: DataSnapshot?->
+
+                        val mess=hijo?.getValue(Mensaje::class.java)
+                        if(mess!=null){
+                            lista.add(mess)
+                        }
+                        adaptadorListaMensajes.notifyDataSetChanged()
                     }
 
                 }

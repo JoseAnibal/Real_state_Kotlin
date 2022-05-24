@@ -6,10 +6,15 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.reg.Actividades.Admin
 import com.example.reg.R
 import com.example.reg.databinding.FragmentChatsUsuariosBinding
 
 class ChatsUsuarios : Fragment() {
+    val admin by lazy {
+        activity as Admin
+    }
     //FragmentNombrefragmento
     private var _binding: FragmentChatsUsuariosBinding? = null
 
@@ -40,7 +45,8 @@ class ChatsUsuarios : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
+        binding.rvChatsUsuarios.adapter=admin.adaptadorSalasUsuarios
+        binding.rvChatsUsuarios.layoutManager= LinearLayoutManager(admin.contexto)
     }
 
     override fun onDestroyView() {
