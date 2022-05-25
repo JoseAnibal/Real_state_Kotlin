@@ -90,7 +90,7 @@ class UsuarioAddIncidencia : Fragment() {
                     "https://firebasestorage.googleapis.com/v0/b/reg-inmobiliaria-750ef.appspot.com/o/Inmobiliaria%2Fincidencia.png?alt=media&token=08f74f9b-40b6-439f-aaf5-31d92713b09c"
                 }
                 usuario.insertarIncidencia(id.toString(),usuario.idPiso,titulo,desc,0,url_imagen_firebase,fecha)
-                usuario.insertarNotificacion(id.toString(),titulo,desc,"admin")
+                usuario.insertarNotificacion(id.toString(),0,titulo,desc,"admin")
                 db_ref.child(inmobiliaria).child(notificaionesBD).child(id.toString()).removeValue()
                 usuario.runOnUiThread {
                     usuario.navController.navigate(R.id.navigation_incidencias)

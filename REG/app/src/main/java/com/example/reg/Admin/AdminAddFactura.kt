@@ -63,6 +63,10 @@ class AdminAddFactura : Fragment() {
                 admin.runOnUiThread { Snackbar.make(binding.facAgua, "Factura creada", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show() }
                 admin.insertoFactura(id!!,admin.idPiso,luz,agua,internet,gastosExtra,total.toString(),fecha)
+
+                admin.insertarNotificacion(id.toString(),2,fecha,total,admin.idPiso)
+                db_ref.child(inmobiliaria).child(notificaionesBD).child(id.toString()).removeValue()
+
                 admin.runOnUiThread { admin.navController.navigate(R.id.nav_adminUsuFacturas)}
             }
         }

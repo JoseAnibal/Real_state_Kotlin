@@ -76,6 +76,10 @@ class AdminChatPlantilla : Fragment() {
                     Mensaje(id_mensaje,admin.spchat.id,usuario!!.id,mensaje,fecha)
 
                 db_ref.child(inmobiliaria).child(chatBD).child(mensajeBD).child(id_mensaje).setValue(mensaje_nuevo)
+
+                admin.insertarNotificacion(id_mensaje,1,admin.spchat.nombre!!,mensaje,usuario!!.id!!)
+                db_ref.child(inmobiliaria).child(notificaionesBD).child(id_mensaje).removeValue()
+
                 binding.mensajeEscribir.text!!.clear()
                 binding.rvChat.scrollToPosition(listaMensajes.size-1)
             }

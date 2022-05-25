@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        notisListener()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         usuarioActual= Usuario()
@@ -236,6 +236,30 @@ class MainActivity : AppCompatActivity() {
         return lista
     }
 
+    fun notisListener(){
+        db_ref.child(inmobiliaria)
+            .child(notificaionesBD)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach{ hijo: DataSnapshot?->
+
+                        val notti=hijo?.getValue(Notificacion::class.java)
+                        if (notti != null && notti.idUsuario==SM.idUsuario || notti!!.idUsuario==idPiso) {
+                            when(notti.tipo){
+                                0->noti.crearNotificacionIncidencia(notti.titulo.toString(),notti.descripcion.toString())
+                                1->noti.crearNotificacionParaUsuario(notti.titulo.toString(),notti.descripcion.toString())
+                                2->noti.crearNotificacionFactura(notti.titulo.toString(),notti.descripcion.toString())
+                            }
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println(error.message)
+                }
+            })
+    }
+
     fun añadoListaMensajes():MutableList<Mensaje>{
         val lista= mutableListOf<Mensaje>()
 
@@ -322,8 +346,8 @@ class MainActivity : AppCompatActivity() {
         db_ref.child(inmobiliaria).child(incidenciaBD).child(id).setValue(inci)
     }
 
-    fun insertarNotificacion(id:String,titulo:String,desc:String,idUsuario:String){
-        val noti=Notificacion(id,titulo,desc,idUsuario)
+    fun insertarNotificacion(id:String,tipo:Int,titulo:String,desc:String,idUsuario:String){
+        val noti=Notificacion(id,tipo,titulo,desc,idUsuario)
         db_ref.child(inmobiliaria).child(notificaionesBD).child(id).setValue(noti)
     }
 

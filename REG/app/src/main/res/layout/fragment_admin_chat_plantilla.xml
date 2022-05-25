@@ -41,8 +41,12 @@
 
     <ImageView
         android:id="@+id/chatImagen"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/rvChat"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/forma_redonda" />
@@ -57,4 +61,13 @@
         app:layout_constraintBottom_toBottomOf="@+id/chatImagen"
         app:layout_constraintStart_toEndOf="@+id/chatImagen"
         app:layout_constraintTop_toTopOf="@+id/chatImagen" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/rvChat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

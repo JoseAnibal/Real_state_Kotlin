@@ -70,6 +70,9 @@ class ChatPlantilla : Fragment() {
                 val mensaje_nuevo=Mensaje(id_mensaje,usuario.emisor.id,usuario.receptor.id,mensaje,fecha)
 
                 db_ref.child(inmobiliaria).child(chatBD).child(mensajeBD).child(id_mensaje).setValue(mensaje_nuevo)
+                usuario.insertarNotificacion(id_mensaje,1,usuario.emisor.nombre!!,mensaje,"admin")
+                db_ref.child(inmobiliaria).child(notificaionesBD).child(id_mensaje).removeValue()
+
                 binding.mensajeEscribir.text!!.clear()
                 binding.rvChat.scrollToPosition(usuario.listaMensajes.size-1)
             }

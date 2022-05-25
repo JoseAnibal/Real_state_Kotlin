@@ -381,7 +381,11 @@ class Admin : AppCompatActivity() {
 
                         val notti=hijo?.getValue(Notificacion::class.java)
                         if (notti != null && notti.idUsuario==SM.idUsuario) {
-                            noti.crearNotificacionIncidencia(notti.titulo.toString(),notti.descripcion.toString())
+                            if(notti.tipo==0){
+                                noti.crearNotificacionIncidencia(notti.titulo.toString(),notti.descripcion.toString())
+                            }else{
+                                noti.crearNotificacionParaAdmint(notti.titulo.toString(),notti.descripcion.toString())
+                            }
                         }
                     }
                 }
@@ -553,5 +557,10 @@ class Admin : AppCompatActivity() {
     fun insertarIncidencia(id:String,idPiso:String,titulo:String,desc:String,estado:Int,imagenInci:String,fecha:String){
         val inci=Incidencia(id,idPiso,titulo,desc,estado,imagenInci,fecha)
         db_ref.child(inmobiliaria).child(incidenciaBD).child(id).setValue(inci)
+    }
+
+    fun insertarNotificacion(id:String,tipo:Int,titulo:String,desc:String,idUsuario:String){
+        val noti=Notificacion(id,tipo,titulo,desc,idUsuario)
+        db_ref.child(inmobiliaria).child(notificaionesBD).child(id).setValue(noti)
     }
 }
