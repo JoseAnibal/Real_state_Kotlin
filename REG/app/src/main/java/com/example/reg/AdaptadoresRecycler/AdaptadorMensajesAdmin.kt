@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.reg.Actividades.Admin
 import com.example.reg.Objetos.Mensaje
 import com.example.reg.Objetos.Usuario
 import com.example.reg.R
@@ -19,10 +20,7 @@ class AdaptadorMensajesAdmin(var lista:MutableList<Mensaje>, val contexto: Conte
         val bind = FilaMensajeBinding.bind(v)
     }
 
-    var emisor=Usuario()
-    var receptor=Usuario()
-
-    var listaFiltrada=lista.filter { it.usu_emisor==emisor.id && it.usu_receptor==receptor.id }.toMutableList()
+    var fotousu=""
 
     val options = RequestOptions ()
         .fallback(R.drawable.common_full_open_on_phone)
@@ -35,11 +33,11 @@ class AdaptadorMensajesAdmin(var lista:MutableList<Mensaje>, val contexto: Conte
     }
     //Recycler.ViewHolder
     override fun onBindViewHolder(holder: AdaptadorMensajesAdmin.ViewHolder, position: Int) {
-        val l = listaFiltrada[position]
+        val l = lista[position]
         holder.bind.emisorImagen.visibility= View.VISIBLE
         holder.bind.receptorImagen.visibility= View.VISIBLE
 
-        if(l.usu_emisor==emisor.id){
+        if(l.usu_emisor==(contexto as Admin).spchat.id){
             with(holder.bind){
                 receptorFecha.text=""
                 receptorMensaje.text=""
@@ -49,7 +47,7 @@ class AdaptadorMensajesAdmin(var lista:MutableList<Mensaje>, val contexto: Conte
                 emisorMensaje.text=l.texto
             }
 
-            Glide.with(contexto).load(emisor.imagen).apply(options).into(holder.bind.emisorImagen)
+            Glide.with(contexto).load(contexto.spchat.imagen).apply(options).into(holder.bind.emisorImagen)
         }else{
             with(holder.bind){
                 receptorFecha.text=l.fecha
@@ -59,14 +57,14 @@ class AdaptadorMensajesAdmin(var lista:MutableList<Mensaje>, val contexto: Conte
                 emisorMensaje.text=""
                 emisorImagen.visibility= View.INVISIBLE
             }
-            Glide.with(contexto).load(receptor.imagen).apply(options).into(holder.bind.receptorImagen)
+            Glide.with(contexto).load(fotousu).apply(options).into(holder.bind.receptorImagen)
         }
 
 
     }
 
     override fun getItemCount(): Int {
-        return listaFiltrada.size
+        return lista.size
     }
 
 

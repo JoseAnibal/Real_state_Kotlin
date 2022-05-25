@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.reg.Actividades.Admin
+import com.example.reg.Actividades.LoggedUser
 import com.example.reg.Objetos.Piso
 import com.example.reg.R
 import com.example.reg.databinding.FragmentAdminPisosBinding
 import com.example.reg.db_ref
 import com.example.reg.inmobiliaria
+import com.example.reg.redireccionar
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -56,7 +58,6 @@ class AdminPisos : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
         binding.rvAdminPisos.adapter=admin.adaptadorListaPisos
         binding.rvAdminPisos.layoutManager= LinearLayoutManager(admin.contexto)
     }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">REG</string>
+    <string name="app_name">InmoREG</string>
     <string name="title_incidencias">Incidencias</string>
     <string name="title_facturas">Facturas</string>
     <string name="title_principal">Mi Piso</string>

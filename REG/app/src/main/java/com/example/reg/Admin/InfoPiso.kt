@@ -125,8 +125,7 @@ class InfoPiso : Fragment() {
                         if (ussu != null && ussu.idPiso==admin.idPiso) {
                             db_ref.child(inmobiliaria).child(UsuarioPisoBD).child(ussu.id!!).removeValue()
                         }
-                        db_ref.child(inmobiliaria)
-                            .child(UsuarioPisoBD).removeEventListener(this)
+                        db_ref.child(inmobiliaria).child(UsuarioPisoBD).removeEventListener(this)
                     }
 
                 }

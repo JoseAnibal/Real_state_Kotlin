@@ -2,6 +2,7 @@ package com.example.reg.Actividades
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -16,6 +17,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.request.RequestOptions
@@ -42,6 +44,7 @@ class Admin : AppCompatActivity() {
     var idPiso=""
     var idUsu=""
     var facturilla=Factura()
+    var incidencia=Incidencia()
 
     val SM by lazy {
         SharedManager(this)
@@ -88,26 +91,23 @@ class Admin : AppCompatActivity() {
     }
 
     val adaptadorListaIncidencias by lazy {
-        AdaptadorIncidencias(listadeIncidencias,this)
+        AdaptadorIncidencias(listadeIncidencias,this,0)
     }
     //CHATS
     val adaptadorSalasUsuarios by lazy {
         AdaptadorChatsUsuarios(listaUsuarios,this)
     }
-    //MENSAJES
-    val listaMensajes by lazy {
-        añadoListaMensajes()
-    }
 
     val adaptadorListaMensajes by lazy {
-        AdaptadorMensajesAdmin(listaMensajes,this)
+        AdaptadorMensajesAdmin(mutableListOf(),this)
     }
 
     val contexto by lazy {
         this
     }
 
-    var emisor=Usuario()
+    var spchat=Usuario()
+    var usuarioChat=Usuario()
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var binding: ActivityAdminBinding
@@ -122,7 +122,7 @@ class Admin : AppCompatActivity() {
         setSupportActionBar(binding.appBarAdmin.toolbar)
         FAB_manager(1){}
         GlobalScope.launch(Dispatchers.IO){
-            emisor= sacoUsuarioDeLaBase("jose@gmail.com")
+            spchat= sacoUsuarioDeLaBase("jose@gmail.com")
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
@@ -140,9 +140,12 @@ class Admin : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if(SM.idUsuario!="admin"){
-            redireccionar(this,LoggedUser())
-        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -155,6 +158,7 @@ class Admin : AppCompatActivity() {
                 }
 
                 override fun onQueryTextChange(p0: String?): Boolean {
+                    adaptadorListaIncidencias.filter.filter(p0)
                     adaptadorSalasUsuarios.filter.filter(p0)
                     adaptadorListaUsuarioAsignacion.filter.filter(p0)
                     adaptadorListaUsuarios.filter.filter(p0)
@@ -168,9 +172,21 @@ class Admin : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+
             R.id.cerrarSesion ->{
                 SM.idUsuario=getString(R.string.idUsuarioDef)
                 redireccionar(this,LoggedUser())
+                true
+            }
+
+            R.id.modoOscuroAdmin ->{
+                if(contexto.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)== Configuration.UI_MODE_NIGHT_YES){
+                    SM.modoOscuro=false
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }else{
+                    SM.modoOscuro=true
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
                 true
             }
 
@@ -314,7 +330,7 @@ class Admin : AppCompatActivity() {
                     snapshot.children.forEach{ hijo: DataSnapshot?->
 
                         val incci=hijo?.getValue(Incidencia::class.java)
-                        if(incci!=null && incci.estado==0 || incci!!.estado==1){
+                        if(incci!=null){
                             lista.add(incci)
                         }
                         adaptadorListaIncidencias.notifyDataSetChanged()
@@ -329,7 +345,7 @@ class Admin : AppCompatActivity() {
         return lista
     }
 
-    fun añadoListaMensajes():MutableList<Mensaje>{
+    fun añadoListaMensajes(idusu:String):MutableList<Mensaje>{
         val lista= mutableListOf<Mensaje>()
 
         db_ref.child(inmobiliaria).child(chatBD)
@@ -340,7 +356,8 @@ class Admin : AppCompatActivity() {
                     snapshot.children.forEach{ hijo: DataSnapshot?->
 
                         val mess=hijo?.getValue(Mensaje::class.java)
-                        if(mess!=null){
+                        if((idusu==mess?.usu_receptor && spchat.id==mess.usu_emisor) ||
+                            (idusu==mess?.usu_emisor && spchat.id==mess.usu_receptor)){
                             lista.add(mess)
                         }
                         adaptadorListaMensajes.notifyDataSetChanged()
@@ -499,6 +516,16 @@ class Admin : AppCompatActivity() {
                 }
             }
 
+            9 -> {
+                //INCIDENCIA
+                binding.appBarAdmin.fab.show()
+                (binding.appBarAdmin.fab).apply{
+                    setImageResource(R.drawable.ic_baseline_save_24)
+                    //Facturaañadir
+                    setOnClickListener(listener)
+                }
+            }
+
         }
     }
 
@@ -521,5 +548,10 @@ class Admin : AppCompatActivity() {
     fun insertoFactura(id:String,idPiso:String,luz:String,agua:String,internet:String,gastosExtra:String,fecha:String,total:String){
         val fact=Factura(id,idPiso,luz,agua,internet,gastosExtra,fecha,total)
         db_ref.child(inmobiliaria).child(facturaBD).child(id).setValue(fact)
+    }
+
+    fun insertarIncidencia(id:String,idPiso:String,titulo:String,desc:String,estado:Int,imagenInci:String,fecha:String){
+        val inci=Incidencia(id,idPiso,titulo,desc,estado,imagenInci,fecha)
+        db_ref.child(inmobiliaria).child(incidenciaBD).child(id).setValue(inci)
     }
 }

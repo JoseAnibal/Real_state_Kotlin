@@ -11,9 +11,15 @@
         app:actionViewClass="android.widget.SearchView" />
 
     <item
-        android:id="@+id/ajustes"
+        android:id="@+id/modoOscuro"
         android:orderInCategory="100"
-        android:title="Ajustes"
+        android:title="Dia/Noche"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/estadisticaFactura"
+        android:orderInCategory="100"
+        android:title="Factura Estadisticas"
         app:showAsAction="never" />
 
     <item

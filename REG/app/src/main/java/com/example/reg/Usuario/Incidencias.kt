@@ -3,6 +3,7 @@ package com.example.reg.Usuario
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +29,7 @@ class Incidencias : Fragment() {
     ): View? {
                    //FragmentNombrefragmento
         _binding = FragmentIncidenciasBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
 
     }
@@ -41,6 +43,12 @@ class Incidencias : Fragment() {
         super.onStart()
         binding.rvIncidencias.adapter=usu.adaptadorListaIncidencias
         binding.rvIncidencias.layoutManager= LinearLayoutManager(usu.contexto)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.removeItem(R.id.busqueda)
+        menu.removeItem(R.id.modoOscuro)
     }
 
     override fun onResume() {

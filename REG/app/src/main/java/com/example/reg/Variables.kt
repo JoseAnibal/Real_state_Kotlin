@@ -7,6 +7,7 @@ val db_ref= FirebaseDatabase.getInstance().reference
 val sto_ref= FirebaseStorage.getInstance().reference
 
 val listReg= listOf(R.drawable.registrado,R.drawable.nregistrado)
+val estados= mutableListOf("Creada","En proceso","Solucionada","Rechazada")
 
 const val inmobiliaria="Inmobiliaria"
 const val usuariosBD="Usuarios"

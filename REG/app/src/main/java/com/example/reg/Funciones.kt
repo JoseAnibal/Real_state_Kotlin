@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.EditText
-import androidx.core.content.ContextCompat
 import com.example.reg.Objetos.Piso
 import com.example.reg.Objetos.Usuario
 import com.example.reg.Objetos.UsuarioPiso
@@ -104,6 +102,7 @@ fun sacoUsuarioDeLaBase(correoUsuario:String):Usuario{
     semaforo.await()
     return usuario
 }
+
 
 fun sacoRelacionPiso(idUsu:String):UsuarioPiso{
     var relacion=UsuarioPiso()

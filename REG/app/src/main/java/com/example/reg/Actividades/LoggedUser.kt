@@ -7,6 +7,7 @@ import android.widget.SearchView
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.reg.*
 import com.example.reg.AdaptadoresRecycler.AdaptadorPisos
@@ -48,6 +49,7 @@ class LoggedUser : AppCompatActivity() {
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = binding.tabs
         tabs.setupWithViewPager(viewPager)
+        deberiaOscuro()
 
     }
 
@@ -71,6 +73,14 @@ class LoggedUser : AppCompatActivity() {
                 }
             })
         return true
+    }
+
+    fun deberiaOscuro(){
+        if(SM.modoOscuro){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
 
     override fun onBackPressed() {

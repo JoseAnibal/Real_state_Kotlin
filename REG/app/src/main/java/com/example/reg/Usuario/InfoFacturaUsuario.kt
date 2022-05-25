@@ -3,6 +3,7 @@ package com.example.reg.Usuario
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import com.example.reg.Actividades.MainActivity
@@ -30,6 +31,7 @@ class InfoFacturaUsuario : Fragment() {
     ): View? {
                    //FragmentNombrefragmento
         _binding = FragmentInfoFacturaUsuarioBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
 
     }
@@ -43,6 +45,11 @@ class InfoFacturaUsuario : Fragment() {
         binding.infoTotal.text=usu.facturilla.total
         binding.infoGastosExtra.text=usu.facturilla.gastosExtra
 
+    }
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.removeItem(R.id.busqueda)
+        menu.removeItem(R.id.modoOscuro)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

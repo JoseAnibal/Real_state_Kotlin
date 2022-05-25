@@ -79,4 +79,9 @@
         android:name="com.example.reg.Admin.AdminChatPlantilla"
         android:label="fragment_admin_chat_plantilla"
         tools:layout="@layout/fragment_admin_chat_plantilla" />
+    <fragment
+        android:id="@+id/nav_adminInfoIncidencia"
+        android:name="com.example.reg.Admin.AdminInfoIncidencia"
+        android:label="fragment_admin_info_incidencia"
+        tools:layout="@layout/fragment_admin_info_incidencia" />
 </navigation>

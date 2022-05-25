@@ -8,6 +8,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/modoOscuroAdmin"
+        android:orderInCategory="100"
+        android:title="Dia/Noche"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/eliminarTodaRelacion"
         android:orderInCategory="100"
         android:title="Limpiar Piso"

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -45,6 +46,7 @@ class AdminChatPlantilla : Fragment() {
     ): View? {
                    //FragmentNombrefragmento
         _binding = FragmentAdminChatPlantillaBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
 
     }
@@ -54,10 +56,11 @@ class AdminChatPlantilla : Fragment() {
 
     }
 
+
     override fun onStart() {
         super.onStart()
-        Handler().postDelayed(Runnable { binding.rvChat.scrollToPosition(admin.adaptadorListaMensajes.listaFiltrada.size-1) }, 200)
-
+        val listaMensajes=admin.añadoListaMensajes(usuario?.id?:"o")
+        Handler().postDelayed(Runnable { binding.rvChat.scrollToPosition(listaMensajes.size-1) }, 200)
         Glide.with(admin.contexto).load(usuario!!.imagen).apply(options).into(binding.chatImagen)
         binding.chatNombre.text=usuario!!.nombre
 
@@ -70,24 +73,30 @@ class AdminChatPlantilla : Fragment() {
 
                 val id_mensaje= db_ref.child(inmobiliaria).child(chatBD).child(mensajeBD).push().key!!
                 val mensaje_nuevo=
-                    Mensaje(id_mensaje,admin.emisor.id,usuario!!.id,mensaje,fecha)
+                    Mensaje(id_mensaje,admin.spchat.id,usuario!!.id,mensaje,fecha)
 
                 db_ref.child(inmobiliaria).child(chatBD).child(mensajeBD).child(id_mensaje).setValue(mensaje_nuevo)
                 binding.mensajeEscribir.text!!.clear()
-                binding.rvChat.scrollToPosition(admin.adaptadorListaMensajes.listaFiltrada.size-1)
+                binding.rvChat.scrollToPosition(listaMensajes.size-1)
             }
 
         }
 
-
+        admin.adaptadorListaMensajes.lista=listaMensajes
+        admin.adaptadorListaMensajes.fotousu=usuario!!.imagen!!
         binding.rvChat.adapter=admin.adaptadorListaMensajes
         binding.rvChat.layoutManager= LinearLayoutManager(admin.contexto)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.removeItem(R.id.busqueda)
+        menu.removeItem(R.id.eliminarTodaRelacion)
+    }
+
+
     override fun onResume() {
         super.onResume()
-        admin.adaptadorListaMensajes.receptor= usuario!!
-        admin.adaptadorListaMensajes.emisor=admin.emisor
         admin.apply {
             adaptadorSalasUsuarios.filter.filter("")
             FAB_manager(5){}

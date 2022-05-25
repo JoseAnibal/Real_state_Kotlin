@@ -39,4 +39,9 @@
         android:name="com.example.reg.Usuario.InfoFacturaUsuario"
         android:label="fragment_info_factura_usuario"
         tools:layout="@layout/fragment_info_factura_usuario" />
+    <fragment
+        android:id="@+id/navigation_estadisticasFactura"
+        android:name="com.example.reg.Usuario.EstadisticasFactura"
+        android:label="fragment_estadisticas_factura"
+        tools:layout="@layout/fragment_estadisticas_factura" />
 </navigation>

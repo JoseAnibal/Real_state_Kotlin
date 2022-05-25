@@ -1,5 +1,6 @@
 package com.example.reg.Usuario
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,15 +10,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.reg.Actividades.MainActivity
 import com.example.reg.R
+import com.example.reg.databinding.FragmentEstadisticasFacturaBinding
 import com.example.reg.databinding.FragmentFacturasBinding
-import com.example.reg.databinding.FragmentIncidenciasBinding
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 
-class Facturas : Fragment() {
+class EstadisticasFactura : Fragment() {
     val usu by lazy {
         activity as MainActivity
     }
+    lateinit var pieData: PieData
     //FragmentNombrefragmento
-    private var _binding: FragmentFacturasBinding? = null
+    private var _binding: FragmentEstadisticasFacturaBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -28,7 +33,7 @@ class Facturas : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         //FragmentNombrefragmento
-        _binding = FragmentFacturasBinding.inflate(inflater, container, false)
+        _binding = FragmentEstadisticasFacturaBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
         return binding.root
 
@@ -41,8 +46,22 @@ class Facturas : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        binding.rvFacturasUsu.adapter=usu.adaptadorListaFacturas
-        binding.rvFacturasUsu.layoutManager= LinearLayoutManager(usu.contexto)
+        val stats=usu.generoEstadistica()
+        val pieEntries = mutableListOf<PieEntry>()
+        stats.map{
+            pieEntries.add(PieEntry(it.porcentaje.toFloat(), it.nombre))
+        }
+        val label = "| Colores"
+        val pieDataSet = PieDataSet(pieEntries, label)
+        pieDataSet.valueTextSize = 12f
+        pieDataSet.colors = stats.map{it.color}
+        pieData = PieData(pieDataSet)
+        pieData.setDrawValues(true)
+
+        val pieChart = binding.Pie
+        pieChart.data = pieData
+        pieChart.legend.isEnabled = true
+        pieChart.description.text = "Porcentaje Facturas"
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {

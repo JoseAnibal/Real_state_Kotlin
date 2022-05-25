@@ -8,8 +8,10 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.reg.Actividades.MainActivity
 import com.example.reg.Objetos.Factura
+import com.example.reg.Objetos.Incidencia
 import com.example.reg.R
 import com.example.reg.databinding.FilaFacturaBinding
+import java.util.*
 
 class AdaptadorFacturasUsuario(val lista:List<Factura>,val contexto:Context):RecyclerView.Adapter<AdaptadorFacturasUsuario.ViewHolder>(), Filterable {
 
@@ -60,6 +62,21 @@ class AdaptadorFacturasUsuario(val lista:List<Factura>,val contexto:Context):Rec
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(busqueda: CharSequence?): FilterResults {
+                val texto = busqueda.toString()
+                //Filtro 1, el clásico de por nombre, no hace falta pensar
+                if (texto.isEmpty()) {
+                    listaFiltrada = lista
+                } else {
+                    val listaFiltrada2 = mutableListOf<Factura>()
+                    for (alu in lista) {
+                        val nombreMinuscula = alu.fecha!!.lowercase(Locale.ROOT)
+                        val textoMinuscula = texto.lowercase(Locale.ROOT)
+                        if (nombreMinuscula.contains(textoMinuscula)) {
+                            listaFiltrada2.add(alu)
+                        }
+                    }
+                    listaFiltrada = listaFiltrada2
+                }
                 //FILTROS AQUI
 
                 val filterResults = FilterResults()

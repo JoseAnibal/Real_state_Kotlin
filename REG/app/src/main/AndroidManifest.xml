@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.reg">
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,16 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.REG">
-        <activity android:name=".ChatPrivado.ChatPrivado"></activity>
         <activity android:name=".Actividades.NotLoggedUserVerPiso" />
         <activity android:name=".Actividades.RegistroActivity" />
         <activity
             android:name=".Actividades.Admin"
-            android:label="@string/title_activity_admin"
             android:theme="@style/Theme.REG.NoActionBar" />
         <activity
             android:name=".Actividades.LoggedUser"
-            android:label="@string/title_activity_logged_user"
             android:theme="@style/Theme.REG.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

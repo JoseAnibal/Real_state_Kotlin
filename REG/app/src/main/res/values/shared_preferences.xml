@@ -2,4 +2,7 @@
 <resources>
     <string name="idUsuario">IDusuario</string>
     <string name="idUsuarioDef">vacio</string>
+
+    <string name="spModoOscuro">ModoOscuro</string>
+    <bool name="spModoOscuroDef">false</bool>
 </resources>

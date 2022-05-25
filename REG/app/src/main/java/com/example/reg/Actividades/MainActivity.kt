@@ -1,6 +1,8 @@
 package com.example.reg.Actividades
 
 import android.content.Intent
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,6 +11,7 @@ import android.widget.SearchView
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -29,6 +32,7 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+data class estadisticas(val nombre:String,val porcentaje:Double,val color:Int)
 
 class MainActivity : AppCompatActivity() {
     lateinit var navController:NavController
@@ -57,7 +61,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     val adaptadorListaIncidencias by lazy {
-        AdaptadorIncidencias(listaIncidencias,this)
+        AdaptadorIncidencias(listaIncidencias,this,1)
     }
     //FACTURASPISO
     val listaFacturas by lazy {
@@ -83,6 +87,7 @@ class MainActivity : AppCompatActivity() {
         //PARA RECIBIRLO
         val bundle = intent.extras
         usuarioActual = bundle?.getParcelable("UsuarioActual")?:Usuario()
+        SM.idUsuario=usuarioActual.id!!
         emisor=usuarioActual
 
         GlobalScope.launch(Dispatchers.IO){
@@ -100,7 +105,7 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_incidencias, R.id.navigation_facturas,R.id.navigation_principal,R.id.navigation_perfil,R.id.navigation_chatPlantilla,
-                R.id.navigation_usuarioAddIncidencia,R.id.navigation_infoFacturaUsuario
+                R.id.navigation_usuarioAddIncidencia,R.id.navigation_infoFacturaUsuario,R.id.navigation_estadisticasFactura
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -109,7 +114,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -122,7 +126,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onQueryTextChange(p0: String?): Boolean {
-
                     return false
                 }
             })
@@ -131,13 +134,56 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.modoOscuro ->{
+                if(contexto.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)==Configuration.UI_MODE_NIGHT_YES){
+                    SM.modoOscuro=false
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }else{
+                    SM.modoOscuro=true
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
+                true
+            }
             R.id.cerrarSesion ->{
                 SM.idUsuario=getString(R.string.idUsuarioDef)
                 redireccionar(this,LoggedUser())
                 true
             }
+            R.id.estadisticaFactura ->{
+                navController.navigate(R.id.navigation_estadisticasFactura)
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun generoEstadistica():MutableList<estadisticas>{
+        val listaPasar= mutableListOf<estadisticas>()
+
+        val listaNombres= listOf("luz","agua","internet")
+        val listaColores= listOf(Color.rgb(255, 210, 48),Color.rgb(48, 214, 255),Color.rgb(255, 114, 48))
+        val valoresSuma= mutableListOf<Double>()
+        val listaPorcentaje= mutableListOf<Double>()
+
+        val totalAgua=listaFacturas.sumOf { it.agua!!.toDouble() }
+        val totalLuz=listaFacturas.sumOf { it.luz!!.toDouble() }
+        val totalInternet=listaFacturas.sumOf { it.internet!!.toDouble() }
+        val total=totalLuz+totalAgua+totalInternet
+
+        valoresSuma.add(totalLuz)
+        valoresSuma.add(totalAgua)
+        valoresSuma.add(totalInternet)
+
+        listaNombres.forEachIndexed { i, s ->
+            listaPorcentaje.add(valoresSuma[i]*100.toDouble()/total)
+        }
+
+        listaNombres.forEachIndexed { i, s ->
+            listaPasar.add(estadisticas(s,listaPorcentaje[i],listaColores[i]))
+        }
+
+        return listaPasar
     }
 
     fun añadoListaIncidencias():MutableList<Incidencia>{

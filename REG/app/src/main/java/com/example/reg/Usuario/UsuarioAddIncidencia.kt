@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -46,6 +47,7 @@ class UsuarioAddIncidencia : Fragment() {
     ): View? {
                    //FragmentNombrefragmento
         _binding = FragmentUsuarioAddIncidenciaBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
 
     }
@@ -53,6 +55,12 @@ class UsuarioAddIncidencia : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.removeItem(R.id.busqueda)
+        menu.removeItem(R.id.modoOscuro)
     }
 
     override fun onStart() {

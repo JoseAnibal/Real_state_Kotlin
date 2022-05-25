@@ -43,6 +43,11 @@ class ChatsUsuarios : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        admin.FAB_manager(5){}
+    }
+
     override fun onStart() {
         super.onStart()
         binding.rvChatsUsuarios.adapter=admin.adaptadorSalasUsuarios
