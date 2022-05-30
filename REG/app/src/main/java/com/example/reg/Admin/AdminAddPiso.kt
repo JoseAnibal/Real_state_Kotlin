@@ -177,6 +177,7 @@ class AdminAddPiso : Fragment() {
                     val imageUri=data.data
                     if (imageUri != null) {
                         listaImagenesUri.add(imageUri)
+                        Glide.with(admin.contexto).load(listaImagenesUri[0]).into(binding.addPisoImagen)
                     }
                 }
                 Snackbar.make(binding.addCalle, "Num imagenes seleccionadas: ${listaImagenesUri.size}", Snackbar.LENGTH_LONG)

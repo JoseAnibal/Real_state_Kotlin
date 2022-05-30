@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.SearchView
+import com.bumptech.glide.Glide
 import com.example.reg.*
 import com.example.reg.Actividades.Admin
 import com.example.reg.databinding.FragmentEditarPisoBinding
@@ -84,6 +85,7 @@ class EditarPiso : Fragment() {
 
 
         binding.editPisoImagen.setOnClickListener {
+            listaImagenesUri.clear()
             pickImagesIntent()
         }
 
@@ -178,20 +180,25 @@ class EditarPiso : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode==PICK_IMAGES_CODE){
-            if(resultCode== Activity.RESULT_OK){
+            if(resultCode==Activity.RESULT_OK){
                 if(data!!.clipData != null){
                     val numImagenes=data.clipData!!.itemCount
                     for(i in 0 until numImagenes){
                         val imageUri=data.clipData!!.getItemAt(i).uri
                         listaImagenesUri.add(imageUri)
                     }
+                    Glide.with(admin.contexto).load(listaImagenesUri[0]).into(binding.editPisoImagen)
                 }else{
                     val imageUri=data.data
                     if (imageUri != null) {
                         listaImagenesUri.add(imageUri)
+                        Glide.with(admin.contexto).load(listaImagenesUri[0]).into(binding.editPisoImagen)
                     }
                 }
+                Snackbar.make(binding.editPisoImagen, "Num imagenes seleccionadas: ${listaImagenesUri.size}", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
             }
         }
+
     }
 }
