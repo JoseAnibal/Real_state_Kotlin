@@ -71,6 +71,7 @@ class AdminInfoIncidencia : Fragment() {
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         menu.removeItem(R.id.eliminarTodaRelacion)
+        menu.removeItem(R.id.busqueda)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

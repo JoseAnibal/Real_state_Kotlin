@@ -98,7 +98,7 @@ class Notificaciones(val contexto: Context) {
     }
 
     fun crearNotificacionFactura(titulo:String,desc:String) {
-        
+
         builder = NotificationCompat.Builder(contexto, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_baseline_sticky_note_2_24)
             .setContentTitle("Nueva factura recibida")

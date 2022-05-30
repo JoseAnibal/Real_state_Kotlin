@@ -25,12 +25,39 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="admin_pisos">Pisos</string>
-    <string name="admin_usuarios">Usuarios</string>
-    <string name="admin_pendientes">Solicitudes</string>
-    <string name="admin_incidencias">Incidencias</string>
-    <string name="admin_chatsUsuarios">Chats</string>
-
     <string name="canalNotis">Notificaciones</string>
     <string name="canalNotisDesc">DescCanalNotis</string>
+
+    <string name="admin_chatsUsuarios">Chats</string>
+
+    <string name="user_perfil">Perfil</string>
+    <string name="user_piso">Mi piso</string>
+    <string name="user_facturas">Facturas</string>
+    <string name="user_facturaInfo">Info de Factura</string>
+    <string name="user_incidencias">Incidencias</string>
+    <string name="user_incidenciasAdd">Nueva incidencia</string>
+    <string name="user_chat">Chat</string>
+    <string name="user_estadisticas">Estadisticas</string>
+
+
+    <string name="admin_pisos">Pisos</string>
+    <string name="admin_pisoAdd">Nuevo piso</string>
+    <string name="admin_pisoEdit">Editar piso</string>
+    <string name="admin_pisoInfo">Informacion del piso</string>
+    <string name="admin_usuEnPiso">Usuarios en este piso</string>
+    <string name="admin_usuAddPiso">Añade un usuario a este piso</string>
+    <string name="admin_facturas">Facturas</string>
+    <string name="admin_facturaInfo">Factura detallada</string>
+    <string name="admin_facturaAdd">Añadir factura</string>
+    <string name="admin_usuarios">Usuarios</string>
+    <string name="admin_usuarioEditar">Editar usuario</string>
+    <string name="admin_solicitudes">Solicitudes de usuarios</string>
+    <string name="admin_incidencias">Incidencias de todos los pisos</string>
+    <string name="admin_incidenciaInfo">Informacion sobre incidencia</string>
+    <string name="admin_chats">Chats con usuarios</string>
+    <string name="admin_chatUsu">Chat</string>
+    <string name="mapa">Ubicacion del piso</string>
+
+    <string name="precio">%1$.4s €</string>
+
 </resources>

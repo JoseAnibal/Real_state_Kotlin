@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clikcyInci"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:elevation="8dp"
+    android:background="@drawable/elevation"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="3dp"
+    android:layout_marginLeft="3dp">
 
     <ImageView
         android:id="@+id/inci_Imagen"
@@ -24,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="TextView"
+        android:textAppearance="@style/textoTitulo"
         app:layout_constraintBottom_toBottomOf="@+id/inci_Imagen"
         app:layout_constraintStart_toEndOf="@+id/inci_Imagen"
         app:layout_constraintTop_toTopOf="@+id/inci_Imagen" />
@@ -66,14 +72,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/inci_fecha"
         app:layout_constraintEnd_toStartOf="@+id/inci_fecha"
         app:layout_constraintTop_toTopOf="@+id/inci_fecha" />
-
-    <View
-        android:id="@+id/divider3"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,7 +76,7 @@ class InfoPiso : Fragment() {
         binding.pisoCalle.text=piso!!.calle.toString()
         binding.pisoM2.text=piso!!.m2.toString()
         binding.pisoDescripcion.text=piso!!.descripcion.toString()
-        binding.pisoPrecioinfo.text=piso!!.precio.toString()
+        binding.pisoPrecioinfo.text=resources.getString(R.string.precio,piso!!.precio.toString())
         binding.pisoEstado.setImageResource(if(piso!!.estado!!){ listReg[0]}else{listReg[1]})
 
         binding.rvFotosPiso.adapter=adaptadorListaImagenesPisos
@@ -105,6 +105,10 @@ class InfoPiso : Fragment() {
 
         binding.pisoFacturas.setOnClickListener {
             admin.navController.navigate(R.id.nav_adminUsuFacturas)
+        }
+
+        binding.pisoMapa.setOnClickListener {
+            admin.navController.navigate(R.id.nav_map)
         }
     }
 

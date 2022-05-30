@@ -145,7 +145,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.cerrarSesion ->{
-                SM.idUsuario=getString(R.string.idUsuarioDef)
+                SM.idUsuario="patata"
                 redireccionar(this,LoggedUser())
                 true
             }

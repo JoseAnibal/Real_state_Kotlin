@@ -1,4 +1,4 @@
-package com.example.reg.Admin
+package com.example.reg.GoogleMaps
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,17 +6,17 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.reg.Actividades.Admin
 import com.example.reg.R
-import com.example.reg.databinding.FragmentChatsUsuariosBinding
+import com.example.reg.databinding.FragmentMapBinding
+import com.google.android.gms.maps.SupportMapFragment
 
-class ChatsUsuarios : Fragment() {
-    val admin by lazy {
+class map: Fragment() {
+    val admin by lazy{
         activity as Admin
     }
-    //FragmentNombrefragmento
-    private var _binding: FragmentChatsUsuariosBinding? = null
+                          //FragmentNombrefragmento
+    private var _binding: FragmentMapBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,22 +26,24 @@ class ChatsUsuarios : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //FragmentNombrefragmento
-        _binding = FragmentChatsUsuariosBinding.inflate(inflater, container, false)
+                   //FragmentNombrefragmento
+        _binding = FragmentMapBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
         return binding.root
 
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        super.onPrepareOptionsMenu(menu)
-        menu.removeItem(R.id.eliminarTodaRelacion)
-        menu.removeItem(R.id.modoOscuroAdmin)
+    override fun onStart() {
+        super.onStart()
+        createFragment()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.removeItem(R.id.busqueda)
+        menu.removeItem(R.id.eliminarTodaRelacion)
+        menu.removeItem(R.id.modoOscuroAdmin)
+        menu.removeItem(R.id.cerrarSesion)
     }
 
     override fun onResume() {
@@ -49,14 +51,21 @@ class ChatsUsuarios : Fragment() {
         admin.FAB_manager(5){}
     }
 
-    override fun onStart() {
-        super.onStart()
-        binding.rvChatsUsuarios.adapter=admin.adaptadorSalasUsuarios
-        binding.rvChatsUsuarios.layoutManager= LinearLayoutManager(admin.contexto)
+    fun createFragment(){
+        val mapFragment: SupportMapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(admin.contexto)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

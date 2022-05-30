@@ -39,10 +39,10 @@ class InfoFacturaUsuario : Fragment() {
     override fun onStart() {
         super.onStart()
         binding.infoFecha.text=usu.facturilla.fecha
-        binding.infoAgua.text=usu.facturilla.agua
-        binding.infoLuz.text=usu.facturilla.luz
-        binding.infoInternet.text=usu.facturilla.internet
-        binding.infoTotal.text=usu.facturilla.total
+        binding.infoAgua.text=resources.getString(R.string.precio,usu.facturilla.agua)
+        binding.infoLuz.text=resources.getString(R.string.precio,usu.facturilla.luz)
+        binding.infoInternet.text=resources.getString(R.string.precio,usu.facturilla.internet)
+        binding.infoTotal.text=resources.getString(R.string.precio,usu.facturilla.total)
         binding.infoGastosExtra.text=usu.facturilla.gastosExtra
 
     }
@@ -50,6 +50,7 @@ class InfoFacturaUsuario : Fragment() {
         super.onPrepareOptionsMenu(menu)
         menu.removeItem(R.id.busqueda)
         menu.removeItem(R.id.modoOscuro)
+        menu.removeItem(R.id.estadisticaFactura)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

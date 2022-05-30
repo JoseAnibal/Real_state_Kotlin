@@ -97,6 +97,7 @@ class AdminAddFactura : Fragment() {
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         menu.removeItem(R.id.busqueda)
+        menu.removeItem(R.id.eliminarTodaRelacion)
     }
 
     override fun onResume() {

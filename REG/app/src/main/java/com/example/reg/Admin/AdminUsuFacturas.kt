@@ -58,6 +58,8 @@ class AdminUsuFacturas : Fragment() {
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         menu.removeItem(R.id.eliminarTodaRelacion)
+        menu.removeItem(R.id.busqueda)
+        menu.removeItem(R.id.modoOscuroAdmin)
     }
 
     override fun onResume() {
@@ -69,6 +71,8 @@ class AdminUsuFacturas : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
     }
+
+
 
     fun añadoFacturas():MutableList<Factura>{
         val lista= mutableListOf<Factura>()

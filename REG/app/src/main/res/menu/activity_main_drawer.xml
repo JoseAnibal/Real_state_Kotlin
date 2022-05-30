@@ -15,7 +15,7 @@
         <item
             android:id="@+id/nav_adminPendientes"
             android:icon="@drawable/ic_baseline_timelapse_24"
-            android:title="@string/admin_pendientes" />
+            android:title="@string/admin_solicitudes" />
         <item
             android:id="@+id/nav_adminIncidencias"
             android:icon="@drawable/ic_baseline_warning_24"

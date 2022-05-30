@@ -24,6 +24,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textAppearance="@style/textoTitulo"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -102,6 +104,36 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/rvFotosPiso"
         app:layout_constraintTop_toBottomOf="@+id/rvFotosPiso" />
+
+    <Button
+        android:id="@+id/pisoMapita"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/forma_redonda"
+        android:paddingLeft="0dp"
+        android:paddingTop="8dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
+        app:backgroundTint="@color/purple_200"
+        app:icon="@drawable/ic_baseline_location_on_24"
+        app:iconGravity="textTop"
+        app:iconTint="#F4F4F4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pisoDescripcion" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Ubicacion del piso"
+        app:layout_constraintEnd_toEndOf="@+id/pisoMapita"
+        app:layout_constraintStart_toStartOf="@+id/pisoMapita"
+        app:layout_constraintTop_toBottomOf="@+id/pisoMapita" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.SearchView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.reg.*
 import com.example.reg.Actividades.Admin
 import com.example.reg.Objetos.Piso
@@ -64,10 +65,12 @@ class AdminAddPiso : Fragment() {
 
 
         binding.addPisoImagen.setOnClickListener {
+            listaImagenesUri.clear()
             pickImagesIntent()
         }
 
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -89,7 +92,7 @@ class AdminAddPiso : Fragment() {
                 val m2=binding.addM2.text.toString()
                 val desc=binding.addDescText.text.toString()
                 val precio=binding.addPrecio.text.toString().toInt()
-                val coords=binding.addCoords.text.toString()
+                val coords=if(binding.addCoords.text.toString().isEmpty()){"33.669207, -35.942287"}else{binding.addCoords.text.toString()}
                 val postal=binding.addPostal.text.toString()
 
                 admin.runOnUiThread { admin.binding.appBarAdmin.fab.hide() }
@@ -127,7 +130,6 @@ class AdminAddPiso : Fragment() {
             Pair(binding.addBaths, this::validoInput),
             Pair(binding.addM2, this::validoInput),
             Pair(binding.addPrecio, this::validoInput),
-            Pair(binding.addCoords, this::validoInput),
             Pair(binding.addPostal, this::validoInput),
             Pair(binding.addDescText, this::validoInput)
         )
@@ -170,13 +172,17 @@ class AdminAddPiso : Fragment() {
                         val imageUri=data.clipData!!.getItemAt(i).uri
                         listaImagenesUri.add(imageUri)
                     }
+                    Glide.with(admin.contexto).load(listaImagenesUri[0]).into(binding.addPisoImagen)
                 }else{
                     val imageUri=data.data
                     if (imageUri != null) {
                         listaImagenesUri.add(imageUri)
                     }
                 }
+                Snackbar.make(binding.addCalle, "Num imagenes seleccionadas: ${listaImagenesUri.size}", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
             }
         }
+
     }
 }

@@ -96,6 +96,7 @@ class AdminChatPlantilla : Fragment() {
         super.onPrepareOptionsMenu(menu)
         menu.removeItem(R.id.busqueda)
         menu.removeItem(R.id.eliminarTodaRelacion)
+        menu.removeItem(R.id.modoOscuroAdmin)
     }
 
 

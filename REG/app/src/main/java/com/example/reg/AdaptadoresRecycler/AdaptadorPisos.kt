@@ -47,7 +47,7 @@ class AdaptadorPisos(val lista:List<Piso>,val contexto:Context):RecyclerView.Ada
             pisoBaOs.text=l.nbaths
             pisoHabitaciones.text=l.nhabs
             pisoM2.text=l.m2.toString()
-            pisoPrecio.text=l.precio.toString()
+            pisoPrecio.text="${l.precio.toString()} €"
         }
         Glide.with(contexto).load(l.imagenes!![0]).apply(options).into(holder.bind.pisoImagen)
 
@@ -55,6 +55,7 @@ class AdaptadorPisos(val lista:List<Piso>,val contexto:Context):RecyclerView.Ada
             if(SM.idUsuario=="admin"){
                 (contexto as Admin).apply {
                     idPiso= l.id.toString()
+                    coordsPiso=l.coordenadas.toString().split(",").toMutableList()
                     navController.navigate(R.id.nav_infoPiso)
                 }
             }else{

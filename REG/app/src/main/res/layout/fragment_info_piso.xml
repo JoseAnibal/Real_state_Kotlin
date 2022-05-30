@@ -14,9 +14,7 @@
             android:id="@+id/rvFotosPiso"
             android:layout_width="0dp"
             android:layout_height="200dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pisoCalle" />
@@ -28,8 +26,28 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="TextView"
+            android:textAppearance="@style/textoTitulo"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/pisoMapa"
+            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/forma_redonda"
+            android:paddingLeft="0dp"
+            android:paddingTop="8dp"
+            android:paddingRight="0dp"
+            android:paddingBottom="0dp"
+            app:backgroundTint="@color/purple_200"
+            app:icon="@drawable/ic_baseline_location_on_24"
+            app:iconGravity="textTop"
+            app:iconTint="#F4F4F4"
+            app:layout_constraintEnd_toEndOf="@+id/pisoUsuarios"
+            app:layout_constraintStart_toStartOf="@+id/pisoUsuarios"
+            app:layout_constraintTop_toTopOf="@+id/pisoFacturas" />
 
         <Button
             android:id="@+id/pisoEliminar"
@@ -151,6 +169,7 @@
             android:id="@+id/pisoM2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="@+id/imageView9"
             app:layout_constraintEnd_toEndOf="@+id/rvFotosPiso"
@@ -160,8 +179,10 @@
             android:id="@+id/pisoPrecioinfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="TextView"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/rvFotosPiso"
             app:layout_constraintTop_toBottomOf="@+id/rvFotosPiso" />
 
@@ -190,7 +211,7 @@
             android:id="@+id/pisoFacturas"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/forma_redonda"
             android:paddingLeft="0dp"
             android:paddingTop="8dp"

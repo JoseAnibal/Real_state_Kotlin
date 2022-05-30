@@ -8,40 +8,40 @@
     <fragment
         android:id="@+id/navigation_principal"
         android:name="Principal"
-        android:label="Principal" />
+        android:label="@string/title_principal" />
     <fragment
         android:id="@+id/navigation_incidencias"
         android:name="com.example.reg.Usuario.Incidencias"
-        android:label="fragment_incidencias"
+        android:label="@string/user_incidencias"
         tools:layout="@layout/fragment_incidencias" />
     <fragment
         android:id="@+id/navigation_facturas"
         android:name="com.example.reg.Usuario.Facturas"
-        android:label="fragment_facturas"
+        android:label="@string/user_facturas"
         tools:layout="@layout/fragment_facturas" />
     <fragment
         android:id="@+id/navigation_perfil"
         android:name="com.example.reg.Usuario.Perfil"
-        android:label="fragment_perfil"
+        android:label="@string/user_perfil"
         tools:layout="@layout/fragment_perfil" />
     <fragment
         android:id="@+id/navigation_chatPlantilla"
         android:name="com.example.reg.ChatPrivado.ChatPlantilla"
-        android:label="fragment_chat_plantilla"
+        android:label="@string/user_chat"
         tools:layout="@layout/fragment_chat_plantilla" />
     <fragment
         android:id="@+id/navigation_usuarioAddIncidencia"
         android:name="com.example.reg.Usuario.UsuarioAddIncidencia"
-        android:label="fragment_usuario_add_incidencia"
+        android:label="@string/user_incidencias"
         tools:layout="@layout/fragment_usuario_add_incidencia" />
     <fragment
         android:id="@+id/navigation_infoFacturaUsuario"
         android:name="com.example.reg.Usuario.InfoFacturaUsuario"
-        android:label="fragment_info_factura_usuario"
+        android:label="@string/user_facturaInfo"
         tools:layout="@layout/fragment_info_factura_usuario" />
     <fragment
         android:id="@+id/navigation_estadisticasFactura"
         android:name="com.example.reg.Usuario.EstadisticasFactura"
-        android:label="fragment_estadisticas_factura"
+        android:label="@string/user_estadisticas"
         tools:layout="@layout/fragment_estadisticas_factura" />
 </navigation>

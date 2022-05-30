@@ -64,9 +64,10 @@ class InicioSesion : Fragment() {
                                     SM.idUsuario=usuario.id.toString()
                                     redireccionarConUsu(tabbed.contexto,MainActivity(),"UsuarioActual",usuario)
                                 }
-                            }
-                            tabbed.runOnUiThread {
-                                binding.loginError.text="Cuenta pendiente de validacion!"
+                            }else{
+                                tabbed.runOnUiThread {
+                                    binding.loginError.text="Cuenta pendiente de validacion!"
+                                }
                             }
                         }
                     }else{

@@ -1,5 +1,6 @@
 package com.example.reg.Actividades
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,9 +28,20 @@ class NotLoggedUserVerPiso : AppCompatActivity() {
         binding.pisoHabs.text=objeto.nhabs
         binding.pisoM2.text=objeto.m2.toString()
         binding.pisoDescripcion.text=objeto.descripcion
-        binding.pisoPrecio.text=objeto.precio.toString()
+        binding.pisoPrecio.text=resources.getString(R.string.precio,objeto.precio.toString())
 
         binding.rvFotosPiso.adapter=AdaptadorFotosPiso(objeto.imagenes!!.toMutableList(),this)
         binding.rvFotosPiso.layoutManager= LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false)
+
+        binding.pisoMapita.setOnClickListener {
+            //PARA PASAR UN OBJETO SOLO
+            val intent= Intent(this,MapaPisoUsuarioNoRegistrado::class.java)
+            val bundle = Bundle()
+            bundle.putParcelable("Coords",objeto)
+
+            intent.putExtras(bundle)
+            startActivity(intent)
+        }
+
     }
 }

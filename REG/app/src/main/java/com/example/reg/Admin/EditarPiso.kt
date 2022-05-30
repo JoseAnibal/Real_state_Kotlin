@@ -104,7 +104,7 @@ class EditarPiso : Fragment() {
                 val m2=binding.editM2.text.toString()
                 val desc=binding.editDesc.text.toString()
                 val precio=binding.editPrecio2.text.toString().toInt()
-                val coords=binding.editCoords2.text.toString()
+                val coords=if(binding.editCoords2.text.toString().isEmpty()){"33.669207, -35.942287"}else{binding.editCoords2.text.toString()}
                 val postal=binding.editPostal2.text.toString()
                 val estado=binding.editAlquilable.isChecked
 
@@ -143,7 +143,6 @@ class EditarPiso : Fragment() {
             Pair(binding.editDesc, this::validoInput),
             Pair(binding.editM2, this::validoInput),
             Pair(binding.editPrecio2, this::validoInput),
-            Pair(binding.editCoords2, this::validoInput),
             Pair(binding.editPostal2, this::validoInput)
 
         )

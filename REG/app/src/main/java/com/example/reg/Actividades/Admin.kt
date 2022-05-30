@@ -18,6 +18,8 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.request.RequestOptions
@@ -27,6 +29,12 @@ import com.example.reg.Notificaciones.Notificacion
 import com.example.reg.Notificaciones.Notificaciones
 import com.example.reg.Objetos.*
 import com.example.reg.databinding.ActivityAdminBinding
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -35,12 +43,15 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.concurrent.CountDownLatch
 
-class Admin : AppCompatActivity() {
+class Admin : AppCompatActivity(), OnMapReadyCallback {
 
     val noti by lazy {
         Notificaciones(this)
     }
 
+    lateinit var map:GoogleMap
+
+    var coordsPiso= mutableListOf<String>()
     var idPiso=""
     var idUsu=""
     var facturilla=Factura()
@@ -562,5 +573,21 @@ class Admin : AppCompatActivity() {
     fun insertarNotificacion(id:String,tipo:Int,titulo:String,desc:String,idUsuario:String){
         val noti=Notificacion(id,tipo,titulo,desc,idUsuario)
         db_ref.child(inmobiliaria).child(notificaionesBD).child(id).setValue(noti)
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        map=googleMap
+        createMarker()
+    }
+
+    fun createMarker(){
+        val coordinates=LatLng(coordsPiso[0].toDouble(),coordsPiso[1].toDouble())
+        val marker=MarkerOptions().position(coordinates).title("Ubicacion del piso")
+        map.addMarker(marker)
+        map.animateCamera(
+            CameraUpdateFactory.newLatLngZoom(coordinates,18f),
+            1000,
+            null
+        )
     }
 }

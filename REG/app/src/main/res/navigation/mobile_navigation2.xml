@@ -7,81 +7,86 @@
     <fragment
         android:id="@+id/nav_pisos"
         android:name="com.example.reg.Admin.AdminPisos"
-        android:label="fragment_admin_pisos"
+        android:label="@string/admin_pisos"
         tools:layout="@layout/fragment_admin_pisos" />
     <fragment
         android:id="@+id/nav_usuarios"
         android:name="com.example.reg.Admin.AdminUsuarios"
-        android:label="fragment_admin_usuarios"
+        android:label="@string/admin_usuarios"
         tools:layout="@layout/fragment_admin_usuarios" />
     <fragment
         android:id="@+id/nav_adminAddPiso"
         android:name="com.example.reg.Admin.AdminAddPiso"
-        android:label="fragment_admin_add_piso"
+        android:label="@string/admin_pisoAdd"
         tools:layout="@layout/fragment_admin_add_piso" />
     <fragment
         android:id="@+id/nav_infoPiso"
         android:name="com.example.reg.Admin.InfoPiso"
-        android:label="fragment_info_piso"
+        android:label="@string/admin_pisoInfo"
         tools:layout="@layout/fragment_info_piso" />
     <fragment
         android:id="@+id/nav_editarPiso"
         android:name="com.example.reg.Admin.EditarPiso"
-        android:label="fragment_editar_piso"
+        android:label="@string/admin_pisoEdit"
         tools:layout="@layout/fragment_editar_piso" />
     <fragment
         android:id="@+id/nav_adminPendientes"
         android:name="com.example.reg.Admin.AdminPendientes"
-        android:label="fragment_admin_pendientes"
+        android:label="@string/admin_solicitudes"
         tools:layout="@layout/fragment_admin_pendientes" />
     <fragment
         android:id="@+id/nav_asignacion"
         android:name="com.example.reg.Admin.AdminAsignacion"
-        android:label="fragment_admin_asignacion"
+        android:label="@string/admin_usuAddPiso"
         tools:layout="@layout/fragment_admin_asignacion" />
     <fragment
         android:id="@+id/nav_editarUsuario"
         android:name="com.example.reg.Admin.EditarUsuario"
-        android:label="fragment_editar_usuario"
+        android:label="@string/admin_usuarioEditar"
         tools:layout="@layout/fragment_editar_usuario" />
     <fragment
         android:id="@+id/nav_adminUsuFacturas"
         android:name="com.example.reg.Admin.AdminUsuFacturas"
-        android:label="fragment_admin_usu_facturas"
+        android:label="@string/admin_facturas"
         tools:layout="@layout/fragment_admin_usu_facturas" />
     <fragment
         android:id="@+id/nav_adminUsuariosEnPiso"
         android:name="com.example.reg.Admin.AdminUsuariosEnPiso"
-        android:label="fragment_admin_usuarios_en_piso"
+        android:label="@string/admin_usuEnPiso"
         tools:layout="@layout/fragment_admin_usuarios_en_piso" />
     <fragment
         android:id="@+id/nav_adminAddFactura"
         android:name="com.example.reg.Admin.AdminAddFactura"
-        android:label="fragment_admin_add_factura"
+        android:label="@string/admin_facturaAdd"
         tools:layout="@layout/fragment_admin_add_factura" />
     <fragment
         android:id="@+id/nav_infoFactura"
         android:name="com.example.reg.Admin.InfoFactura"
-        android:label="fragment_info_factura"
+        android:label="@string/admin_facturaInfo"
         tools:layout="@layout/fragment_info_factura" />
     <fragment
         android:id="@+id/nav_adminIncidencias"
         android:name="com.example.reg.Admin.AdminIncidencias"
-        android:label="fragment_admin_incidencias"
+        android:label="@string/admin_incidencias"
         tools:layout="@layout/fragment_admin_incidencias" />
     <fragment
         android:id="@+id/nav_chatsUsuarios"
         android:name="com.example.reg.Admin.ChatsUsuarios"
-        android:label="fragment_chats_usuarios"
+        android:label="@string/admin_chats"
         tools:layout="@layout/fragment_chats_usuarios" />
     <fragment
         android:id="@+id/nav_adminChatPlantilla"
         android:name="com.example.reg.Admin.AdminChatPlantilla"
-        android:label="fragment_admin_chat_plantilla"
+        android:label="@string/admin_chatUsu"
         tools:layout="@layout/fragment_admin_chat_plantilla" />
     <fragment
         android:id="@+id/nav_adminInfoIncidencia"
         android:name="com.example.reg.Admin.AdminInfoIncidencia"
-        android:label="fragment_admin_info_incidencia"
+        android:label="@string/admin_incidenciaInfo"
         tools:layout="@layout/fragment_admin_info_incidencia" />
+    <fragment
+        android:id="@+id/nav_map"
+        android:name="com.example.reg.GoogleMaps.map"
+        android:label="@string/mapa"
+        tools:layout="@layout/fragment_map" />
 </navigation>

@@ -36,10 +36,10 @@ class InfoFactura : Fragment() {
     override fun onStart() {
         super.onStart()
         binding.infoFecha.text=admin.facturilla.fecha
-        binding.infoAgua.text=admin.facturilla.agua
-        binding.infoLuz.text=admin.facturilla.luz
-        binding.infoInternet.text=admin.facturilla.internet
-        binding.infoTotal.text=admin.facturilla.total
+        binding.infoAgua.text=resources.getString(R.string.precio,admin.facturilla.agua)
+        binding.infoLuz.text=resources.getString(R.string.precio,admin.facturilla.luz)
+        binding.infoInternet.text=resources.getString(R.string.precio,admin.facturilla.internet)
+        binding.infoTotal.text=resources.getString(R.string.precio,admin.facturilla.total)
         binding.infoGastosExtra.text=admin.facturilla.gastosExtra
 
         binding.infoEliminar.setOnClickListener {

@@ -46,6 +46,7 @@ class Principal : Fragment() {
         super.onPrepareOptionsMenu(menu)
         menu.removeItem(R.id.busqueda)
         menu.removeItem(R.id.modoOscuro)
+        menu.removeItem(R.id.estadisticaFactura)
     }
 
     override fun onResume() {
