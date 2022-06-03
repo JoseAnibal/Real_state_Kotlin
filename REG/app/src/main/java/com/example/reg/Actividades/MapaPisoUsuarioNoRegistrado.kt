@@ -11,12 +11,14 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 class MapaPisoUsuarioNoRegistrado : AppCompatActivity(), OnMapReadyCallback {
     lateinit var map:GoogleMap
     var objeto= mutableListOf<String>()
+    var calle=""
 
     lateinit var binding: ActivityMapaPisoUsuarioNoRegistradoBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +34,7 @@ class MapaPisoUsuarioNoRegistrado : AppCompatActivity(), OnMapReadyCallback {
         val bundle = intent.extras
         val objecto = bundle?.getParcelable<Piso>("Coords")?:Piso()
         objeto=objecto.coordenadas!!.split(",").toMutableList()
-
+        calle=objecto.calle.toString()
     }
 
     fun createFragment(){
@@ -47,7 +49,7 @@ class MapaPisoUsuarioNoRegistrado : AppCompatActivity(), OnMapReadyCallback {
 
     fun createMarker(){
         val coordinates= LatLng(objeto[0].toDouble(),objeto[1].toDouble())
-        val marker= MarkerOptions().position(coordinates).title("Ubicacion del piso")
+        val marker= MarkerOptions().position(coordinates).title(calle).icon(BitmapDescriptorFactory.fromResource(R.drawable.casalogo))
         map.addMarker(marker)
         map.animateCamera(
             CameraUpdateFactory.newLatLngZoom(coordinates,18f),

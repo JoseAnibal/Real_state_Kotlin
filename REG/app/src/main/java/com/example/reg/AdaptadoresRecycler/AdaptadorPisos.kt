@@ -55,6 +55,7 @@ class AdaptadorPisos(val lista:List<Piso>,val contexto:Context):RecyclerView.Ada
             if(SM.idUsuario=="admin"){
                 (contexto as Admin).apply {
                     idPiso= l.id.toString()
+                    direccion=l.calle.toString()
                     coordsPiso=l.coordenadas.toString().split(",").toMutableList()
                     navController.navigate(R.id.nav_infoPiso)
                 }

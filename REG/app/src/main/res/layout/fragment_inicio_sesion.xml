@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Actividades.MainActivity">
@@ -55,10 +53,13 @@
 
         <Button
             android:id="@+id/login_btn_login"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/elevation"
+            android:elevation="6dp"
             android:text="entrar"
-            app:icon="@drawable/ic_home_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,20 +70,24 @@
             android:id="@+id/login_tv_registrarse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/elevation"
+            android:elevation="3dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
             android:text="Registrarse"
             android:textColor="#005B85"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/login_btn_login"
             app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="@+id/login_btn_login"
-            app:layout_constraintTop_toBottomOf="@+id/login_btn_login"
-            app:layout_constraintVertical_bias="0.199" />
+            app:layout_constraintTop_toBottomOf="@+id/login_btn_login" />
 
         <ImageView
             android:id="@+id/adminFoto"
             android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="210dp"
             android:adjustViewBounds="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"

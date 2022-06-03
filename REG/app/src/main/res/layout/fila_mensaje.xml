@@ -28,11 +28,17 @@
 
     <TextView
         android:id="@+id/receptorMensaje"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:paddingLeft="4dp"
+        android:paddingTop="8dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="8dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/emisorImagen"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toStartOf="@+id/emisorImagen"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/receptorNombre"
         app:layout_constraintTop_toBottomOf="@+id/receptorNombre" />
@@ -59,13 +65,19 @@
 
     <TextView
         android:id="@+id/emisorMensaje"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="end"
+        android:paddingLeft="4dp"
+        android:paddingTop="8dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="8dp"
         android:text="TextView"
+        android:textColor="#040303"
         app:layout_constraintEnd_toEndOf="@+id/emisorNombre"
-        app:layout_constraintStart_toStartOf="@+id/receptorImagen"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/receptorImagen"
         app:layout_constraintTop_toBottomOf="@+id/emisorNombre" />
 
     <ImageView

@@ -33,6 +33,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.DataSnapshot
@@ -53,6 +54,7 @@ class Admin : AppCompatActivity(), OnMapReadyCallback {
 
     var coordsPiso= mutableListOf<String>()
     var idPiso=""
+    var direccion=""
     var idUsu=""
     var facturilla=Factura()
     var incidencia=Incidencia()
@@ -582,7 +584,7 @@ class Admin : AppCompatActivity(), OnMapReadyCallback {
 
     fun createMarker(){
         val coordinates=LatLng(coordsPiso[0].toDouble(),coordsPiso[1].toDouble())
-        val marker=MarkerOptions().position(coordinates).title("Ubicacion del piso")
+        val marker=MarkerOptions().position(coordinates).title(direccion).icon(BitmapDescriptorFactory.fromResource(R.drawable.casalogo))
         map.addMarker(marker)
         map.animateCamera(
             CameraUpdateFactory.newLatLngZoom(coordinates,18f),

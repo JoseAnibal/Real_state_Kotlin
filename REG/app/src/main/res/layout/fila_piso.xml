@@ -1,113 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/clicky"
-    android:elevation="8dp"
-    android:background="@drawable/elevation"
-    android:padding="4dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:layout_marginRight="3dp"
-    android:layout_marginLeft="3dp">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/piso_imagen"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clicky"
         android:layout_width="0dp"
-        android:layout_height="145dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/elevation"
+        android:elevation="6dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        app:layout_constraintVertical_bias="0.0">
 
-    <TextView
-        android:id="@+id/piso_calle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:textAppearance="@style/textoTitulo"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/piso_imagen"
-        app:layout_constraintTop_toBottomOf="@+id/piso_imagen" />
+        <ImageView
+            android:id="@+id/piso_imagen"
+            android:layout_width="0dp"
+            android:layout_height="145dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/piso_habitaciones"
-        app:layout_constraintEnd_toStartOf="@+id/piso_baños"
-        app:layout_constraintTop_toTopOf="@+id/piso_habitaciones"
-        app:srcCompat="@drawable/ic_baseline_bathtub_24" />
+        <TextView
+            android:id="@+id/piso_calle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textAppearance="@style/textoTitulo"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/piso_imagen"
+            app:layout_constraintTop_toBottomOf="@+id/piso_imagen" />
 
-    <TextView
-        android:id="@+id/piso_m2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
-        app:layout_constraintEnd_toEndOf="@+id/piso_imagen"
-        app:layout_constraintTop_toTopOf="@+id/imageView10" />
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/piso_habitaciones"
+            app:layout_constraintEnd_toStartOf="@+id/piso_baños"
+            app:layout_constraintTop_toTopOf="@+id/piso_habitaciones"
+            app:srcCompat="@drawable/ic_baseline_bathtub_24" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/piso_precio"
-        app:layout_constraintEnd_toStartOf="@+id/piso_habitaciones"
-        app:layout_constraintTop_toTopOf="@+id/piso_precio"
-        app:srcCompat="@drawable/ic_baseline_house_siding_24" />
+        <TextView
+            android:id="@+id/piso_m2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+            app:layout_constraintEnd_toEndOf="@+id/piso_imagen"
+            app:layout_constraintTop_toTopOf="@+id/imageView10" />
 
-    <TextView
-        android:id="@+id/piso_habitaciones"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_weight="1"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/piso_precio"
+            app:layout_constraintEnd_toStartOf="@+id/piso_habitaciones"
+            app:layout_constraintTop_toTopOf="@+id/piso_precio"
+            app:srcCompat="@drawable/ic_baseline_house_siding_24" />
 
-    <TextView
-        android:id="@+id/piso_baños"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_weight="1"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-        app:layout_constraintEnd_toStartOf="@+id/imageView10"
-        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+        <TextView
+            android:id="@+id/piso_habitaciones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+            app:layout_constraintEnd_toStartOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
-    <TextView
-        android:id="@+id/piso_precio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        android:text="TextView"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/piso_calle"
-        app:layout_constraintTop_toBottomOf="@+id/piso_calle" />
+        <TextView
+            android:id="@+id/piso_baños"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintEnd_toStartOf="@+id/imageView10"
+            app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/piso_baños"
-        app:layout_constraintEnd_toStartOf="@+id/piso_m2"
-        app:layout_constraintTop_toTopOf="@+id/piso_baños"
-        app:srcCompat="@drawable/ic_baseline_texture_24" />
+        <TextView
+            android:id="@+id/piso_precio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="TextView"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/piso_calle"
+            app:layout_constraintTop_toBottomOf="@+id/piso_calle" />
 
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/piso_baños"
+            app:layout_constraintEnd_toStartOf="@+id/piso_m2"
+            app:layout_constraintTop_toTopOf="@+id/piso_baños"
+            app:srcCompat="@drawable/ic_baseline_texture_24" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
