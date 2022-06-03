@@ -2,6 +2,7 @@ package com.example.reg.Admin
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
@@ -60,7 +61,7 @@ class AdminChatPlantilla : Fragment() {
     override fun onStart() {
         super.onStart()
         val listaMensajes=admin.añadoListaMensajes(usuario?.id?:"o")
-        Handler().postDelayed(Runnable { binding.rvChat.scrollToPosition(listaMensajes.size-1) }, 200)
+        Handler(Looper.getMainLooper()).postDelayed({ binding.rvChat.scrollToPosition(listaMensajes.lastIndex) },200)
         Glide.with(admin.contexto).load(usuario!!.imagen).apply(options).into(binding.chatImagen)
         binding.chatNombre.text=usuario!!.nombre
 
@@ -81,7 +82,7 @@ class AdminChatPlantilla : Fragment() {
                 db_ref.child(inmobiliaria).child(notificaionesBD).child(id_mensaje).removeValue()
 
                 binding.mensajeEscribir.text!!.clear()
-                binding.rvChat.scrollToPosition(listaMensajes.size-1)
+                Handler(Looper.getMainLooper()).postDelayed({ binding.rvChat.scrollToPosition(listaMensajes.lastIndex) },200)
             }
 
         }

@@ -52,8 +52,10 @@
 
         <Button
             android:id="@+id/reg_btn_registrarse"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/elevation"
             android:text="Registrarse"
             app:layout_constraintBottom_toBottomOf="parent"

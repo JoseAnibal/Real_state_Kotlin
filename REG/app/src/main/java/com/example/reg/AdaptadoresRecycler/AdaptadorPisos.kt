@@ -22,7 +22,7 @@ import com.example.reg.databinding.FilaPisoBinding
 import com.example.reg.redireccionar
 import java.util.*
 
-class AdaptadorPisos(val lista:List<Piso>,val contexto:Context):RecyclerView.Adapter<AdaptadorPisos.ViewHolder>(), Filterable {
+class AdaptadorPisos(val lista:List<Piso>,val contexto:Context,val venir:Int):RecyclerView.Adapter<AdaptadorPisos.ViewHolder>(), Filterable {
     val SM by lazy {
         SharedManager(contexto)
     }
@@ -52,7 +52,7 @@ class AdaptadorPisos(val lista:List<Piso>,val contexto:Context):RecyclerView.Ada
         Glide.with(contexto).load(l.imagenes!![0]).apply(options).into(holder.bind.pisoImagen)
 
         holder.bind.clicky.setOnClickListener {
-            if(SM.idUsuario=="admin"){
+            if(venir==1){
                 (contexto as Admin).apply {
                     idPiso= l.id.toString()
                     direccion=l.calle.toString()

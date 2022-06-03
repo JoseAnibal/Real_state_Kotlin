@@ -2,9 +2,12 @@ package com.example.reg.ChatPrivado
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.HandlerCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -13,6 +16,7 @@ import com.example.reg.*
 import com.example.reg.Actividades.MainActivity
 import com.example.reg.Objetos.Mensaje
 import com.example.reg.databinding.FragmentChatPlantillaBinding
+import kotlinx.coroutines.android.HandlerDispatcher
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -37,6 +41,7 @@ class ChatPlantilla : Fragment() {
     ): View? {
                    //FragmentNombrefragmento
         _binding = FragmentChatPlantillaBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
 
     }
@@ -52,9 +57,17 @@ class ChatPlantilla : Fragment() {
         binding.rvChat.scrollToPosition(usuario.listaMensajes.size-1)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.removeItem(R.id.busqueda)
+        menu.removeItem(R.id.estadisticaFactura)
+        menu.removeItem(R.id.modoOscuro)
+    }
+
     override fun onStart() {
         super.onStart()
-        Handler().postDelayed(Runnable { binding.rvChat.scrollToPosition(usuario.listaMensajes.size-1) }, 200)
+
+        Handler(Looper.getMainLooper()).postDelayed({ scroll() },200)
 
         Glide.with(usuario.contexto).load(usuario.receptor.imagen).apply(options).into(binding.chatImagen)
         binding.chatNombre.text=usuario.receptor.nombre
@@ -74,7 +87,7 @@ class ChatPlantilla : Fragment() {
                 db_ref.child(inmobiliaria).child(notificaionesBD).child(id_mensaje).removeValue()
 
                 binding.mensajeEscribir.text!!.clear()
-                binding.rvChat.scrollToPosition(usuario.listaMensajes.size-1)
+                Handler(Looper.getMainLooper()).postDelayed({ scroll() },200)
             }
 
         }
@@ -83,6 +96,11 @@ class ChatPlantilla : Fragment() {
         binding.rvChat.adapter=usuario.adaptadorListaMensajes
         binding.rvChat.layoutManager= LinearLayoutManager(usuario.contexto)
     }
+
+    fun scroll(){
+        binding.rvChat.scrollToPosition(usuario.listaMensajes.lastIndex)
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

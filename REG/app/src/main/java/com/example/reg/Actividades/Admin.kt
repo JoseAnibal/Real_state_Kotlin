@@ -68,7 +68,7 @@ class Admin : AppCompatActivity(), OnMapReadyCallback {
     }
 
     val adaptadorListaPisos by lazy {
-        AdaptadorPisos(listaPisos,this)
+        AdaptadorPisos(listaPisos,this,1)
     }
 
     //USUARIOS REGISTRADOS

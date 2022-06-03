@@ -25,7 +25,7 @@ class LoggedUser : AppCompatActivity() {
     }
 
     val adaptadorListaPisos by lazy {
-        AdaptadorPisos(listaPisos,this)
+        AdaptadorPisos(listaPisos,this,0)
     }
 
     val contexto by lazy {

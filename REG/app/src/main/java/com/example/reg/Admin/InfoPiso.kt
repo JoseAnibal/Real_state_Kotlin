@@ -67,6 +67,8 @@ class InfoPiso : Fragment() {
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         menu.removeItem(R.id.busqueda)
+        menu.removeItem(R.id.modoOscuroAdmin)
+
     }
 
     override fun onStart() {

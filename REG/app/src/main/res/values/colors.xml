@@ -18,8 +18,13 @@
     <color name="green">#8BC34A</color>
     <color name="orange">#FF9800</color>
 
-    <color name="color_white">#FFFFFF</color>
+    <color name="backG">#99FFFFFF</color>
     <color name="color_blue">#056CEA</color>
     <color name="color_gray">#D5D5D5</color>
     <color name="grey_ask">#EDEDED</color>
+    <color name="fake_black">#6C6C6C</color>
+
+    <color name="colorPrimaryNight">#000</color>
+    <color name="colorPrimaryDarkNight">#000</color>
+    <color name="colorTextNight">#dcdcdc</color>
 </resources>
