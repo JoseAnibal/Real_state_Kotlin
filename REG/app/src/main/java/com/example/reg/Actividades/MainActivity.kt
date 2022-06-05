@@ -146,6 +146,17 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.cerrarSesion ->{
                 SM.idUsuario="patata"
+                db_ref.child(inmobiliaria).child(notificaionesBD).removeEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        snapshot.children.forEach{ hijo: DataSnapshot?->
+
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        println(error.message)
+                    }
+                })
                 redireccionar(this,LoggedUser())
                 true
             }

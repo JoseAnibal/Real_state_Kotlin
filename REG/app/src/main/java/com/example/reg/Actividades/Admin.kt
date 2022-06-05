@@ -186,12 +186,6 @@ class Admin : AppCompatActivity(), OnMapReadyCallback {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
 
-            R.id.cerrarSesion ->{
-                SM.idUsuario=getString(R.string.idUsuarioDef)
-                redireccionar(this,LoggedUser())
-                true
-            }
-
             R.id.modoOscuroAdmin ->{
                 if(contexto.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)== Configuration.UI_MODE_NIGHT_YES){
                     SM.modoOscuro=false
@@ -208,6 +202,23 @@ class Admin : AppCompatActivity(), OnMapReadyCallback {
                 eliminoListaFacturasSinPiso()
                 Snackbar.make(binding.appBarAdmin.fab, "Toda relacion con piso eliminada (Excepto Usuarios)", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
+                true
+            }
+
+            R.id.cerrarSesion ->{
+                SM.idUsuario=getString(R.string.idUsuarioDef)
+                db_ref.child(inmobiliaria).child(notificaionesBD).removeEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        snapshot.children.forEach{ hijo: DataSnapshot?->
+
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        println(error.message)
+                    }
+                })
+                redireccionar(this,LoggedUser())
                 true
             }
             else -> super.onOptionsItemSelected(item)
