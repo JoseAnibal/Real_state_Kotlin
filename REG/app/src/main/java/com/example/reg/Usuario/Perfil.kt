@@ -110,6 +110,8 @@ class Perfil : Fragment() {
                     usu.usuarioActual=renovado
                 }
             }
+        }else{
+            binding.usuEContrasena.error="La contraseña debe ser de minimo 6 caracteres"
         }
     }
 

@@ -53,7 +53,8 @@ class RegistroActivity : AppCompatActivity() {
         val checkers = listOf(
             Pair(binding.regNombre, this::validoCampo),
             Pair(binding.regCorreo, this::validoCorreo),
-            Pair(binding.regContrasena, this::validoCampo)
+            Pair(binding.regContrasena, this::validoCampo),
+            Pair(binding.regContrasena, this::validoContra)
 
         )
         for(c in checkers){
@@ -63,6 +64,17 @@ class RegistroActivity : AppCompatActivity() {
             validado = y
             if(!validado) break
         }
+        return validado
+    }
+
+    fun validoContra(v: EditText):Boolean{
+        var validado=true
+
+        if(v.text.toString().length<5){
+            validado=false
+            v.error="Contraseña muy corta"
+        }
+
         return validado
     }
 

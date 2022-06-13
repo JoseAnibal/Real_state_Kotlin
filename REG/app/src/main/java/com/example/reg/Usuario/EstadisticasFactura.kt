@@ -51,7 +51,7 @@ class EstadisticasFactura : Fragment() {
         stats.map{
             pieEntries.add(PieEntry(it.porcentaje.toFloat(), it.nombre))
         }
-        val label = "| Colores"
+        val label = "| Porcentaje de lo que pagas por cada cosa"
         val pieDataSet = PieDataSet(pieEntries, label)
         pieDataSet.valueTextSize = 12f
         pieDataSet.colors = stats.map{it.color}

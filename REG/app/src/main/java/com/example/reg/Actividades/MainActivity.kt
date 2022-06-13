@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
     var idPiso=""
     var piso=Piso()
     var facturilla= Factura()
+    var permit=true
     val SM by lazy {
         SharedManager(this)
     }
@@ -91,10 +92,12 @@ class MainActivity : AppCompatActivity() {
         emisor=usuarioActual
 
         GlobalScope.launch(Dispatchers.IO){
-            receptor= sacoUsuarioDeLaBase("jose@gmail.com")
+            receptor= sacoUsuarioDeLaBase(regEmail)
             idPiso= sacoRelacionPiso(usuarioActual.id!!).idPiso.toString()
             piso= sacoPisoDeLaBase(idPiso)
         }
+
+        comprobacionShared()
 
         val navView: BottomNavigationView = binding.navView
         FAB_manager(0){}
@@ -114,6 +117,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -146,17 +150,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.cerrarSesion ->{
                 SM.idUsuario="patata"
-                db_ref.child(inmobiliaria).child(notificaionesBD).removeEventListener(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        snapshot.children.forEach{ hijo: DataSnapshot?->
-
-                        }
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        println(error.message)
-                    }
-                })
+                permit=false
                 redireccionar(this,LoggedUser())
                 true
             }
@@ -255,7 +249,7 @@ class MainActivity : AppCompatActivity() {
                     snapshot.children.forEach{ hijo: DataSnapshot?->
 
                         val notti=hijo?.getValue(Notificacion::class.java)
-                        if (notti != null && notti.idUsuario==SM.idUsuario || notti!!.idUsuario==idPiso) {
+                        if (notti != null && notti.idUsuario==SM.idUsuario ||notti!!.idUsuario==idPiso && permit) {
                             when(notti.tipo){
                                 0->noti.crearNotificacionIncidencia(notti.titulo.toString(),notti.descripcion.toString())
                                 1->noti.crearNotificacionParaUsuario(notti.titulo.toString(),notti.descripcion.toString())
@@ -298,6 +292,12 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         return lista
+    }
+
+    fun comprobacionShared(){
+        if(SM.idUsuario==getString(R.string.idUsuarioDef)){
+            redireccionar(this,LoggedUser())
+        }
     }
 
     fun FAB_manager(mode:Int, listener:(View)->Unit){

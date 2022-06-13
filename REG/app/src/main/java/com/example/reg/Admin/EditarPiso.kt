@@ -63,6 +63,7 @@ class EditarPiso : Fragment() {
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         menu.removeItem(R.id.busqueda)
+        menu.removeItem(R.id.modoOscuroAdmin)
         menu.removeItem(R.id.eliminarTodaRelacion)
     }
 

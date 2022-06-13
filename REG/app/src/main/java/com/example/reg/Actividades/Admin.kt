@@ -121,6 +121,7 @@ class Admin : AppCompatActivity(), OnMapReadyCallback {
 
     var spchat=Usuario()
     var usuarioChat=Usuario()
+    var permit=true
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var binding: ActivityAdminBinding
@@ -131,12 +132,14 @@ class Admin : AppCompatActivity(), OnMapReadyCallback {
         notisListener()
         binding = ActivityAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        noti.createNotificationChannel()
         setSupportActionBar(binding.appBarAdmin.toolbar)
         FAB_manager(1){}
         GlobalScope.launch(Dispatchers.IO){
-            spchat= sacoUsuarioDeLaBase("jose@gmail.com")
+            spchat= sacoUsuarioDeLaBase(regEmail)
         }
+
+        comprobacionShared()
+
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         navController = findNavController(R.id.nav_host_fragment_content_admin)
@@ -207,17 +210,7 @@ class Admin : AppCompatActivity(), OnMapReadyCallback {
 
             R.id.cerrarSesion ->{
                 SM.idUsuario=getString(R.string.idUsuarioDef)
-                db_ref.child(inmobiliaria).child(notificaionesBD).removeEventListener(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        snapshot.children.forEach{ hijo: DataSnapshot?->
-
-                        }
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        println(error.message)
-                    }
-                })
+                permit=false
                 redireccionar(this,LoggedUser())
                 true
             }
@@ -397,14 +390,14 @@ class Admin : AppCompatActivity(), OnMapReadyCallback {
     }
 
     fun notisListener(){
-        db_ref.child(inmobiliaria)
+        val patata = db_ref.child(inmobiliaria)
             .child(notificaionesBD)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     snapshot.children.forEach{ hijo: DataSnapshot?->
 
                         val notti=hijo?.getValue(Notificacion::class.java)
-                        if (notti != null && notti.idUsuario==SM.idUsuario) {
+                        if (notti != null && notti.idUsuario==SM.idUsuario && permit) {
                             if(notti.tipo==0){
                                 noti.crearNotificacionIncidencia(notti.titulo.toString(),notti.descripcion.toString())
                             }else{
@@ -418,6 +411,14 @@ class Admin : AppCompatActivity(), OnMapReadyCallback {
                     println(error.message)
                 }
             })
+    }
+
+    fun comprobacionShared(){
+        fun comprobarShared(){
+            if(SM.idUsuario==getString(R.string.idUsuarioDef)){
+                redireccionar(this,LoggedUser())
+            }
+        }
     }
 
     fun eliminoListaFacturasSinPiso(){

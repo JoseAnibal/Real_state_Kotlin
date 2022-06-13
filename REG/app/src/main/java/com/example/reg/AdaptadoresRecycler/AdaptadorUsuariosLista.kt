@@ -102,6 +102,7 @@ class AdaptadorUsuariosLista(val lista:List<Usuario>, val contexto:Context,val e
                         val ussu=hijo?.getValue(UsuarioPiso::class.java)
                         if (ussu != null && ussu.idUsuario==usu.id) {
                             db_ref.child(inmobiliaria).child(UsuarioPisoBD).child(ussu.id!!).removeValue()
+                            db_ref.child(inmobiliaria).child(usuariosBD).child(ussu.idUsuario!!).child("resgistrado").setValue(false)
                         }
                         db_ref.child(inmobiliaria)
                             .child(UsuarioPisoBD).removeEventListener(this)

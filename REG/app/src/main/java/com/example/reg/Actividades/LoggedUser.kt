@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.reg.*
 import com.example.reg.AdaptadoresRecycler.AdaptadorPisos
 import com.example.reg.Invitado.TabbedActivity.SectionsPagerAdapter
+import com.example.reg.Notificaciones.Notificaciones
 import com.example.reg.Objetos.Piso
 import com.example.reg.databinding.ActivityLoggedUserBinding
 import com.google.firebase.database.DataSnapshot
@@ -32,6 +33,10 @@ class LoggedUser : AppCompatActivity() {
         this
     }
 
+    val noti by lazy {
+        Notificaciones(this)
+    }
+
     val SM by lazy {
         SharedManager(this)
     }
@@ -40,6 +45,8 @@ class LoggedUser : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        noti.createNotificationChannel()
         binding = ActivityLoggedUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)

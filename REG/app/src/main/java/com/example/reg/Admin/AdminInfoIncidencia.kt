@@ -8,10 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.bumptech.glide.Glide
+import com.example.reg.*
 import com.example.reg.Actividades.Admin
-import com.example.reg.R
 import com.example.reg.databinding.FragmentAdminInfoIncidenciaBinding
-import com.example.reg.estados
 import com.google.android.material.snackbar.Snackbar
 
 class AdminInfoIncidencia : Fragment() {
@@ -51,6 +50,13 @@ class AdminInfoIncidencia : Fragment() {
         Glide.with(admin.contexto).load(admin.incidencia.imagenInci).into(binding.incFoto)
         binding.incSpinner.setSelection(admin.incidencia.estado!!)
         binding.incPiso.text=piso!!.calle.toString()
+
+        binding.inciEliminar.setOnClickListener {
+            db_ref.child(inmobiliaria).child(incidenciaBD).child(admin.incidencia.id!!).removeValue()
+            admin.navController.navigate(R.id.nav_adminIncidencias)
+            Snackbar.make(binding.incSpinner, "Incidencia eliminada", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+        }
     }
 
     override fun onResume() {
@@ -72,6 +78,7 @@ class AdminInfoIncidencia : Fragment() {
         super.onPrepareOptionsMenu(menu)
         menu.removeItem(R.id.eliminarTodaRelacion)
         menu.removeItem(R.id.busqueda)
+        menu.removeItem(R.id.modoOscuroAdmin)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

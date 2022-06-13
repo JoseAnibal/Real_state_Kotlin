@@ -49,6 +49,7 @@ class AdminUsuarios : Fragment() {
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         menu.removeItem(R.id.eliminarTodaRelacion)
+        menu.removeItem(R.id.modoOscuroAdmin)
         (menu.findItem(R.id.busqueda).actionView as SearchView).setQuery("", false)
         (menu.findItem(R.id.busqueda).actionView as SearchView).clearFocus()
     }

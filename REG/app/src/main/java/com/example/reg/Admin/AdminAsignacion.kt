@@ -47,6 +47,7 @@ class AdminAsignacion : Fragment() {
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         menu.removeItem(R.id.eliminarTodaRelacion)
+        menu.removeItem(R.id.modoOscuroAdmin)
     }
 
     override fun onStart() {

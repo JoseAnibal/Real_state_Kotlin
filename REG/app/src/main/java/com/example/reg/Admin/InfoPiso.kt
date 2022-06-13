@@ -130,6 +130,7 @@ class InfoPiso : Fragment() {
                         val ussu=hijo?.getValue(UsuarioPiso::class.java)
                         if (ussu != null && ussu.idPiso==admin.idPiso) {
                             db_ref.child(inmobiliaria).child(UsuarioPisoBD).child(ussu.id!!).removeValue()
+                            db_ref.child(inmobiliaria).child(usuariosBD).child(ussu.idUsuario!!).child("resgistrado").setValue(false)
                         }
                         db_ref.child(inmobiliaria).child(UsuarioPisoBD).removeEventListener(this)
                     }
@@ -139,6 +140,8 @@ class InfoPiso : Fragment() {
                 override fun onCancelled(error: DatabaseError) {
                     println(error.message)
                 }
+
+
             })
     }
 

@@ -55,7 +55,7 @@ class InicioSesion : Fragment() {
                     if(comprobacion(usuario)){
                         if(usuario.tipo==adminNum){
                             tabbed.runOnUiThread{
-                                SM.idUsuario="admin"
+                                SM.idUsuario= administrador
                                 redireccionar(tabbed.contexto, Admin())
                             }
                         }else{

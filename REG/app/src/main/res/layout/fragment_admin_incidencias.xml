@@ -19,6 +19,12 @@
         android:id="@+id/spiFliltrado"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/elevation"
+        android:elevation="6dp"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

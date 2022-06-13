@@ -142,6 +142,7 @@
             android:paddingRight="8dp"
             android:paddingBottom="8dp"
             android:text="TextView"
+            android:textColor="@color/fake_black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.45"
             app:layout_constraintStart_toStartOf="parent"

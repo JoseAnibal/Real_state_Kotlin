@@ -65,6 +65,8 @@ class Principal : Fragment() {
         binding.rvFotitos.layoutManager= LinearLayoutManager(usu.contexto,
             LinearLayoutManager.HORIZONTAL, false)
 
+        binding.pagaMes.text="${usu.piso.precio.toString()}€/Mes"
+
     }
 
     override fun onDestroyView() {
